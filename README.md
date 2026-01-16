@@ -45,6 +45,13 @@ We now have a modern interface to make connecting easy!
 *   **F5**: Host Server
 *   **F8**: Join Server
 *   **F7**: Disconnect
+*   **F9**: Network Diagnostics
+*   **F10**: Position Sync Status
+
+### v6.0 Features
+*   Automatic position sync with interpolation
+*   Network diagnostics tool
+*   Smart IP detection in Launcher
 
 ## 📂 Files Included
 
