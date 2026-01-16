@@ -27,9 +27,33 @@ This installer will:
 
 ## 🎮 How to Play
 
-1.  Launch **Half Sword Demo** from Steam.
-2.  The mod should load automatically (you might see a console window).
-3.  [Add specific usage instructions here if applicable, e.g., "Press F10 to open menu" or "Edit server_ip.txt"]
+### Setup for HOST (Main PC)
+1.  Launch **Half Sword Demo**.
+2.  Press **F5** to Host the Abyss map.
+    *   *Alternative*: Press **F1** (or Insert) to open the menu -> Click **Host Abyss**.
+3.  Wait until you spawn.
+4.  Find your **Local IPv4 Address** (Open Command Prompt, type `ipconfig`, look for IPv4, e.g., `192.168.1.5`).
+5.  Send this IP to your friends.
+
+### Setup for CLIENT (Joining PC)
+**Method 1: Menu (Recommended)**
+1.  Launch **Half Sword Demo**.
+2.  Press **F1** (or Insert) to open the mod menu.
+3.  In the **IP Address** box, replace `127.0.0.1` with the **Host's IP**.
+4.  Click **Join [IP]** or press **F8**.
+
+**Method 2: Config File**
+1.  Go to your game folder: `.../Binaries/Win64/ue4ss/`.
+2.  Open `server_ip.txt`.
+3.  Replace `127.0.0.1` with the Host's IP Address.
+4.  Save and Close.
+5.  Launch the game and press **F8**.
+
+### Default Controls
+*   **F1 / Insert**: Toggle Mod Menu
+*   **F5**: Host Server
+*   **F8**: Join Server
+*   **F7**: Disconnect
 
 ## 📂 Files Included
 
@@ -37,4 +61,4 @@ This installer will:
 *   `ue4ss/`: Mod configuration and scripts.
 *   `install.ps1`: Automated installer script.
 
-**Note**: Do NOT verify game files via Steam after installing, as it may remove mod files. If you do, just run the installer again.
+**Important**: Do NOT verify game files via Steam after installing, as it may remove mod files. If you do, just run the installer again.
