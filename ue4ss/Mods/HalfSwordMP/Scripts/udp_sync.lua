@@ -1,7 +1,9 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 8.0: Proper Player Detection (Uses IsPlayerControlled)
+-- Version 9.0: MINIMAL SAFE MODE
+-- This version only READS and LOGS - no position modifications
+-- Used to diagnose crashes
 
-print("[UDPSync] Loading v8.0 with Proper Player Detection...")
+print("[UDPSync] Loading v9.0 SAFE MODE (read-only)...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -12,8 +14,7 @@ local UEHelpers = require("UEHelpers")
 
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
-local SYNC_INTERVAL = 0.016  -- 60 Hz
-local INTERPOLATION_SPEED = 25.0
+local SYNC_INTERVAL = 0.100  -- 10 Hz (slower = safer)
 
 -- ============================================================================
 -- State
@@ -24,184 +25,105 @@ local UDPSendSocket = nil
 local UDPReceiveSocket = nil
 local Initialized = false
 local ClientIP = nil
-local DebugMode = false
+local DebugMode = true  -- Always debug in safe mode
 local TargetHostIP = nil
-
--- Cached pawns (refresh each frame for safety)
-local CachedLocalPawn = nil
-local CachedRemotePawn = nil
+local PacketCount = 0
 
 -- ============================================================================
--- Safe Helpers
+-- Safe Execution
 -- ============================================================================
 
 local function SafeCall(fn)
     local ok, result = pcall(fn)
     if not ok then
-        if DebugMode then print("[UDPSync] Error: " .. tostring(result)) end
+        print("[UDPSync] SafeCall Error: " .. tostring(result))
         return nil
     end
     return result
 end
 
-local function IsValid(obj)
-    if not obj then return false end
-    local valid = SafeCall(function() return obj:IsValid() end)
-    return valid == true
-end
-
 -- ============================================================================
--- CRITICAL: Proper Player Pawn Detection
--- Uses IsPlayerControlled() to distinguish players from NPCs
+-- Pawn Detection (Safe)
 -- ============================================================================
 
-local function IsPlayerPawn(pawn)
-    if not IsValid(pawn) then return false end
-    
-    -- Check if this pawn is controlled by a player (not AI)
-    local isPlayer = SafeCall(function()
-        return pawn:IsPlayerControlled()
-    end)
-    
-    return isPlayer == true
-end
-
-local function IsLocalPawn(pawn)
-    if not IsPlayerPawn(pawn) then return false end
-    
-    -- Check if this pawn is locally controlled (our player)
-    local isLocal = SafeCall(function()
-        return pawn:IsLocallyControlled()
-    end)
-    
-    return isLocal == true
-end
-
-local function GetPlayerPawns()
-    local players = {}
-    local localPawn = nil
-    local remotePawn = nil
-    
-    SafeCall(function()
-        local allPawns = FindAllOf("Pawn")
-        if not allPawns then return end
-        
-        for _, pawn in ipairs(allPawns) do
-            if IsPlayerPawn(pawn) then
-                if IsLocalPawn(pawn) then
-                    localPawn = pawn
-                else
-                    remotePawn = pawn
-                end
-            end
+local function GetLocalPlayerPawn()
+    return SafeCall(function()
+        local pc = UEHelpers.GetPlayerController()
+        if pc and pc:IsValid() and pc.Pawn and pc.Pawn:IsValid() then
+            return pc.Pawn
         end
+        return nil
     end)
-    
-    return localPawn, remotePawn
 end
 
 -- ============================================================================
--- Network Protocol (Simplified)
+-- Protocol
 -- ============================================================================
 
-local function PackState(loc, rot)
-    return string.format("P:%.1f,%.1f,%.1f|R:%.1f,%.1f,%.1f",
-        loc.X, loc.Y, loc.Z,
-        rot.Pitch, rot.Yaw, rot.Roll
-    )
-end
-
-local function UnpackState(data)
-    if not data then return nil end
+local function PackPos(pawn)
+    local loc = SafeCall(function() return pawn:GetActorLocation() end)
+    local rot = SafeCall(function() return pawn:GetActorRotation() end)
     
-    local posStr = data:match("P:([^|]+)")
-    local rotStr = data:match("R:([^|]+)")
-    
-    if not posStr then return nil end
-    
-    local px, py, pz = posStr:match("([^,]+),([^,]+),([^,]+)")
-    local rx, ry, rz = (rotStr or "0,0,0"):match("([^,]+),([^,]+),([^,]+)")
-    
-    return {
-        Pos = {X = tonumber(px) or 0, Y = tonumber(py) or 0, Z = tonumber(pz) or 0},
-        Rot = {Pitch = tonumber(rx) or 0, Yaw = tonumber(ry) or 0, Roll = tonumber(rz) or 0}
-    }
+    if loc and rot then
+        return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f",
+            loc.X, loc.Y, loc.Z,
+            rot.Pitch, rot.Yaw, rot.Roll)
+    end
+    return nil
 end
 
 -- ============================================================================
--- Main Sync Loop
+-- Main Loop (READ-ONLY - NO MODIFICATIONS)
 -- ============================================================================
 
 local function StartSyncLoop(hostIP)
     if Initialized then 
-        print("[UDPSync] Already running!")
+        print("[UDPSync] Already running")
         return 
     end
     
     IsHost = (hostIP == nil or hostIP == "")
     TargetHostIP = hostIP
-    ClientIP = nil
-    CachedLocalPawn = nil
-    CachedRemotePawn = nil
+    PacketCount = 0
     
     -- Create sockets
-    local ok, sendSock = pcall(function() return socket.udp() end)
-    if not ok or not sendSock then
-        print("[UDPSync] FAILED to create send socket!")
+    local ok1, sock1 = pcall(function() return socket.udp() end)
+    if not ok1 then
+        print("[UDPSync] Failed to create send socket")
         return
     end
-    UDPSendSocket = sendSock
+    UDPSendSocket = sock1
     UDPSendSocket:settimeout(0)
     
-    local ok2, recvSock = pcall(function() return socket.udp() end)
-    if not ok2 or not recvSock then
-        print("[UDPSync] FAILED to create receive socket!")
+    local ok2, sock2 = pcall(function() return socket.udp() end)
+    if not ok2 then
+        print("[UDPSync] Failed to create recv socket")
         return
     end
-    UDPReceiveSocket = recvSock
+    UDPReceiveSocket = sock2
     UDPReceiveSocket:settimeout(0)
     
-    -- Bind to port
     local port = IsHost and UDP_PORT_RECEIVE or UDP_PORT_BROADCAST
-    local bindOk = UDPReceiveSocket:setsockname("*", port)
+    UDPReceiveSocket:setsockname("*", port)
     
-    if IsHost then
-        print("[UDPSync] === HOST MODE ===")
-        print("[UDPSync] Listening on port " .. port)
-    else
-        print("[UDPSync] === CLIENT MODE ===")
-        print("[UDPSync] Connecting to " .. tostring(hostIP))
-        print("[UDPSync] Listening on port " .. port)
-    end
+    print("[UDPSync] " .. (IsHost and "HOST" or "CLIENT") .. " on port " .. port)
     
     Initialized = true
     
-    -- Main loop
     LoopAsync(math.floor(SYNC_INTERVAL * 1000), function()
         if not Initialized then return true end
         
         SafeCall(function()
             ExecuteInGameThread(function()
-                -- Get player pawns (local and remote)
-                local localPawn, remotePawn = GetPlayerPawns()
+                -- Get local pawn
+                local localPawn = GetLocalPlayerPawn()
+                if not localPawn then return end
                 
-                if not IsValid(localPawn) then
-                    if DebugMode then print("[UDPSync] No local player pawn") end
-                    return
-                end
+                -- Create packet
+                local packet = PackPos(localPawn)
+                if not packet then return end
                 
-                CachedLocalPawn = localPawn
-                CachedRemotePawn = remotePawn
-                
-                -- Get local state
-                local loc = SafeCall(function() return localPawn:GetActorLocation() end)
-                local rot = SafeCall(function() return localPawn:GetActorRotation() end)
-                
-                if not loc or not rot then return end
-                
-                -- Create and send packet
-                local packet = PackState(loc, rot)
-                
+                -- Send
                 if IsHost then
                     if ClientIP then
                         UDPSendSocket:sendto(packet, ClientIP, UDP_PORT_BROADCAST)
@@ -212,36 +134,18 @@ local function StartSyncLoop(hostIP)
                     end
                 end
                 
-                -- Receive packet
-                local data, senderIP = UDPReceiveSocket:receivefrom()
+                -- Receive (READ ONLY - just log, no apply)
+                local data, ip = UDPReceiveSocket:receivefrom()
                 if data then
-                    if IsHost and senderIP then
-                        ClientIP = senderIP
-                        if DebugMode then print("[UDPSync] Client connected: " .. senderIP) end
+                    PacketCount = PacketCount + 1
+                    
+                    if IsHost and ip then
+                        ClientIP = ip
                     end
                     
-                    local state = UnpackState(data)
-                    if state and IsValid(remotePawn) then
-                        -- Apply position with interpolation
-                        local currLoc = SafeCall(function() return remotePawn:GetActorLocation() end)
-                        if currLoc then
-                            local alpha = math.min(1.0, SYNC_INTERVAL * INTERPOLATION_SPEED)
-                            local newLoc = {
-                                X = currLoc.X + (state.Pos.X - currLoc.X) * alpha,
-                                Y = currLoc.Y + (state.Pos.Y - currLoc.Y) * alpha,
-                                Z = currLoc.Z + (state.Pos.Z - currLoc.Z) * alpha
-                            }
-                            SafeCall(function()
-                                remotePawn:K2_SetActorLocation(newLoc, false, {}, false)
-                            end)
-                        end
-                        
-                        -- Apply rotation
-                        SafeCall(function()
-                            remotePawn:K2_SetActorRotation(state.Rot, false)
-                        end)
-                    elseif state and DebugMode then
-                        print("[UDPSync] Got packet but no remote pawn to apply to")
+                    -- Just log the received data, don't apply it
+                    if PacketCount % 30 == 1 then  -- Log every 30th packet
+                        print("[UDPSync] RX#" .. PacketCount .. ": " .. data:sub(1, 50))
                     end
                 end
             end)
@@ -250,23 +154,18 @@ local function StartSyncLoop(hostIP)
         return true
     end)
     
-    print("[UDPSync] v8.0 Started!")
+    print("[UDPSync] v9.0 SAFE MODE Started (read-only)")
 end
 
 local function StopSync()
     Initialized = false
-    CachedLocalPawn = nil
-    CachedRemotePawn = nil
-    ClientIP = nil
-    
     SafeCall(function() if UDPSendSocket then UDPSendSocket:close() end end)
     SafeCall(function() if UDPReceiveSocket then UDPReceiveSocket:close() end end)
-    
     print("[UDPSync] Stopped")
 end
 
 -- ============================================================================
--- Public API
+-- API
 -- ============================================================================
 
 local UDPSync = {}
@@ -274,37 +173,24 @@ function UDPSync.StartAsHost() StartSyncLoop(nil) end
 function UDPSync.StartAsClient(ip) StartSyncLoop(ip) end
 function UDPSync.Stop() StopSync() end
 
--- Debug keybind
 RegisterKeyBind(Key.F11, function()
-    DebugMode = not DebugMode
     print("")
-    print("=== UDP SYNC DEBUG ===")
-    print("  DebugMode: " .. tostring(DebugMode))
+    print("=== UDP SYNC v9.0 SAFE MODE ===")
     print("  Initialized: " .. tostring(Initialized))
     print("  IsHost: " .. tostring(IsHost))
     print("  ClientIP: " .. tostring(ClientIP))
-    print("  TargetHostIP: " .. tostring(TargetHostIP))
+    print("  PacketsReceived: " .. PacketCount)
     
-    -- Scan for player pawns and report
-    local localPawn, remotePawn = GetPlayerPawns()
-    print("  LocalPawn: " .. (IsValid(localPawn) and localPawn:GetFullName() or "NONE"))
-    print("  RemotePawn: " .. (IsValid(remotePawn) and remotePawn:GetFullName() or "NONE"))
-    
-    -- Count all pawns
-    local allPawns = FindAllOf("Pawn")
-    local playerCount = 0
-    local npcCount = 0
-    if allPawns then
-        for _, p in ipairs(allPawns) do
-            if IsPlayerPawn(p) then 
-                playerCount = playerCount + 1 
-            else 
-                npcCount = npcCount + 1
-            end
+    local pawn = GetLocalPlayerPawn()
+    if pawn then
+        local loc = SafeCall(function() return pawn:GetActorLocation() end)
+        if loc then
+            print("  LocalPos: " .. math.floor(loc.X) .. "," .. math.floor(loc.Y) .. "," .. math.floor(loc.Z))
         end
+    else
+        print("  LocalPawn: NONE")
     end
-    print("  Player Pawns: " .. playerCount .. ", NPC Pawns: " .. npcCount)
-    print("======================")
+    print("================================")
 end)
 
 return UDPSync
