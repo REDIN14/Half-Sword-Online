@@ -17,9 +17,20 @@ $consolePtr = [Console.Window]::GetConsoleWindow()
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Drawing
 
-# --- Configuration ---
-$GameExe = "HalfSwordUE5-Win64-Shipping.exe"
-$IpFile = "ue4ss\server_ip.txt"
+# --- Configuration (Use Script's Directory as Base) ---
+$ScriptDir = $PSScriptRoot
+if (-not $ScriptDir) {
+    # Fallback for when run via iex or other methods
+    $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+}
+if (-not $ScriptDir) {
+    # Last resort: use current directory
+    $ScriptDir = Get-Location
+}
+
+$GameExe = Join-Path $ScriptDir "HalfSwordUE5-Win64-Shipping.exe"
+$IpFile = Join-Path $ScriptDir "ue4ss\server_ip.txt"
+$IpDir = Join-Path $ScriptDir "ue4ss"
 
 # --- Logic Functions ---
 
@@ -45,8 +56,8 @@ function Launch-Game {
 
 function Set-ClientIP {
     param($ip)
-    # Ensure directory exists
-    if (-not (Test-Path "ue4ss")) { New-Item -ItemType Directory -Path "ue4ss" | Out-Null }
+    # Ensure directory exists (use absolute path)
+    if (-not (Test-Path $IpDir)) { New-Item -ItemType Directory -Path $IpDir -Force | Out-Null }
     
     # Write to file
     $ip | Out-File -FilePath $IpFile -Encoding ascii -Force
