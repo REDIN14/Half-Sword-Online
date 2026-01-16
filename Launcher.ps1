@@ -36,10 +36,17 @@ $IpDir = Join-Path $ScriptDir "ue4ss"
 
 function Get-LocalIP {
     try {
+        # Get all IPv4 addresses, filter out loopback, virtual, and APIPA (169.254.x.x)
         $ip = Get-NetIPAddress -AddressFamily IPv4 | Where-Object { 
-            $_.InterfaceAlias -notlike "*Loopback*" -and $_.InterfaceAlias -notlike "*vEthernet*" 
+            $_.InterfaceAlias -notlike "*Loopback*" -and 
+            $_.InterfaceAlias -notlike "*vEthernet*" -and
+            $_.InterfaceAlias -notlike "*Bluetooth*" -and
+            $_.IPAddress -notlike "127.*" -and
+            $_.IPAddress -notlike "169.254.*"  # Exclude APIPA addresses
         } | Select-Object -ExpandProperty IPAddress -First 1
-        return $ip
+        
+        if ($ip) { return $ip }
+        return "Check ipconfig"
     } catch {
         return "Unknown"
     }
