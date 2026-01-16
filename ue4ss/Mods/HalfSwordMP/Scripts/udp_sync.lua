@@ -1,7 +1,7 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 5.0: Active Ragdoll Override - Full Physics Disable
+-- Version 6.0: Ultimate Sync - Weapons + GameState + Death Ragdoll
 
-print("[UDPSync] Loading v5.0 Active Ragdoll Override...")
+print("[UDPSync] Loading v6.0 Ultimate Sync...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -15,7 +15,6 @@ local UDP_PORT_RECEIVE = 7779
 local SYNC_INTERVAL = 0.033  -- 30 Hz
 local INTERPOLATION_SPEED = 15.0
 
--- Key bones for pose sync
 local KEY_BONES = {
     "pelvis", "spine_01", "spine_02", "spine_03",
     "head", "neck_01",
@@ -24,6 +23,16 @@ local KEY_BONES = {
     "thigh_l", "calf_l", "foot_l",
     "thigh_r", "calf_r", "foot_r"
 }
+
+local DAMAGE_PROPS = {
+    "Health", "CurrentHealth", "MaxHealth",
+    "BleedLevel", "BleedRate", "BleedAmount",
+    "DamageLevel", "DamageAmount",
+    "StaminaCurrent", "BalanceCurrent"
+}
+
+-- Weapon sockets to check for attached actors
+local WEAPON_SOCKETS = {"hand_r", "hand_l", "weapon_r", "weapon_l", "grip_r", "grip_l"}
 
 -- ============================================================================
 -- State
@@ -38,16 +47,8 @@ local ClientIP = nil
 local DebugMode = false
 local RemotePawnCache = nil
 local PhysicsDisabledOnRemote = false
-local LastHealth = 100
-local LastDamageTime = 0
-
--- Damage properties to sync (Half Sword specific + generic UE5)
-local DAMAGE_PROPS = {
-    "Health", "CurrentHealth", "MaxHealth",
-    "BleedLevel", "BleedRate", "BleedAmount",
-    "DamageLevel", "DamageAmount",
-    "StaminaCurrent", "BalanceCurrent"
-}
+local RemoteIsDead = false
+local SpawnedWeapons = {}
 
 -- ============================================================================
 -- Helpers
@@ -92,7 +93,7 @@ local function GetMesh(pawn)
 end
 
 -- ============================================================================
--- CRITICAL: Full Physics Disable for Active Ragdoll
+-- Physics Control
 -- ============================================================================
 
 local function DisableAllPhysics(pawn)
@@ -102,19 +103,12 @@ local function DisableAllPhysics(pawn)
     local mesh = GetMesh(pawn)
     if not mesh then return end
     
-    -- THE KEY FIX: Disable ALL physics bodies on the skeletal mesh
     SafeCall(function()
-        -- SetAllBodiesSimulatePhysics(false) stops ragdoll
         mesh:SetAllBodiesSimulatePhysics(false)
-        print("[UDPSync] *** Disabled ALL physics bodies on remote mesh ***")
+        print("[UDPSync] Physics DISABLED on remote")
     end)
+    SafeCall(function() mesh:SetCollisionEnabled(0) end)
     
-    -- Also disable collision to prevent interference
-    SafeCall(function()
-        mesh:SetCollisionEnabled(0) -- NoCollision
-    end)
-    
-    -- Kill AI
     local controller = pawn.Controller
     if controller and controller:IsValid() and not controller:IsPlayerControlled() then
         SafeCall(function() controller:UnPossess() end)
@@ -123,8 +117,24 @@ local function DisableAllPhysics(pawn)
     PhysicsDisabledOnRemote = true
 end
 
+local function EnableDeathPhysics(pawn, impulseX, impulseY, impulseZ)
+    if not pawn or not pawn:IsValid() then return end
+    local mesh = GetMesh(pawn)
+    if not mesh then return end
+    
+    SafeCall(function()
+        mesh:SetAllBodiesSimulatePhysics(true)
+        mesh:SetCollisionEnabled(1) -- QueryAndPhysics
+        mesh:AddImpulse({X=impulseX or 0, Y=impulseY or 0, Z=impulseZ or 500}, "None", true)
+        print("[UDPSync] Death physics ENABLED with impulse")
+    end)
+    
+    RemoteIsDead = true
+    PhysicsDisabledOnRemote = false
+end
+
 -- ============================================================================
--- Bone Sync (Now works because physics is disabled!)
+-- Bone Sync
 -- ============================================================================
 
 local function GetBoneData(mesh)
@@ -153,15 +163,10 @@ local function ApplyBoneData(mesh, boneData)
         local name, tx, ty, tz, rx, ry, rz = entry:match("([^:]+):([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
         if name and tx then
             SafeCall(function()
-                mesh:SetBoneTransformByName(
-                    FName(name),
-                    {
-                        Translation = {X = tonumber(tx), Y = tonumber(ty), Z = tonumber(tz)},
-                        Rotation = {Pitch = tonumber(rx), Yaw = tonumber(ry), Roll = tonumber(rz)},
-                        Scale3D = {X = 1, Y = 1, Z = 1}
-                    },
-                    0
-                )
+                mesh:SetBoneTransformByName(FName(name),
+                    {Translation={X=tonumber(tx),Y=tonumber(ty),Z=tonumber(tz)},
+                     Rotation={Pitch=tonumber(rx),Yaw=tonumber(ry),Roll=tonumber(rz)},
+                     Scale3D={X=1,Y=1,Z=1}}, 0)
             end)
         end
     end
@@ -173,7 +178,6 @@ end
 
 local function GetDamageState(pawn)
     if not pawn or not pawn:IsValid() then return "" end
-    
     local props = {}
     for _, propName in ipairs(DAMAGE_PROPS) do
         SafeCall(function()
@@ -188,27 +192,110 @@ end
 
 local function ApplyDamageState(pawn, damageStr)
     if not pawn or not pawn:IsValid() or not damageStr or damageStr == "" then return end
-    
     for key, value in string.gmatch(damageStr, "([^=]+)=([^,]+)") do
         local numVal = tonumber(value)
         if numVal then
-            SafeCall(function()
-                pawn[key] = numVal
-            end)
+            SafeCall(function() pawn[key] = numVal end)
         end
     end
 end
 
 -- ============================================================================
--- Network
+-- Weapon Sync
 -- ============================================================================
 
-local function PackState(loc, rot, boneData, damageData)
-    return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f|B:%s|D:%s",
+local function GetWeaponData(pawn)
+    if not pawn or not pawn:IsValid() then return "" end
+    
+    local weapons = {}
+    SafeCall(function()
+        local attached = pawn:GetAttachedActors()
+        if attached then
+            for _, actor in ipairs(attached) do
+                if actor:IsValid() then
+                    local className = actor:GetClass():GetFName():ToString()
+                    -- Get attachment socket if possible
+                    local socket = "hand_r" -- default
+                    table.insert(weapons, className .. "@" .. socket)
+                end
+            end
+        end
+    end)
+    return table.concat(weapons, ";")
+end
+
+local function ApplyWeaponData(pawn, weaponStr)
+    if not pawn or not pawn:IsValid() or not weaponStr or weaponStr == "" then return end
+    
+    -- TODO: Full implementation requires spawning actors
+    -- For now, just log what weapons the other player has
+    if DebugMode and weaponStr ~= "" then
+        print("[UDPSync] Remote weapons: " .. weaponStr)
+    end
+end
+
+-- ============================================================================
+-- Game State Sync
+-- ============================================================================
+
+local function GetGameStateData()
+    local data = {}
+    SafeCall(function()
+        local gs = FindFirstOf("GameState")
+        if gs and gs:IsValid() then
+            -- Try common game state properties
+            local props = {"MatchState", "ElapsedTime", "RemainingTime", "bGamePaused"}
+            for _, prop in ipairs(props) do
+                local val = gs[prop]
+                if val ~= nil then
+                    if type(val) == "number" then
+                        table.insert(data, prop .. "=" .. tostring(val))
+                    elseif type(val) == "boolean" then
+                        table.insert(data, prop .. "=" .. (val and "1" or "0"))
+                    end
+                end
+            end
+        end
+    end)
+    return table.concat(data, ",")
+end
+
+local function ApplyGameStateData(gsStr)
+    if not gsStr or gsStr == "" then return end
+    -- Game state is read-only for clients in most cases
+    -- Just log for debugging
+    if DebugMode then
+        print("[UDPSync] GameState: " .. gsStr)
+    end
+end
+
+-- ============================================================================
+-- Death Detection
+-- ============================================================================
+
+local function IsPlayerDead(pawn)
+    if not pawn or not pawn:IsValid() then return false end
+    
+    local health = SafeCall(function() return pawn.Health or pawn.CurrentHealth end)
+    if health and health <= 0 then return true end
+    
+    -- Check if ragdolling (velocity on pelvis bone could indicate falling)
+    return false
+end
+
+-- ============================================================================
+-- Network Protocol
+-- ============================================================================
+
+local function PackState(loc, rot, boneData, damageData, weaponData, gsData, isDead)
+    return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f|B:%s|D:%s|W:%s|G:%s|X:%s",
         loc.X, loc.Y, loc.Z,
         rot.Pitch, rot.Yaw, rot.Roll,
         boneData or "",
-        damageData or ""
+        damageData or "",
+        weaponData or "",
+        gsData or "",
+        isDead and "1" or "0"
     )
 end
 
@@ -218,7 +305,10 @@ local function UnpackState(data)
     local posStr = data:match("P:([^|]+)")
     local rotStr = data:match("R:([^|]+)")
     local bonesStr = data:match("B:([^|]*)")
-    local damageStr = data:match("D:(.*)")
+    local damageStr = data:match("D:([^|]*)")
+    local weaponStr = data:match("W:([^|]*)")
+    local gsStr = data:match("G:([^|]*)")
+    local deadStr = data:match("X:([^|]*)")
     
     if not posStr then return nil end
     
@@ -229,12 +319,15 @@ local function UnpackState(data)
         Pos = {X = tonumber(px), Y = tonumber(py), Z = tonumber(pz)},
         Rot = {Pitch = tonumber(rx), Yaw = tonumber(ry), Roll = tonumber(rz)},
         Bones = bonesStr,
-        Damage = damageStr
+        Damage = damageStr,
+        Weapons = weaponStr,
+        GameState = gsStr,
+        IsDead = (deadStr == "1")
     }
 end
 
 -- ============================================================================
--- Main Loop
+-- Main Sync Loop
 -- ============================================================================
 
 local function StartSyncLoop(hostIP)
@@ -242,7 +335,9 @@ local function StartSyncLoop(hostIP)
     
     IsHost = (hostIP == nil or hostIP == "")
     PhysicsDisabledOnRemote = false
+    RemoteIsDead = false
     RemotePawnCache = nil
+    SpawnedWeapons = {}
     
     UDPSendSocket = socket.udp()
     UDPSendSocket:settimeout(0)
@@ -270,14 +365,18 @@ local function StartSyncLoop(hostIP)
                 local mesh = GetMesh(LocalPawn)
                 if not mesh then return end
                 
-                -- 1. Gather State
+                -- 1. Gather All State
                 local loc = LocalPawn:GetActorLocation()
                 local rot = LocalPawn:GetActorRotation()
                 if not loc or not rot then return end
                 
                 local boneData = GetBoneData(mesh)
                 local damageData = GetDamageState(LocalPawn)
-                local packet = PackState(loc, rot, boneData, damageData)
+                local weaponData = GetWeaponData(LocalPawn)
+                local gsData = IsHost and GetGameStateData() or ""
+                local isDead = IsPlayerDead(LocalPawn)
+                
+                local packet = PackState(loc, rot, boneData, damageData, weaponData, gsData, isDead)
                 
                 -- 2. Send
                 if IsHost then
@@ -286,7 +385,7 @@ local function StartSyncLoop(hostIP)
                     if hostIP then UDPSendSocket:sendto(packet, hostIP, UDP_PORT_RECEIVE) end
                 end
                 
-                -- 3. Receive
+                -- 3. Receive & Apply
                 local data, ip = UDPReceiveSocket:receivefrom()
                 if data then
                     if IsHost and ip then ClientIP = ip end
@@ -295,31 +394,44 @@ local function StartSyncLoop(hostIP)
                     if state then
                         local remote = FindRemotePawn(LocalPawn)
                         if remote and remote:IsValid() then
-                            -- CRITICAL: Disable physics FIRST
-                            DisableAllPhysics(remote)
                             
-                            -- Apply Position with interpolation
-                            local curr = remote:GetActorLocation()
-                            if curr then
-                                local alpha = math.min(1.0, SYNC_INTERVAL * INTERPOLATION_SPEED)
-                                local nx = curr.X + (state.Pos.X - curr.X) * alpha
-                                local ny = curr.Y + (state.Pos.Y - curr.Y) * alpha
-                                local nz = curr.Z + (state.Pos.Z - curr.Z) * alpha
+                            -- Handle Death
+                            if state.IsDead and not RemoteIsDead then
+                                EnableDeathPhysics(remote, 0, 0, 500)
+                            elseif not state.IsDead and RemoteIsDead then
+                                -- Respawn - reset state
+                                RemoteIsDead = false
+                                PhysicsDisabledOnRemote = false
+                            end
+                            
+                            -- Normal sync (if not dead)
+                            if not state.IsDead then
+                                DisableAllPhysics(remote)
                                 
-                                remote:K2_SetActorLocation({X=nx, Y=ny, Z=nz}, false, {}, false)
+                                -- Position
+                                local curr = remote:GetActorLocation()
+                                if curr then
+                                    local alpha = math.min(1.0, SYNC_INTERVAL * INTERPOLATION_SPEED)
+                                    local nx = curr.X + (state.Pos.X - curr.X) * alpha
+                                    local ny = curr.Y + (state.Pos.Y - curr.Y) * alpha
+                                    local nz = curr.Z + (state.Pos.Z - curr.Z) * alpha
+                                    remote:K2_SetActorLocation({X=nx, Y=ny, Z=nz}, false, {}, false)
+                                end
+                                
+                                -- Rotation
+                                remote:K2_SetActorRotation({Pitch=state.Rot.Pitch, Yaw=state.Rot.Yaw, Roll=state.Rot.Roll}, false)
+                                
+                                -- Bones
+                                local remoteMesh = GetMesh(remote)
+                                if remoteMesh then
+                                    ApplyBoneData(remoteMesh, state.Bones)
+                                end
                             end
                             
-                            -- Apply Rotation
-                            remote:K2_SetActorRotation({Pitch=state.Rot.Pitch, Yaw=state.Rot.Yaw, Roll=state.Rot.Roll}, false)
-                            
-                            -- Apply Bones (NOW WORKS because physics is OFF!)
-                            local remoteMesh = GetMesh(remote)
-                            if remoteMesh then
-                                ApplyBoneData(remoteMesh, state.Bones)
-                            end
-                            
-                            -- Apply Damage/Health State
+                            -- Always apply these
                             ApplyDamageState(remote, state.Damage)
+                            ApplyWeaponData(remote, state.Weapons)
+                            ApplyGameStateData(state.GameState)
                         end
                     end
                 end
@@ -328,13 +440,15 @@ local function StartSyncLoop(hostIP)
         return true
     end)
     
-    print("[UDPSync] v5.0 Active Ragdoll Override Started!")
+    print("[UDPSync] v6.0 Ultimate Sync Started!")
 end
 
 local function StopSync()
     Initialized = false
     PhysicsDisabledOnRemote = false
+    RemoteIsDead = false
     RemotePawnCache = nil
+    SpawnedWeapons = {}
     if UDPSendSocket then UDPSendSocket:close() end
     if UDPReceiveSocket then UDPReceiveSocket:close() end
     print("[UDPSync] Stopped.")
@@ -352,8 +466,8 @@ function UDPSync.Stop() StopSync() end
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
     print("[UDPSync] Debug=" .. tostring(DebugMode))
-    print("  IsHost=" .. tostring(IsHost) .. " PhysOff=" .. tostring(PhysicsDisabledOnRemote))
-    print("  ClientIP=" .. tostring(ClientIP))
+    print("  Host=" .. tostring(IsHost) .. " Dead=" .. tostring(RemoteIsDead))
+    print("  PhysOff=" .. tostring(PhysicsDisabledOnRemote))
 end)
 
 return UDPSync
