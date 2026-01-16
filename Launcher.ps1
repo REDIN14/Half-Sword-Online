@@ -4,6 +4,16 @@
     Premium GUI for Hosting and Joining Games.
 #>
 
+# Hide PowerShell Console Window
+Add-Type -Name Window -Namespace Console -MemberDefinition '
+[DllImport("Kernel32.dll")]
+public static extern IntPtr GetConsoleWindow();
+[DllImport("User32.dll")]
+public static extern bool ShowWindow(IntPtr hWnd, Int32 nCmdShow);
+'
+$consolePtr = [Console.Window]::GetConsoleWindow()
+[Console.Window]::ShowWindow($consolePtr, 0) | Out-Null
+
 Add-Type -AssemblyName PresentationFramework
 Add-Type -AssemblyName System.Drawing
 
