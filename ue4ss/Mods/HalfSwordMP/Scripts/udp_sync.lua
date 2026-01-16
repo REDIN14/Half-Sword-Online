@@ -38,6 +38,16 @@ local ClientIP = nil
 local DebugMode = false
 local RemotePawnCache = nil
 local PhysicsDisabledOnRemote = false
+local LastHealth = 100
+local LastDamageTime = 0
+
+-- Damage properties to sync (Half Sword specific + generic UE5)
+local DAMAGE_PROPS = {
+    "Health", "CurrentHealth", "MaxHealth",
+    "BleedLevel", "BleedRate", "BleedAmount",
+    "DamageLevel", "DamageAmount",
+    "StaminaCurrent", "BalanceCurrent"
+}
 
 -- ============================================================================
 -- Helpers
@@ -158,14 +168,47 @@ local function ApplyBoneData(mesh, boneData)
 end
 
 -- ============================================================================
+-- Damage/Health Sync
+-- ============================================================================
+
+local function GetDamageState(pawn)
+    if not pawn or not pawn:IsValid() then return "" end
+    
+    local props = {}
+    for _, propName in ipairs(DAMAGE_PROPS) do
+        SafeCall(function()
+            local val = pawn[propName]
+            if val ~= nil and type(val) == "number" then
+                table.insert(props, string.format("%s=%.1f", propName, val))
+            end
+        end)
+    end
+    return table.concat(props, ",")
+end
+
+local function ApplyDamageState(pawn, damageStr)
+    if not pawn or not pawn:IsValid() or not damageStr or damageStr == "" then return end
+    
+    for key, value in string.gmatch(damageStr, "([^=]+)=([^,]+)") do
+        local numVal = tonumber(value)
+        if numVal then
+            SafeCall(function()
+                pawn[key] = numVal
+            end)
+        end
+    end
+end
+
+-- ============================================================================
 -- Network
 -- ============================================================================
 
-local function PackState(loc, rot, boneData)
-    return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f|B:%s",
+local function PackState(loc, rot, boneData, damageData)
+    return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f|B:%s|D:%s",
         loc.X, loc.Y, loc.Z,
         rot.Pitch, rot.Yaw, rot.Roll,
-        boneData or ""
+        boneData or "",
+        damageData or ""
     )
 end
 
@@ -174,7 +217,8 @@ local function UnpackState(data)
     
     local posStr = data:match("P:([^|]+)")
     local rotStr = data:match("R:([^|]+)")
-    local bonesStr = data:match("B:(.*)")
+    local bonesStr = data:match("B:([^|]*)")
+    local damageStr = data:match("D:(.*)")
     
     if not posStr then return nil end
     
@@ -184,7 +228,8 @@ local function UnpackState(data)
     return {
         Pos = {X = tonumber(px), Y = tonumber(py), Z = tonumber(pz)},
         Rot = {Pitch = tonumber(rx), Yaw = tonumber(ry), Roll = tonumber(rz)},
-        Bones = bonesStr
+        Bones = bonesStr,
+        Damage = damageStr
     }
 end
 
@@ -231,7 +276,8 @@ local function StartSyncLoop(hostIP)
                 if not loc or not rot then return end
                 
                 local boneData = GetBoneData(mesh)
-                local packet = PackState(loc, rot, boneData)
+                local damageData = GetDamageState(LocalPawn)
+                local packet = PackState(loc, rot, boneData, damageData)
                 
                 -- 2. Send
                 if IsHost then
@@ -271,6 +317,9 @@ local function StartSyncLoop(hostIP)
                             if remoteMesh then
                                 ApplyBoneData(remoteMesh, state.Bones)
                             end
+                            
+                            -- Apply Damage/Health State
+                            ApplyDamageState(remote, state.Damage)
                         end
                     end
                 end
