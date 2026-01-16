@@ -76,6 +76,38 @@ function Clean-Config {
     Set-ClientIP "127.0.0.1"
 }
 
+function Setup-Firewall {
+    # Check if firewall rules already exist
+    $rule1 = Get-NetFirewallRule -DisplayName "Half Sword Online UDP 7778" -ErrorAction SilentlyContinue
+    $rule2 = Get-NetFirewallRule -DisplayName "Half Sword Online UDP 7779" -ErrorAction SilentlyContinue
+    
+    if ($rule1 -and $rule2) {
+        return  # Already configured
+    }
+    
+    # Try to add firewall rules (requires admin)
+    try {
+        if (-not $rule1) {
+            New-NetFirewallRule -DisplayName "Half Sword Online UDP 7778" -Direction Inbound -Protocol UDP -LocalPort 7778 -Action Allow -Profile Private,Domain -ErrorAction Stop | Out-Null
+        }
+        if (-not $rule2) {
+            New-NetFirewallRule -DisplayName "Half Sword Online UDP 7779" -Direction Inbound -Protocol UDP -LocalPort 7779 -Action Allow -Profile Private,Domain -ErrorAction Stop | Out-Null
+        }
+        # Also add game executable rule
+        $gamePath = Join-Path $ScriptDir "HalfSwordUE5-Win64-Shipping.exe"
+        $gameRule = Get-NetFirewallRule -DisplayName "Half Sword Online Game" -ErrorAction SilentlyContinue
+        if (-not $gameRule -and (Test-Path $gamePath)) {
+            New-NetFirewallRule -DisplayName "Half Sword Online Game" -Direction Inbound -Program $gamePath -Action Allow -Profile Private,Domain -ErrorAction Stop | Out-Null
+        }
+    } catch {
+        # If we can't add rules (not admin), show a message
+        [System.Windows.MessageBox]::Show("Could not configure firewall automatically. For best multiplayer experience, run Setup-Firewall.ps1 as Administrator.", "Firewall Notice", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information) | Out-Null
+    }
+}
+
+# Auto-setup firewall on launch
+Setup-Firewall
+
 # --- XAML UI Definition ---
 [xml]$XAML = @"
 <Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
