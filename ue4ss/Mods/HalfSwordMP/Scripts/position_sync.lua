@@ -275,15 +275,15 @@ RegisterKeyBind(Key.F10, function()
 end)
 
 -- ============================================================================
--- Auto-Start
+-- Auto-Start (Immediately)
 -- ============================================================================
 
--- Start the sync loop automatically after a short delay
-LoopAsync(3000, function()
+-- Start the sync loop immediately after a tiny delay for game init
+LoopAsync(500, function()
     PositionSync.Start()
     return false  -- Don't repeat, just run once
 end)
 
-print("[PositionSync] Module loaded. Press F10 for status. Auto-starting in 3 seconds...")
+print("[PositionSync] Module loaded. Sync starts automatically. F10 for status.")
 
 return PositionSync
