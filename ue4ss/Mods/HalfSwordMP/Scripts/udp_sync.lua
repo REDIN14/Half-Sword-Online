@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
 -- Uses LuaSocket for real network position synchronization
--- Version 3.0 (Ultimate Sync: Physics + Velocity + Stats + AI Kill)
+-- Version 3.1 (Stable: Physics Disabled, Restricted Props)
 
-print("[UDPSync] Loading Ultimate UDP Sync Module...")
+print("[UDPSync] Loading Ultimate UDP Sync Module (Stable)...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -17,7 +17,7 @@ local UDP_PORT_BROADCAST = 7778  -- Host broadcasts on this port
 local UDP_PORT_RECEIVE = 7779    -- Clients send to host on this port
 local SYNC_INTERVAL = 0.016      -- 60 Hz sync rate
 local INTERPOLATION_SPEED = 20.0 -- Smoother interpolation
-local VELOCITY_DAMPING = 0.5     -- Blend factor for velocity (0-1)
+-- local VELOCITY_DAMPING = 0.5     -- Unused in stable version
 
 -- ============================================================================
 -- State
@@ -61,32 +61,33 @@ local function DisableAI(pawn)
     if not pawn or not pawn:IsValid() then return end
     local controller = pawn.Controller
     if controller and controller:IsValid() and not controller:IsPlayerControlled() then
-        controller:UnPossess() -- "Lobotomize" the AI so it doesn't fight the sync
+        pcall(function() controller:UnPossess() end)
     end
 end
 
 -- ============================================================================
--- Property Sync (Health, Stamina, Balance, etc.)
+-- Property Sync (Restricted)
 -- ============================================================================
 
 local function GetSyncProperties(pawn)
     if not pawn or not pawn:IsValid() then return "" end
     local props = {}
-    -- List of potential properties to sync
+    
+    -- RESTRICTED: Only sync critical stats to avoid crashes with invalid property access
     local propNames = {
-        "Health", "CurrentHealth", "MaxHealth",
-        "Bleed", "Bleeding", "BloodLevel",
-        "Damage", "DamageLevel",
-        "Stamina", "CurrentStamina",
-        "Energy", "CurrentEnergy",
-        "Balance", "Poise", "Stability"
+        "Health", "CurrentHealth",
+        "Bleed", "Bleeding",
+        "Damage"
     }
     
     for _, name in ipairs(propNames) do
-        local val = pawn[name]
-        if val ~= nil and type(val) == "number" then
-             table.insert(props, string.format("%s=%.2f", name, val))
-        end
+        -- Wrap property access in pcall just in case
+        pcall(function()
+            local val = pawn[name]
+            if val ~= nil and type(val) == "number" then
+                 table.insert(props, string.format("%s=%.2f", name, val))
+            end
+        end)
     end
     return table.concat(props, ",")
 end
@@ -110,18 +111,14 @@ local function GetPawnState(pawn)
     
     local loc = pawn:GetActorLocation()
     local rot = pawn:GetActorRotation()
-    local vel = {X=0, Y=0, Z=0}
     
-    -- Try to get physics velocity
-    pcall(function()
-        local v = pawn:GetVelocity()
-        if v then vel = v end
-    end)
+    -- Vel ignored for now
+    local vel = {X=0, Y=0, Z=0}
     
     return {
         Pos = {X = loc.X, Y = loc.Y, Z = loc.Z},
         Rot = {Pitch = rot.Pitch, Yaw = rot.Yaw, Roll = rot.Roll},
-        Vel = {X = vel.X, Y = vel.Y, Z = vel.Z}
+        Vel = vel
     }
 end
 
@@ -130,6 +127,8 @@ local function ApplyPawnState(pawn, state, dt)
     
     -- 1. Position Interpolation
     local currentPos = pawn:GetActorLocation()
+    if not currentPos then return end -- Safety check
+    
     local alpha = math.min(1.0, dt * INTERPOLATION_SPEED)
     
     local newX = currentPos.X + (state.Pos.X - currentPos.X) * alpha
@@ -138,23 +137,17 @@ local function ApplyPawnState(pawn, state, dt)
     
     pawn:K2_SetActorLocation({X=newX, Y=newY, Z=newZ}, false, {}, false)
     
-    -- 2. Rotation (Direct set usually better for responsiveness, or lerp yaw)
-    -- Simply creating a Rotator table
+    -- 2. Rotation
     local newRot = {Pitch=state.Rot.Pitch, Yaw=state.Rot.Yaw, Roll=state.Rot.Roll}
     pawn:K2_SetActorRotation(newRot, false)
     
-    -- 3. Velocity Sync (Physics)
-    pcall(function()
-        -- Directly setting velocity helps physics engine predict next frame
-        -- We blend it to avoid snapping
-        -- Note: This might require specific collision component access in some games
-        local rootComp = pawn.RootComponent
-        if rootComp and rootComp:IsValid() then
-             -- Simple approach: SetPhysicsLinearVelocity
-             -- We multiply purely by 1 for clarity, but could dampen
-             rootComp:SetPhysicsLinearVelocity(state.Vel, false, "None")
-        end
-    end)
+    -- 3. Velocity Sync - DISABLED (Causing Fatal Errors)
+    -- pcall(function()
+    --     local rootComp = pawn.RootComponent
+    --     if rootComp and rootComp:IsValid() then
+    --          rootComp:SetPhysicsLinearVelocity(state.Vel, false, "None")
+    --     end
+    -- end)
 end
 
 -- ============================================================================
@@ -228,6 +221,8 @@ local function StartSyncLoop(hostIP)
                 
                 -- 1. Gather Local State
                 local myState = GetPawnState(LocalPawn)
+                if not myState then return end
+                
                 local myProps = GetSyncProperties(LocalPawn)
                 local packetData = PacketToString(myState, myProps)
                 
@@ -235,22 +230,18 @@ local function StartSyncLoop(hostIP)
                 local targetPacket = nil
                 
                 if IsHost then
-                    -- Receive from Client
                     local data, ip = UDPReceiveSocket:receivefrom()
                     if data and ip then
                         ClientIP = ip
                         targetPacket = StringToPacket(data)
                     end
-                    -- Send to Client
                     if ClientIP then
                         UDPSendSocket:sendto(packetData, ClientIP, UDP_PORT_BROADCAST)
                     end
                 else
-                    -- Send to Host
                     if hostIP then
                         UDPSendSocket:sendto(packetData, hostIP, UDP_PORT_RECEIVE)
                     end
-                    -- Receive from Host
                     local data = UDPReceiveSocket:receivefrom()
                     if data then
                         targetPacket = StringToPacket(data)
@@ -271,7 +262,7 @@ local function StartSyncLoop(hostIP)
         return true
     end)
     
-    print("[UDPSync] Ultimate Sync Loop Started!")
+    print("[UDPSync] Ultimate Sync Loop Started! (Safe Mode)")
 end
 
 local function StopSync()
