@@ -214,7 +214,7 @@ Setup-Firewall
 
         <!-- Footer -->
         <Border Grid.Row="2" Background="#111">
-             <TextBlock x:Name="TxtStatus" Text="Ready." Foreground="#666" VerticalAlignment="Center" Margin="15,0"/>
+             <TextBlock x:Name="TxtStatus" Text="Made by Redin." Foreground="#666" VerticalAlignment="Center" Margin="15,0"/>
         </Border>
     </Grid>
 </Window>
