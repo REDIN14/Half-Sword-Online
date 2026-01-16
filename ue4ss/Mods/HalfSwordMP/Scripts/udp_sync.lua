@@ -13,8 +13,8 @@ local UEHelpers = require("UEHelpers")
 
 local UDP_PORT_BROADCAST = 7778  -- Host broadcasts on this port
 local UDP_PORT_RECEIVE = 7779    -- Clients send to host on this port
-local SYNC_INTERVAL = 0.033      -- 30 Hz sync rate
-local INTERPOLATION_SPEED = 15.0
+local SYNC_INTERVAL = 0.016      -- 60 Hz sync rate (Ultra Smooth)
+local INTERPOLATION_SPEED = 25.0 -- Fast interpolation for 60Hz
 
 -- ============================================================================
 -- State

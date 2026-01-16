@@ -45,13 +45,14 @@ We now have a modern interface to make connecting easy!
 *   **F5**: Host Server
 *   **F8**: Join Server
 *   **F7**: Disconnect
+*   **F11**: UDP Sync Status (New)
 *   **F9**: Network Diagnostics
-*   **F10**: Position Sync Status
 
-### v6.0 Features
-*   Automatic position sync with interpolation
-*   Network diagnostics tool
-*   Smart IP detection in Launcher
+### v7.0 Features (Major Update)
+*   **True UDP Position Sync** (60Hz Ultra Smooth)
+*   **Auto Firewall Configuration** (in Launcher)
+*   **Custom LuaSocket Integration**
+*   **Smart IP Detection**
 
 ## 📂 Files Included
 
