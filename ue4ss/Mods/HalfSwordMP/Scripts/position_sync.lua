@@ -11,8 +11,8 @@ local UEHelpers = require("UEHelpers")
 -- ============================================================================
 
 local SYNC_ENABLED = true
-local SYNC_INTERVAL = 0.016  -- 16ms = ~60 Hz (maximum practical speed)
-local INTERPOLATION_SPEED = 25.0  -- Very fast interpolation for snappy movement
+local SYNC_INTERVAL = 0.033  -- 33ms = ~30 Hz (safer for stability)
+local INTERPOLATION_SPEED = 15.0  -- Moderate interpolation speed
 
 -- ============================================================================
 -- State
@@ -175,29 +175,36 @@ local function StartSyncLoop()
     LoopAsync(math.floor(SYNC_INTERVAL * 1000), function()
         if not SYNC_ENABLED then return true end  -- Return true to continue loop
         
-        ExecuteInGameThread(function()
-            -- Initialize if needed
-            if not SyncInitialized then
-                LocalPawn = GetLocalPawn()
-                IsHost = CheckIfHost()
-                if LocalPawn then
-                    SyncInitialized = true
-                    print(string.format("[PositionSync] Initialized. IsHost: %s", tostring(IsHost)))
-                    IdentifyRemotePlayers()
-                end
-            end
-            
-            -- Update remote player tracking
-            if SyncInitialized then
-                -- Re-identify players periodically (in case new players join)
-                if #RemotePlayers == 0 then
-                    IdentifyRemotePlayers()
+        -- Wrap everything in pcall to prevent crashes
+        local success, err = pcall(function()
+            ExecuteInGameThread(function()
+                -- Initialize if needed
+                if not SyncInitialized then
+                    LocalPawn = GetLocalPawn()
+                    IsHost = CheckIfHost()
+                    if LocalPawn then
+                        SyncInitialized = true
+                        print(string.format("[PositionSync] Initialized. IsHost: %s", tostring(IsHost)))
+                        IdentifyRemotePlayers()
+                    end
                 end
                 
-                -- Update positions
-                UpdateRemotePositions(SYNC_INTERVAL)
-            end
+                -- Update remote player tracking
+                if SyncInitialized then
+                    -- Re-identify players periodically (in case new players join)
+                    if #RemotePlayers == 0 then
+                        IdentifyRemotePlayers()
+                    end
+                    
+                    -- Update positions (read-only, no setting)
+                    UpdateRemotePositions(SYNC_INTERVAL)
+                end
+            end)
         end)
+        
+        if not success then
+            print("[PositionSync] Error in sync loop: " .. tostring(err))
+        end
         
         return true  -- Continue the loop
     end)
