@@ -25,29 +25,20 @@ This installer will:
     *   `.../Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/`
 3.  Launch the game.
 
-## 🎮 How to Play
+## 🚀 How to Play (New GUI Launcher)
+We now have a modern interface to make connecting easy!
 
-### Setup for HOST (Main PC)
-1.  Launch **Half Sword Demo**.
-2.  Press **F5** to Host the Abyss map.
-    *   *Alternative*: Press **F1** (or Insert) to open the menu -> Click **Host Abyss**.
-3.  Wait until you spawn.
-4.  Find your **Local IPv4 Address** (Open Command Prompt, type `ipconfig`, look for IPv4, e.g., `192.168.1.5`).
-5.  Send this IP to your friends.
+1.  Run `Launcher.ps1` (Right-click -> Run with PowerShell).
+2.  **To Host**:
+    *   Click the green **LAUNCH AS HOST** button.
+    *   Share the "Your Local IP" displayed on screen with your friend.
+    *   In game: Press **F5**.
+3.  **To Join**:
+    *   Paste your friend's IP into the box.
+    *   Click the blue **JOIN GAME** button.
+    *   In game: Press **F8**.
 
-### Setup for CLIENT (Joining PC)
-**Method 1: Menu (Recommended)**
-1.  Launch **Half Sword Demo**.
-2.  Press **F1** (or Insert) to open the mod menu.
-3.  In the **IP Address** box, replace `127.0.0.1` with the **Host's IP**.
-4.  Click **Join [IP]** or press **F8**.
-
-**Method 2: Config File**
-1.  Go to your game folder: `.../Binaries/Win64/ue4ss/`.
-2.  Open `server_ip.txt`.
-3.  Replace `127.0.0.1` with the Host's IP Address.
-4.  Save and Close.
-5.  Launch the game and press **F8**.
+*(Note: You can still use the F1 in-game menu if you prefer, but the Launcher handles the config for you!)*
 
 ### Default Controls
 *   **F1 / Insert**: Toggle Mod Menu
@@ -57,8 +48,26 @@ This installer will:
 
 ## 📂 Files Included
 
+*   `Launcher.ps1`: **The new Mod Launcher App.**
 *   `dwmapi.dll`: Mod loader (UE4SS).
 *   `ue4ss/`: Mod configuration and scripts.
 *   `install.ps1`: Automated installer script.
+
+Example:
+If you are HOSTING (The Server)
+You do NOT need to type anything in 
+server_ip.txt
+.
+You just press F5 (Host) in the game.
+Your job is to find your IP (which you did: 192.168.178.28) and tell it to your friend.
+The Person JOINING You (The Client)
+THEY need to open their 
+server_ip.txt
+.
+THEY must type YOUR IP (192.168.178.28) into that file.
+Then THEY press F8 (Join).
+
+
+
 
 **Important**: Do NOT verify game files via Steam after installing, as it may remove mod files. If you do, just run the installer again.
