@@ -171,10 +171,9 @@ $TxtHostIP.Text = $MyIP
 
 # Check if server_ip.txt exists and pre-fill join IP (if not localhost)
 if (Test-Path $IpFile) {
-    $CurrentIP = Get-Content $IpFile -Raw
-    $CurrentIP = $CurrentIP.Trim()
-    if ($CurrentIP -ne "127.0.0.1" -and $CurrentIP -ne "") {
-        $TxtJoinIP.Text = $CurrentIP
+    $CurrentIP = Get-Content $IpFile -Raw -ErrorAction SilentlyContinue
+    if ($CurrentIP -and $CurrentIP.Trim() -ne "" -and $CurrentIP.Trim() -ne "127.0.0.1") {
+        $TxtJoinIP.Text = $CurrentIP.Trim()
     }
 }
 
