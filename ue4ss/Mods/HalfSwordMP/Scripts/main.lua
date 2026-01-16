@@ -1,17 +1,26 @@
--- Half Sword Multiplayer Mod v5.0 (GUI)
--- ImGui Control Panel
+-- Half Sword Multiplayer Mod v6.0 (Position Sync)
+-- ImGui Control Panel + Network Position Sync
 
-print("=== Half Sword Multiplayer Mod v5.0 (GUI) ===")
+print("=== Half Sword Multiplayer Mod v6.0 (Position Sync) ===")
 
 -- Configuration
 local ABYSS_MAP = "Abyss_Map_Open_Intermediate"
 local PORT = 7777
 local DEFAULT_IP_FILE = "ue4ss\\server_ip.txt"
 
+-- Load Position Sync Module
+local PositionSync = nil
+local syncLoadSuccess, syncErr = pcall(function()
+    PositionSync = require("position_sync")
+end)
+if not syncLoadSuccess then
+    print("[WARNING] Position sync module failed to load: " .. tostring(syncErr))
+end
+
 -- GUI State
 local ShowMenu = true -- Start visible
 local ServerIP = "127.0.0.1"
-local GUITitle = "Half Sword Multiplayer Mod"
+local GUITitle = "Half Sword Multiplayer Mod v6.0"
 local StatusMessage = "Ready."
 
 -- ==============================================================================
@@ -173,4 +182,4 @@ end
 
 -- Load IP on startup
 ServerIP = ReadServerIP()
-print("Mod Loaded v5.2. Hotkeys: F1=Menu, F5=Host Abyss, F8=Join IP, F7=Disconnect")
+print("Mod Loaded v6.0. Hotkeys: F1=Menu, F5=Host, F8=Join, F7=Disconnect, F10=Sync Status")
