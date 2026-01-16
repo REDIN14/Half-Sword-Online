@@ -51,7 +51,10 @@ local function HostServer(mapName)
                 print(StatusMessage)
                 -- Start UDP sync as host
                 if UDPSync then
+                    local syncStarted = false
                     LoopAsync(2000, function()
+                        if syncStarted then return false end
+                        syncStarted = true
                         UDPSync.StartAsHost()
                         return false
                     end)
@@ -79,7 +82,10 @@ local function JoinGame(ip)
             PCs[1]:ClientTravel(URL, 0, false, {})
             -- Start UDP sync as client
             if UDPSync then
+                local syncStarted = false
                 LoopAsync(2000, function()
+                    if syncStarted then return false end
+                    syncStarted = true
                     UDPSync.StartAsClient(ip)
                     return false
                 end)

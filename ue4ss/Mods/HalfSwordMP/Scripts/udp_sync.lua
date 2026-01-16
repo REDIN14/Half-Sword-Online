@@ -234,7 +234,6 @@ function UDPSync.StartAsHost()
 end
 
 function UDPSync.StartAsClient(hostIP)
-    print("[UDPSync] Starting as CLIENT, host IP: " .. hostIP)
     StartSyncLoop(hostIP)
 end
 
