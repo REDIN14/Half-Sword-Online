@@ -1,8 +1,7 @@
 -- UDP Position Sync Module for Half Sword MP
--- Uses LuaSocket for real network position synchronization
--- Version 3.2 (Debug + Kinematic Puppet Fix)
+-- Version 4.0: Deep Dive - Skeleton Bone Sync
 
-print("[UDPSync] Loading Ultimate UDP Sync Module (Debug + Kinematic)...")
+print("[UDPSync] Loading Deep Dive Skeleton Sync v4.0...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -13,8 +12,18 @@ local UEHelpers = require("UEHelpers")
 
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
-local SYNC_INTERVAL = 0.016
-local INTERPOLATION_SPEED = 20.0
+local SYNC_INTERVAL = 0.033 -- 30 Hz for heavy bone data
+local INTERPOLATION_SPEED = 15.0
+
+-- Key bones to sync (Half-Sword uses Active Ragdoll, these cover the whole body)
+local KEY_BONES = {
+    "pelvis", "spine_01", "spine_02", "spine_03",
+    "head", "neck_01",
+    "clavicle_l", "upperarm_l", "lowerarm_l", "hand_l",
+    "clavicle_r", "upperarm_r", "lowerarm_r", "hand_r",
+    "thigh_l", "calf_l", "foot_l",
+    "thigh_r", "calf_r", "foot_r"
+}
 
 -- ============================================================================
 -- State
@@ -45,34 +54,33 @@ local function FindRemotePawn(localPawn)
     if RemotePawnCache and RemotePawnCache:IsValid() and RemotePawnCache ~= localPawn then
         return RemotePawnCache
     end
-    
     local pawns = FindAllOf("Pawn")
     if not pawns then return nil end
     for _, pawn in ipairs(pawns) do
         if pawn:IsValid() and pawn ~= localPawn then
             RemotePawnCache = pawn
-            print("[UDPSync] Found Remote Pawn: " .. pawn:GetFullName())
+            if DebugMode then print("[UDPSync] Found Remote: " .. pawn:GetFullName()) end
             return pawn
         end
     end
     return nil
 end
 
+local function GetMesh(pawn)
+    if not pawn or not pawn:IsValid() then return nil end
+    return pawn.Mesh
+end
+
 local function MakePuppet(pawn)
-    -- FORCE the remote pawn to stop simulating physics so it follows our position updates
-    -- This fixes the "Frozen Body / Hand Only" glitches
     if not pawn or not pawn:IsValid() then return end
-    
-    local mesh = pawn.Mesh
+    local mesh = GetMesh(pawn)
     if mesh and mesh:IsValid() then
-        if mesh:IsSimulatingPhysics() then
-             print("[UDPSync] Disabling Physics on Remote Pawn Mesh (Kinematic Mode)")
-             pcall(function() mesh:SetSimulatePhysics(false) end)
-             pcall(function() mesh:SetCollisionEnabled(0) end) -- No collision, pure visual ghost? Maybe unsafe.
-        end
+        pcall(function()
+            if mesh:IsSimulatingPhysics() then
+                mesh:SetSimulatePhysics(false)
+            end
+        end)
     end
-    
-    -- Also kill controller
     local controller = pawn.Controller
     if controller and controller:IsValid() and not controller:IsPlayerControlled() then
         pcall(function() controller:UnPossess() end)
@@ -80,50 +88,103 @@ local function MakePuppet(pawn)
 end
 
 -- ============================================================================
--- Sync Logic
+-- Bone Sync
 -- ============================================================================
 
-local function PacketToString(state, props)
-    return string.format("POS:%.2f,%.2f,%.2f|ROT:%.2f,%.2f,%.2f|PROPS:%s",
-        state.Pos.X, state.Pos.Y, state.Pos.Z,
-        state.Rot.Pitch, state.Rot.Yaw, state.Rot.Roll,
-        props or ""
+local function GetBoneTransforms(mesh)
+    if not mesh or not mesh:IsValid() then return nil end
+    
+    local bones = {}
+    for _, boneName in ipairs(KEY_BONES) do
+        pcall(function()
+            -- GetSocketTransform is widely available & returns world-space transform
+            local transform = mesh:GetSocketTransform(FName(boneName), 0) -- 0 = WorldSpace
+            if transform then
+                table.insert(bones, string.format("%s:%.1f,%.1f,%.1f,%.1f,%.1f,%.1f",
+                    boneName,
+                    transform.Translation.X, transform.Translation.Y, transform.Translation.Z,
+                    transform.Rotation.Pitch, transform.Rotation.Yaw, transform.Rotation.Roll
+                ))
+            end
+        end)
+    end
+    return table.concat(bones, "|")
+end
+
+local function ApplyBoneTransforms(mesh, boneData)
+    if not mesh or not mesh:IsValid() or not boneData or boneData == "" then return end
+    
+    for entry in string.gmatch(boneData, "([^|]+)") do
+        local name, tx, ty, tz, rx, ry, rz = entry:match("([^:]+):([^,]+),([^,]+),([^,]+),([^,]+),([^,]+),([^,]+)")
+        if name and tx then
+            pcall(function()
+                -- SetBoneTransformByName(BoneName, InTransform, Space)
+                -- Space: 0 = WorldSpace, 1 = BoneSpace
+                mesh:SetBoneTransformByName(
+                    FName(name),
+                    {
+                        Translation = {X = tonumber(tx), Y = tonumber(ty), Z = tonumber(tz)},
+                        Rotation = {Pitch = tonumber(rx), Yaw = tonumber(ry), Roll = tonumber(rz)},
+                        Scale3D = {X = 1, Y = 1, Z = 1}
+                    },
+                    0 -- WorldSpace
+                )
+            end)
+        end
+    end
+end
+
+-- ============================================================================
+-- Network
+-- ============================================================================
+
+local function PacketToString(loc, rot, boneData)
+    return string.format("POS:%.1f,%.1f,%.1f|ROT:%.1f,%.1f,%.1f|BONES:%s",
+        loc.X, loc.Y, loc.Z,
+        rot.Pitch, rot.Yaw, rot.Roll,
+        boneData or ""
     )
 end
 
 local function StringToPacket(data)
     if not data then return nil end
+    
     local posStr = data:match("POS:([^|]+)")
     local rotStr = data:match("ROT:([^|]+)")
+    local bonesStr = data:match("BONES:(.*)")
     
     if not posStr then return nil end
+    
     local px, py, pz = posStr:match("([^,]+),([^,]+),([^,]+)")
-    local rx, ry, rz = rotStr and rotStr:match("([^,]+),([^,]+),([^,]+)") or 0,0,0
+    local rx, ry, rz = rotStr and rotStr:match("([^,]+),([^,]+),([^,]+)") or 0, 0, 0
     
     return {
-        Pos = {X=tonumber(px), Y=tonumber(py), Z=tonumber(pz)},
-        Rot = {Pitch=tonumber(rx), Yaw=tonumber(ry), Roll=tonumber(rz)},
-        Props = data:match("PROPS:(.*)")
+        Pos = {X = tonumber(px), Y = tonumber(py), Z = tonumber(pz)},
+        Rot = {Pitch = tonumber(rx), Yaw = tonumber(ry), Roll = tonumber(rz)},
+        Bones = bonesStr
     }
 end
+
+-- ============================================================================
+-- Main Sync Loop
+-- ============================================================================
 
 local function StartSyncLoop(hostIP)
     if Initialized then return end
     
-    local isHost = (hostIP == nil or hostIP == "")
-    IsHost = isHost
+    IsHost = (hostIP == nil or hostIP == "")
     
     UDPSendSocket = socket.udp()
     UDPSendSocket:settimeout(0)
     UDPReceiveSocket = socket.udp()
     UDPReceiveSocket:settimeout(0)
     
-    if isHost then
+    if IsHost then
         UDPReceiveSocket:setsockname("*", UDP_PORT_RECEIVE)
-        print("[UDPSync] HOST Listening on " .. UDP_PORT_RECEIVE)
+        print("[UDPSync] HOST on " .. UDP_PORT_RECEIVE)
     else
         UDPReceiveSocket:setsockname("*", UDP_PORT_BROADCAST)
-        print("[UDPSync] CLIENT Listening on " .. UDP_PORT_BROADCAST)
+        print("[UDPSync] CLIENT on " .. UDP_PORT_BROADCAST)
     end
     
     Initialized = true
@@ -136,24 +197,23 @@ local function StartSyncLoop(hostIP)
                 LocalPawn = GetLocalPawn()
                 if not LocalPawn then return end
                 
-                -- DEBUG: Print if we have a local pawn
-                -- if DebugMode then print("LocalPawn: " .. tostring(LocalPawn)) end
+                local mesh = GetMesh(LocalPawn)
+                if not mesh then return end
                 
-                -- 1. Gather & Send
+                -- 1. Gather Local State + Bones
                 local loc = LocalPawn:GetActorLocation()
                 local rot = LocalPawn:GetActorRotation()
-                local packet = PacketToString(
-                    {Pos={X=loc.X, Y=loc.Y, Z=loc.Z}, Rot={Pitch=rot.Pitch, Yaw=rot.Yaw, Roll=rot.Roll}},
-                    "Health=100" -- Placeholder
-                )
+                local boneData = GetBoneTransforms(mesh)
+                local packet = PacketToString(loc, rot, boneData)
                 
+                -- 2. Send
                 if IsHost then
-                     if ClientIP then UDPSendSocket:sendto(packet, ClientIP, UDP_PORT_BROADCAST) end
+                    if ClientIP then UDPSendSocket:sendto(packet, ClientIP, UDP_PORT_BROADCAST) end
                 else
-                     if hostIP then UDPSendSocket:sendto(packet, hostIP, UDP_PORT_RECEIVE) end
+                    if hostIP then UDPSendSocket:sendto(packet, hostIP, UDP_PORT_RECEIVE) end
                 end
                 
-                -- 2. Receive & Apply
+                -- 3. Receive & Apply
                 local data, ip = UDPReceiveSocket:receivefrom()
                 if data then
                     if IsHost and ip then ClientIP = ip end
@@ -162,9 +222,9 @@ local function StartSyncLoop(hostIP)
                     if target then
                         local remote = FindRemotePawn(LocalPawn)
                         if remote then
-                            MakePuppet(remote) -- Ensure it's a puppet
+                            MakePuppet(remote)
                             
-                            -- Interpolate Pos
+                            -- Apply Actor Position/Rotation
                             local curr = remote:GetActorLocation()
                             local alpha = math.min(1.0, SYNC_INTERVAL * INTERPOLATION_SPEED)
                             local nx = curr.X + (target.Pos.X - curr.X) * alpha
@@ -174,11 +234,11 @@ local function StartSyncLoop(hostIP)
                             remote:K2_SetActorLocation({X=nx, Y=ny, Z=nz}, false, {}, false)
                             remote:K2_SetActorRotation({Pitch=target.Rot.Pitch, Yaw=target.Rot.Yaw, Roll=target.Rot.Roll}, false)
                             
-                            if DebugMode then
-                                print(string.format("[UDPSync] Updated Remote: %.2f %.2f %.2f", nx, ny, nz))
+                            -- Apply Bone Transforms
+                            local remoteMesh = GetMesh(remote)
+                            if remoteMesh then
+                                ApplyBoneTransforms(remoteMesh, target.Bones)
                             end
-                        else
-                            if DebugMode then print("[UDPSync] Received Data but NO REMOTE PAWN found!") end
                         end
                     end
                 end
@@ -187,7 +247,7 @@ local function StartSyncLoop(hostIP)
         return true
     end)
     
-    print("[UDPSync] Loop Started.")
+    print("[UDPSync] Deep Dive Loop Started!")
 end
 
 local function StopSync()
@@ -197,6 +257,10 @@ local function StopSync()
     print("[UDPSync] Stopped.")
 end
 
+-- ============================================================================
+-- API
+-- ============================================================================
+
 local UDPSync = {}
 function UDPSync.StartAsHost() StartSyncLoop(nil) end
 function UDPSync.StartAsClient(ip) StartSyncLoop(ip) end
@@ -204,12 +268,13 @@ function UDPSync.Stop() StopSync() end
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] Debug Mode: " .. tostring(DebugMode))
-    print("  IsHost: " .. tostring(IsHost))
+    print("[UDPSync] Debug: " .. tostring(DebugMode))
+    print("  IsHost: " .. tostring(IsHost) .. " Init: " .. tostring(Initialized))
     print("  ClientIP: " .. tostring(ClientIP))
-    print("  LocalPawn: " .. (LocalPawn and LocalPawn:GetFullName() or "nil"))
-    local r = FindRemotePawn(LocalPawn)
-    print("  RemotePawn: " .. (r and r:GetFullName() or "None"))
+    if LocalPawn then
+        local m = GetMesh(LocalPawn)
+        print("  LocalMesh: " .. (m and m:GetFullName() or "nil"))
+    end
 end)
 
 return UDPSync
