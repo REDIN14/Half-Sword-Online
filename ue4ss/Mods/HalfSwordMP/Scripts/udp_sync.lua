@@ -43,6 +43,38 @@ local function GetLocalPawn()
     return nil
 end
 
+local function FindRemotePawn(localPawn)
+    local pawns = FindAllOf("Pawn")
+    if not pawns then return nil end
+    
+    for _, pawn in ipairs(pawns) do
+        if pawn:IsValid() and pawn ~= localPawn then
+            -- This is likely the remote player
+            -- Check distance to avoid random NPCs if possible, but for 1v1 this is fine
+            return pawn
+        end
+    end
+    return nil
+end
+
+local function InterpolateTo(pawn, targetPos, dt)
+    if not pawn or not pawn:IsValid() or not targetPos then return end
+    
+    local currentPos = pawn:GetActorLocation()
+    if not currentPos then return end
+    
+    -- Lerp factor
+    local alpha = dt * INTERPOLATION_SPEED
+    if alpha > 1.0 then alpha = 1.0 end
+    
+    local newX = currentPos.X + (targetPos.X - currentPos.X) * alpha
+    local newY = currentPos.Y + (targetPos.Y - currentPos.Y) * alpha
+    local newZ = currentPos.Z + (targetPos.Z - currentPos.Z) * alpha
+    
+    -- Set location directly
+    pawn:K2_SetActorLocation({X=newX, Y=newY, Z=newZ}, false, {}, false)
+end
+
 local function GetPawnPosition(pawn)
     if pawn and pawn:IsValid() then
         local success, loc = pcall(function() return pawn:GetActorLocation() end)
@@ -173,25 +205,23 @@ local function StartSyncLoop(hostIP)
                 
                 local myPos = GetPawnPosition(LocalPawn)
                 local myRot = GetPawnRotation(LocalPawn)
+                local targetPos = nil
                 
                 if IsHost then
                     -- HOST: Receive client positions
                     local remotePos, remoteIP = ReceivePosition()
                     if remotePos and remoteIP then
                         ClientIP = remoteIP
-                        -- Store/update remote player position
-                        RemotePlayers[remoteIP] = {
-                            position = remotePos,
-                            lastUpdate = os.clock()
-                        }
+                        RemotePlayers[remoteIP] = { position = remotePos, lastUpdate = os.clock() }
+                        targetPos = remotePos
                     end
                     
-                    -- HOST: Broadcast our position to known clients
+                    -- HOST: Broadcast our position
                     if ClientIP and myPos then
                         SendPosition(ClientIP, UDP_PORT_BROADCAST, myPos, myRot)
                     end
                 else
-                    -- CLIENT: Send our position to host
+                    -- CLIENT: Send our position
                     if hostIP and myPos then
                         SendPosition(hostIP, UDP_PORT_RECEIVE, myPos, myRot)
                     end
@@ -199,10 +229,16 @@ local function StartSyncLoop(hostIP)
                     -- CLIENT: Receive host position
                     local remotePos, remoteIP = ReceivePosition()
                     if remotePos then
-                        RemotePlayers["host"] = {
-                            position = remotePos,
-                            lastUpdate = os.clock()
-                        }
+                        RemotePlayers["host"] = { position = remotePos, lastUpdate = os.clock() }
+                        targetPos = remotePos
+                    end
+                end
+                
+                -- APPLY POSITION TO REMOTE PAWN
+                if targetPos then
+                    local remotePawn = FindRemotePawn(LocalPawn)
+                    if remotePawn then
+                        InterpolateTo(remotePawn, targetPos, SYNC_INTERVAL)
                     end
                 end
             end)
