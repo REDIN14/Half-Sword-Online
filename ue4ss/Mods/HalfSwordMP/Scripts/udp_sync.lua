@@ -14,8 +14,8 @@ local UEHelpers = require("UEHelpers")
 
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
-local SYNC_INTERVAL = 0.050  -- 20 Hz (more stable)
-local INTERPOLATION_SPEED = 10.0
+local SYNC_INTERVAL = 0.016  -- 60 Hz (max speed)
+local INTERPOLATION_SPEED = 20.0  -- Faster interpolation
 
 -- Damage properties to sync
 local DAMAGE_PROPS = {
