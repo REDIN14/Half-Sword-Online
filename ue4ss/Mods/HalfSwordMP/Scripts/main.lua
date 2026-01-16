@@ -17,6 +17,11 @@ if not syncLoadSuccess then
     print("[WARNING] Position sync module failed to load: " .. tostring(syncErr))
 end
 
+-- Run socket test (check logs for results)
+pcall(function()
+    require("socket_test")
+end)
+
 -- GUI State
 local ShowMenu = true -- Start visible
 local ServerIP = "127.0.0.1"
