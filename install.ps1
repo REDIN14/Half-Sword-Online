@@ -110,7 +110,25 @@ try {
     
     Write-Host "[INFO] Installing to $gamePath..." -ForegroundColor Cyan
     try {
-        Expand-Archive -Path $tempZip -DestinationPath $gamePath -Force
+        # Extract to temp folder first to check structure
+        $extractPath = "$env:TEMP\HalfSwordMod_Extract"
+        Remove-Item $extractPath -Recurse -Force -ErrorAction SilentlyContinue
+        Expand-Archive -Path $tempZip -DestinationPath $extractPath -Force
+        
+        $extractedItems = Get-ChildItem -Path $extractPath
+        
+        # If the zip contains a single top-level folder (common in GitHub source zips), dive into it
+        if ($extractedItems.Count -eq 1 -and $extractedItems[0].PSIsContainer) {
+            $sourceDir = $extractedItems[0].FullName
+            Write-Host "[INFO] Detected nested folder structure, flattening..." -ForegroundColor Cyan
+            Copy-Item -Path "$sourceDir\*" -Destination $gamePath -Recurse -Force
+        } else {
+            # Standard flat zip
+            Copy-Item -Path "$extractPath\*" -Destination $gamePath -Recurse -Force
+        }
+
+        # Clean up temp extract folder
+        Remove-Item $extractPath -Recurse -Force -ErrorAction SilentlyContinue
     } catch {
         Write-Host "[ERROR] Extraction failed: $($_.Exception.Message)" -ForegroundColor Red
         Write-Host "Make sure the game is not running!"
