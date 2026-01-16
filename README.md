@@ -20,7 +20,7 @@ This installer will:
 
 ## 🛠️ Manual Installation
 
-1.  Download the **Latest Release** zip file from the [Releases Page](../../releases).
+1.  Download the **Repository ZIP** (Code -> Download ZIP) or latest release.
 2.  Extract the contents ( `ue4ss/`, `dwmapi.dll`, etc.) into your game's binary folder:
     *   `.../Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/`
 3.  Launch the game.

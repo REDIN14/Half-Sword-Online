@@ -75,30 +75,12 @@ try {
 
     Write-Host "[SUCCESS] Found Game Path: $gamePath" -ForegroundColor Green
 
-    # Download Latest Release
+    # Download Latest Code from Main Branch
     $repoOwner = "REDIN14"
     $repoName = "Half-Sword-Online"
-    $apiUrl = "https://api.github.com/repos/$repoOwner/$repoName/releases/latest"
+    $downloadUrl = "https://github.com/$repoOwner/$repoName/archive/refs/heads/main.zip"
 
-    Write-Host "[INFO] Fetching latest release info from GitHub..." -ForegroundColor Cyan
-    try {
-        $release = Invoke-RestMethod -Uri $apiUrl -Method Get
-    } catch {
-        Write-Host "[ERROR] Failed to fetch release info: $($_.Exception.Message)" -ForegroundColor Red
-        Write-Host "This usually means no Release has been created on the GitHub repository yet." -ForegroundColor White
-        Pause-AndExit 1
-    }
-
-    $zipAsset = $release.assets | Where-Object { $_.name -like "*.zip" } | Select-Object -First 1
-    
-    if (-not $zipAsset) {
-        Write-Host "[ERROR] No .zip asset found in the latest release ($($release.tag_name))!" -ForegroundColor Red
-        Write-Host "Please check the repository releases."
-        Pause-AndExit 1
-    }
-    
-    $downloadUrl = $zipAsset.browser_download_url
-    Write-Host "[INFO] Downloading version $($release.tag_name)..." -ForegroundColor Cyan
+    Write-Host "[INFO] Downloading latest version from main branch..." -ForegroundColor Cyan
     
     $tempZip = "$env:TEMP\HalfSwordMod.zip"
     try {
