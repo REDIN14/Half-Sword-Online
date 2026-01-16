@@ -193,15 +193,29 @@ $BtnHost.Add_Click({
 
 $BtnJoin.Add_Click({
     $TargetIP = $TxtJoinIP.Text.Trim()
+    
+    # Validation: Empty
     if ($TargetIP -eq "") {
         [System.Windows.MessageBox]::Show("Please enter the Host's IP Address.", "Input Required", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Warning)
+        return
+    }
+    
+    # Validation: Localhost (common mistake)
+    if ($TargetIP -eq "127.0.0.1" -or $TargetIP -eq "localhost") {
+        [System.Windows.MessageBox]::Show("You entered '127.0.0.1' (localhost).`n`nThis means you're trying to connect to YOURSELF.`n`nPlease enter your FRIEND's IP address instead!", "Invalid IP", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
+        return
+    }
+    
+    # Validation: Basic IP format (X.X.X.X)
+    if ($TargetIP -notmatch '^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') {
+        [System.Windows.MessageBox]::Show("The IP address format looks wrong.`n`nIt should look like: 192.168.1.50", "Invalid Format", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Warning)
         return
     }
 
     $TxtStatus.Text = "Configuring Client to Join $TargetIP..."
     try {
         Set-ClientIP $TargetIP
-         [System.Windows.MessageBox]::Show("Config Saved! Game will launch.\n\n1. Wait for game to load.\n2. Press F8 to Join.", "Join Instructions", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
+         [System.Windows.MessageBox]::Show("Config Saved! Game will launch.`n`n1. Wait for game to load.`n2. Press F8 to Join.", "Join Instructions", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Information)
         Launch-Game
     } catch {
         [System.Windows.MessageBox]::Show($_.Exception.Message, "Error", [System.Windows.MessageBoxButton]::OK, [System.Windows.MessageBoxImage]::Error)
