@@ -97,6 +97,9 @@ SafeRegisterKeyBind(Key.F5, function()
 end)
 
 SafeRegisterKeyBind(Key.F8, function()
+    -- Re-read IP from file every time F8 is pressed
+    ServerIP = ReadServerIP()
+    print("F8 Pressed. Current IP from file: " .. ServerIP)
     JoinGame(ServerIP)
 end)
 
