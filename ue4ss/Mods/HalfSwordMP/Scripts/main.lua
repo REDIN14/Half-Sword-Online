@@ -1,32 +1,30 @@
--- Half Sword Multiplayer Mod v6.0 (Position Sync)
--- ImGui Control Panel + Network Position Sync
+-- Half Sword Multiplayer Mod v7.0 (UDP Sync)
+-- ImGui Control Panel + LuaSocket UDP Position Sync
 
-print("=== Half Sword Multiplayer Mod v6.0 (Position Sync) ===")
+print("=== Half Sword Multiplayer Mod v7.0 (UDP Sync) ===")
 
 -- Configuration
 local ABYSS_MAP = "Abyss_Map_Open_Intermediate"
 local PORT = 7777
 local DEFAULT_IP_FILE = "ue4ss\\server_ip.txt"
 
--- Load Position Sync Module
-local PositionSync = nil
-local syncLoadSuccess, syncErr = pcall(function()
-    PositionSync = require("position_sync")
+-- Load UDP Sync Module (uses LuaSocket)
+local UDPSync = nil
+local udpLoadSuccess, udpErr = pcall(function()
+    UDPSync = require("udp_sync")
 end)
-if not syncLoadSuccess then
-    print("[WARNING] Position sync module failed to load: " .. tostring(syncErr))
+if udpLoadSuccess then
+    print("[OK] UDP Sync module loaded!")
+else
+    print("[WARNING] UDP Sync module failed to load: " .. tostring(udpErr))
 end
-
--- Run socket test (check logs for results)
-pcall(function()
-    require("socket_test")
-end)
 
 -- GUI State
 local ShowMenu = true -- Start visible
 local ServerIP = "127.0.0.1"
-local GUITitle = "Half Sword Multiplayer Mod v6.0"
+local GUITitle = "Half Sword Multiplayer Mod v7.0"
 local StatusMessage = "Ready."
+local CurrentHostIP = nil  -- Track host IP for clients
 
 -- ==============================================================================
 -- Network Logic
@@ -51,6 +49,13 @@ local function HostServer(mapName)
             if success then
                 StatusMessage = "Host Started. Loading..."
                 print(StatusMessage)
+                -- Start UDP sync as host
+                if UDPSync then
+                    LoopAsync(2000, function()
+                        UDPSync.StartAsHost()
+                        return false
+                    end)
+                end
             else
                 StatusMessage = "Host Error: " .. tostring(err)
                 print(StatusMessage)
@@ -65,12 +70,20 @@ end
 local function JoinGame(ip)
     StatusMessage = "Joining " .. ip .. "..."
     print(StatusMessage)
+    CurrentHostIP = ip  -- Save host IP for UDP sync
     
     local URL = ip .. ":" .. tostring(PORT)
     ExecuteInGameThread(function()
         local PCs = FindAllOf("PlayerController")
         if PCs and #PCs > 0 then
             PCs[1]:ClientTravel(URL, 0, false, {})
+            -- Start UDP sync as client
+            if UDPSync then
+                LoopAsync(2000, function()
+                    UDPSync.StartAsClient(ip)
+                    return false
+                end)
+            end
         end
     end)
 end
@@ -187,4 +200,4 @@ end
 
 -- Load IP on startup
 ServerIP = ReadServerIP()
-print("Mod Loaded v6.0. Hotkeys: F1=Menu, F5=Host, F8=Join, F7=Disconnect, F10=Sync Status")
+print("Mod Loaded v7.0. Hotkeys: F1=Menu, F5=Host, F8=Join, F7=Disconnect, F11=UDP Status")
