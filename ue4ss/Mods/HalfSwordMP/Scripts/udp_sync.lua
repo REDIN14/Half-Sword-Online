@@ -1,9 +1,7 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 9.0: MINIMAL SAFE MODE
--- This version only READS and LOGS - no position modifications
--- Used to diagnose crashes
+-- Version 9.1: Fixed timing issues with stronger pawn validation
 
-print("[UDPSync] Loading v9.0 SAFE MODE (read-only)...")
+print("[UDPSync] Loading v9.1 with timing fixes...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -14,7 +12,8 @@ local UEHelpers = require("UEHelpers")
 
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
-local SYNC_INTERVAL = 0.100  -- 10 Hz (slower = safer)
+local SYNC_INTERVAL = 0.050  -- 20 Hz
+local STARTUP_DELAY = 3000   -- Wait 3 seconds before starting sync
 
 -- ============================================================================
 -- State
@@ -25,44 +24,54 @@ local UDPSendSocket = nil
 local UDPReceiveSocket = nil
 local Initialized = false
 local ClientIP = nil
-local DebugMode = true  -- Always debug in safe mode
+local DebugMode = false
 local TargetHostIP = nil
-local PacketCount = 0
+local TickCount = 0
+local LastRecvPacket = ""
+local RecvCount = 0
 
 -- ============================================================================
--- Safe Execution
+-- Safe Helpers
 -- ============================================================================
 
-local function SafeCall(fn)
+local function SafeGet(fn)
     local ok, result = pcall(fn)
-    if not ok then
-        print("[UDPSync] SafeCall Error: " .. tostring(result))
-        return nil
-    end
-    return result
+    if ok then return result end
+    return nil
+end
+
+-- Validate pawn is fully usable
+local function IsValidPawn(pawn)
+    if not pawn then return false end
+    
+    -- Check IsValid
+    local valid = SafeGet(function() return pawn:IsValid() end)
+    if not valid then return false end
+    
+    -- Try to access a property to confirm it's really valid
+    local loc = SafeGet(function() return pawn:GetActorLocation() end)
+    if not loc then return false end
+    
+    return true
+end
+
+local function GetMyPawn()
+    local pc = SafeGet(function() return UEHelpers.GetPlayerController() end)
+    if not pc then return nil end
+    
+    local pawn = SafeGet(function() return pc.Pawn end)
+    if not IsValidPawn(pawn) then return nil end
+    
+    return pawn
 end
 
 -- ============================================================================
--- Pawn Detection (Safe)
+-- Network
 -- ============================================================================
 
-local function GetLocalPlayerPawn()
-    return SafeCall(function()
-        local pc = UEHelpers.GetPlayerController()
-        if pc and pc:IsValid() and pc.Pawn and pc.Pawn:IsValid() then
-            return pc.Pawn
-        end
-        return nil
-    end)
-end
-
--- ============================================================================
--- Protocol
--- ============================================================================
-
-local function PackPos(pawn)
-    local loc = SafeCall(function() return pawn:GetActorLocation() end)
-    local rot = SafeCall(function() return pawn:GetActorRotation() end)
+local function MakePacket(pawn)
+    local loc = SafeGet(function() return pawn:GetActorLocation() end)
+    local rot = SafeGet(function() return pawn:GetActorRotation() end)
     
     if loc and rot then
         return string.format("P:%.0f,%.0f,%.0f|R:%.0f,%.0f,%.0f",
@@ -72,55 +81,82 @@ local function PackPos(pawn)
     return nil
 end
 
+local function ParsePacket(data)
+    if not data then return nil end
+    
+    local posStr = data:match("P:([^|]+)")
+    local rotStr = data:match("R:([^|]+)")
+    if not posStr then return nil end
+    
+    local px, py, pz = posStr:match("([^,]+),([^,]+),([^,]+)")
+    local rx, ry, rz = "0", "0", "0"
+    if rotStr then
+        rx, ry, rz = rotStr:match("([^,]+),([^,]+),([^,]+)")
+    end
+    
+    return {
+        X = tonumber(px) or 0, Y = tonumber(py) or 0, Z = tonumber(pz) or 0,
+        Pitch = tonumber(rx) or 0, Yaw = tonumber(ry) or 0, Roll = tonumber(rz) or 0
+    }
+end
+
 -- ============================================================================
--- Main Loop (READ-ONLY - NO MODIFICATIONS)
+-- Main Sync
 -- ============================================================================
 
-local function StartSyncLoop(hostIP)
-    if Initialized then 
-        print("[UDPSync] Already running")
-        return 
-    end
+local function StartSync(hostIP)
+    if Initialized then return end
     
     IsHost = (hostIP == nil or hostIP == "")
     TargetHostIP = hostIP
-    PacketCount = 0
+    TickCount = 0
+    RecvCount = 0
     
     -- Create sockets
-    local ok1, sock1 = pcall(function() return socket.udp() end)
-    if not ok1 then
-        print("[UDPSync] Failed to create send socket")
-        return
-    end
-    UDPSendSocket = sock1
-    UDPSendSocket:settimeout(0)
+    UDPSendSocket = SafeGet(function() return socket.udp() end)
+    UDPReceiveSocket = SafeGet(function() return socket.udp() end)
     
-    local ok2, sock2 = pcall(function() return socket.udp() end)
-    if not ok2 then
-        print("[UDPSync] Failed to create recv socket")
+    if not UDPSendSocket or not UDPReceiveSocket then
+        print("[UDPSync] Socket creation failed!")
         return
     end
-    UDPReceiveSocket = sock2
+    
+    UDPSendSocket:settimeout(0)
     UDPReceiveSocket:settimeout(0)
     
     local port = IsHost and UDP_PORT_RECEIVE or UDP_PORT_BROADCAST
     UDPReceiveSocket:setsockname("*", port)
     
     print("[UDPSync] " .. (IsHost and "HOST" or "CLIENT") .. " on port " .. port)
+    if not IsHost then
+        print("[UDPSync] Target: " .. tostring(hostIP))
+    end
     
     Initialized = true
     
-    LoopAsync(math.floor(SYNC_INTERVAL * 1000), function()
-        if not Initialized then return true end
+    -- Wait for game to fully initialize
+    print("[UDPSync] Waiting " .. (STARTUP_DELAY/1000) .. "s for game to load...")
+    
+    LoopAsync(STARTUP_DELAY, function()
+        print("[UDPSync] Starting sync loop...")
         
-        SafeCall(function()
+        LoopAsync(math.floor(SYNC_INTERVAL * 1000), function()
+            if not Initialized then return true end
+            
+            TickCount = TickCount + 1
+            
             ExecuteInGameThread(function()
                 -- Get local pawn
-                local localPawn = GetLocalPlayerPawn()
-                if not localPawn then return end
+                local myPawn = GetMyPawn()
+                if not myPawn then
+                    if TickCount % 60 == 1 then
+                        print("[UDPSync] Tick " .. TickCount .. ": No valid pawn yet")
+                    end
+                    return
+                end
                 
                 -- Create packet
-                local packet = PackPos(localPawn)
+                local packet = MakePacket(myPawn)
                 if not packet then return end
                 
                 -- Send
@@ -134,33 +170,36 @@ local function StartSyncLoop(hostIP)
                     end
                 end
                 
-                -- Receive (READ ONLY - just log, no apply)
+                -- Receive
                 local data, ip = UDPReceiveSocket:receivefrom()
                 if data then
-                    PacketCount = PacketCount + 1
+                    RecvCount = RecvCount + 1
+                    LastRecvPacket = data
                     
                     if IsHost and ip then
                         ClientIP = ip
                     end
                     
-                    -- Just log the received data, don't apply it
-                    if PacketCount % 30 == 1 then  -- Log every 30th packet
-                        print("[UDPSync] RX#" .. PacketCount .. ": " .. data:sub(1, 50))
+                    -- Log every 30 packets
+                    if DebugMode and RecvCount % 30 == 1 then
+                        print("[UDPSync] RX#" .. RecvCount .. ": " .. data:sub(1, 40))
                     end
                 end
             end)
+            
+            return true
         end)
         
-        return true
+        return false  -- Stop outer delay loop
     end)
     
-    print("[UDPSync] v9.0 SAFE MODE Started (read-only)")
+    print("[UDPSync] v9.1 Initialized")
 end
 
 local function StopSync()
     Initialized = false
-    SafeCall(function() if UDPSendSocket then UDPSendSocket:close() end end)
-    SafeCall(function() if UDPReceiveSocket then UDPReceiveSocket:close() end end)
+    SafeGet(function() if UDPSendSocket then UDPSendSocket:close() end end)
+    SafeGet(function() if UDPReceiveSocket then UDPReceiveSocket:close() end end)
     print("[UDPSync] Stopped")
 end
 
@@ -169,28 +208,28 @@ end
 -- ============================================================================
 
 local UDPSync = {}
-function UDPSync.StartAsHost() StartSyncLoop(nil) end
-function UDPSync.StartAsClient(ip) StartSyncLoop(ip) end
+function UDPSync.StartAsHost() StartSync(nil) end
+function UDPSync.StartAsClient(ip) StartSync(ip) end
 function UDPSync.Stop() StopSync() end
 
 RegisterKeyBind(Key.F11, function()
+    DebugMode = not DebugMode
     print("")
-    print("=== UDP SYNC v9.0 SAFE MODE ===")
-    print("  Initialized: " .. tostring(Initialized))
-    print("  IsHost: " .. tostring(IsHost))
-    print("  ClientIP: " .. tostring(ClientIP))
-    print("  PacketsReceived: " .. PacketCount)
+    print("=== UDP SYNC v9.1 ===")
+    print("Debug: " .. tostring(DebugMode))
+    print("IsHost: " .. tostring(IsHost))
+    print("ClientIP: " .. tostring(ClientIP))
+    print("Ticks: " .. TickCount .. ", Received: " .. RecvCount)
+    print("LastPacket: " .. (LastRecvPacket ~= "" and LastRecvPacket:sub(1,50) or "none"))
     
-    local pawn = GetLocalPlayerPawn()
-    if pawn then
-        local loc = SafeCall(function() return pawn:GetActorLocation() end)
-        if loc then
-            print("  LocalPos: " .. math.floor(loc.X) .. "," .. math.floor(loc.Y) .. "," .. math.floor(loc.Z))
-        end
+    local p = GetMyPawn()
+    if p then
+        local loc = SafeGet(function() return p:GetActorLocation() end)
+        print("MyPos: " .. (loc and string.format("%.0f,%.0f,%.0f", loc.X, loc.Y, loc.Z) or "?"))
     else
-        print("  LocalPawn: NONE")
+        print("MyPawn: NOT FOUND")
     end
-    print("================================")
+    print("=====================")
 end)
 
 return UDPSync
