@@ -75,6 +75,24 @@ local function Disconnect()
 end
 
 -- ==============================================================================
+-- IP File Reader (must be defined before keybinds)
+-- ==============================================================================
+local function ReadServerIP()
+    local paths = { "ue4ss\\server_ip.txt", "ue4ss/server_ip.txt", "server_ip.txt" }
+    for _, path in ipairs(paths) do
+        local file = io.open(path, "r")
+        if file then
+            local ip = file:read("*l")
+            file:close()
+            if ip and ip ~= "" then
+                return ip:match("^%s*(.-)%s*$")
+            end
+        end
+    end
+    return "127.0.0.1"
+end
+
+-- ==============================================================================
 -- GUI Logic (ImGui)
 -- ==============================================================================
 
@@ -153,23 +171,6 @@ function OnDrawGui()
     end
 end
 
--- ==============================================================================
--- Auto-Load IP on Start
--- ==============================================================================
-local function ReadServerIP()
-    local paths = { "ue4ss\\server_ip.txt", "ue4ss/server_ip.txt", "server_ip.txt" }
-    for _, path in ipairs(paths) do
-        local file = io.open(path, "r")
-        if file then
-            local ip = file:read("*l")
-            file:close()
-            if ip and ip ~= "" then
-                return ip:match("^%s*(.-)%s*$")
-            end
-        end
-    end
-    return "127.0.0.1"
-end
-
+-- Load IP on startup
 ServerIP = ReadServerIP()
 print("Mod Loaded v5.2. Hotkeys: F1=Menu, F5=Host Abyss, F8=Join IP, F7=Disconnect")
