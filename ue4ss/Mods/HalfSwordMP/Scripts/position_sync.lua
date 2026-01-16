@@ -11,8 +11,8 @@ local UEHelpers = require("UEHelpers")
 -- ============================================================================
 
 local SYNC_ENABLED = true
-local SYNC_INTERVAL = 0.1  -- seconds between sync updates (10 Hz)
-local INTERPOLATION_SPEED = 10.0  -- Higher = snappier, Lower = smoother
+local SYNC_INTERVAL = 0.016  -- 16ms = ~60 Hz (maximum practical speed)
+local INTERPOLATION_SPEED = 25.0  -- Very fast interpolation for snappy movement
 
 -- ============================================================================
 -- State
