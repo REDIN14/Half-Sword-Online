@@ -1,993 +1,974 @@
-[2026-01-16 19:51:10.7357629] Console created
-[2026-01-16 19:51:10.7418393] UE4SS - v3.0.1 Beta #0 - Git SHA #91b70e5
-[2026-01-16 19:51:10.7418770] Timezone: Europe/Berlin
-[2026-01-16 19:51:10.7418982] UE4SS Build Configuration: Game__Shipping__Win64 (MSVC)
-[2026-01-16 19:51:10.7433537] Setting up mods...
-[2026-01-16 19:51:10.7434193] Loading mods from: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods
-[2026-01-16 19:51:10.7443795] Starting mods (from mods.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods\mods.txt) load order)...
-[2026-01-16 19:51:10.7445864] Starting mods (from enabled.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods), no defined load order)...
-[2026-01-16 19:51:10.7448479] No specific game configuration found, using default configuration file
-[2026-01-16 19:51:10.7448817] Config: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\UE4SS-settings.ini
+[2026-01-16 21:20:16.8948866] Console created
+[2026-01-16 21:20:16.9009224] UE4SS - v3.0.1 Beta #0 - Git SHA #91b70e5
+[2026-01-16 21:20:16.9009614] Timezone: Europe/Berlin
+[2026-01-16 21:20:16.9009833] UE4SS Build Configuration: Game__Shipping__Win64 (MSVC)
+[2026-01-16 21:20:16.9024920] Setting up mods...
+[2026-01-16 21:20:16.9025655] Loading mods from: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods
+[2026-01-16 21:20:16.9034663] Starting mods (from mods.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods\mods.txt) load order)...
+[2026-01-16 21:20:16.9036841] Starting mods (from enabled.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods), no defined load order)...
+[2026-01-16 21:20:16.9039311] No specific game configuration found, using default configuration file
+[2026-01-16 21:20:16.9039643] Config: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\UE4SS-settings.ini
 
-[2026-01-16 19:51:10.7449045] root directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
-[2026-01-16 19:51:10.7449279] working directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
-[2026-01-16 19:51:10.7449488] game executable directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64
-[2026-01-16 19:51:10.7449971] game executable: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\HalfSwordUE5-Win64-Shipping.exe (136401408 bytes)
-
-
-[2026-01-16 19:51:10.7450259] mods directories: 
-[2026-01-16 19:51:10.7450463] [0] C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods
-[2026-01-16 19:51:10.7450665] 
-[2026-01-16 19:51:10.7450832] log directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
-[2026-01-16 19:51:10.7451049] object dumper directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
+[2026-01-16 21:20:16.9039914] root directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
+[2026-01-16 21:20:16.9040149] working directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
+[2026-01-16 21:20:16.9040402] game executable directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64
+[2026-01-16 21:20:16.9040895] game executable: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\HalfSwordUE5-Win64-Shipping.exe (136401408 bytes)
 
 
-[2026-01-16 19:51:10.7454938] DebugGame Setting Enabled? false
-[2026-01-16 19:51:10.7470597] PS Scan attempt 1 (Phase 2)
-[2026-01-16 19:51:10.7471029] [PS] Reading image
-[2026-01-16 19:51:10.7471789] [PS] Starting scan
-[2026-01-16 19:51:10.9561066] [PS] Scan finished in 208.882ms
-[2026-01-16 19:51:10.9561915] [PS] Found EngineVersion: 5.4
-[2026-01-16 19:51:10.9562136] [PS] Found GUObjectArray: 0x7ff66a7809d0
-[2026-01-16 19:51:10.9562356] [PS] Found GMalloc: 0x7ff66a667b30
-[2026-01-16 19:51:10.9562561] [PS] Found FName::ToString: 0x7ff663c1cb10
-[2026-01-16 19:51:10.9562745] [PS] Found FName::FName(wchar_t*): 0x7ff663bfe550
-[2026-01-16 19:51:10.9562943] [PS] Found StaticConstructObject_Internal: 0x7ff663e189a0
-[2026-01-16 19:51:10.9563169] [PS] Failed to find FUObjectHashTables::Get(): FUObjectHashTablesGet: expected at least one value
-[2026-01-16 19:51:10.9563376] [PS] You can supply your own AOB in 'UE4SS_Signatures/GUObjectHashTables.lua'
-[2026-01-16 19:51:10.9563569] [PS] Found GNatives: 0x7ff66a77f470
-[2026-01-16 19:51:10.9563745] [PS] Found ConsoleManagerSingleton: 0x7ff663aa95e0
-[2026-01-16 19:51:10.9563929] [PS] Found GameEngineTick: 0x7ff666165580
-[2026-01-16 19:51:10.9564131] PS scan successful
-[2026-01-16 19:51:10.9569171] Running second pass of Lua override scans
-[2026-01-16 19:51:10.9569517] Lua Scan attempt 1 (Phase 2)
-[2026-01-16 19:51:10.9569861] Need to construct: /Script/CoreUObject.Class
-[2026-01-16 19:51:10.9570049] Need to construct: /Script/CoreUObject
-[2026-01-16 19:51:10.9570224] Need to construct: /Script/CoreUObject.Struct
-[2026-01-16 19:51:10.9570439] Need to construct: /Script/Engine.Pawn
-[2026-01-16 19:51:10.9570618] Need to construct: /Script/Engine.Character
-[2026-01-16 19:51:10.9570793] Need to construct: /Script/Engine.Actor
-[2026-01-16 19:51:10.9570996] Need to construct: /Script/CoreUObject.Vector
-[2026-01-16 19:51:10.9571222] Need to construct: /Script/Engine.Default__DefaultPawn
-[2026-01-16 19:51:10.9571832] Need to construct: /Script/Engine.HitResult
-[2026-01-16 19:51:10.9572029] Need to construct: /Script/Engine.Default__MaterialExpression
-[2026-01-16 19:51:10.9572214] Need to construct: /Script/Engine.ActorComponent
-[2026-01-16 19:51:10.9572388] Need to construct: /Script/CoreUObject.OrientedBox
-[2026-01-16 19:51:10.9572562] Need to construct: /Script/Engine.MovementComponent
-[2026-01-16 19:51:10.9572756] Need to construct: /Script/Engine.HUD
-[2026-01-16 19:51:10.9572928] Need to construct: /Script/Engine.PlayerController
-[2026-01-16 19:51:10.9573106] Need to construct: /Script/Engine.PlayerCameraManager
-[2026-01-16 19:51:10.9573318] Need to construct: /Script/CoreUObject.EInterpCurveMode
-[2026-01-16 19:51:10.9573518] Need to construct: /Script/Engine.ENetRole
-[2026-01-16 19:51:10.9573690] Need to construct: /Script/MovieScene.MovieSceneEditorData
-[2026-01-16 19:51:10.9573868] Need to construct: /Script/UMG.Widget
-[2026-01-16 19:51:10.9574042] Need to construct: /Script/UMG.ComboBoxString
-[2026-01-16 19:51:10.9574276] Need to construct: /Script/CoreUObject.Interface
-[2026-01-16 19:51:11.2121987] Constructed [1 / 22]: /Script/CoreUObject.Class
-[2026-01-16 19:51:11.2122957] Constructed [2 / 22]: /Script/CoreUObject
-[2026-01-16 19:51:11.2123572] Constructed [3 / 22]: /Script/CoreUObject.Struct
-[2026-01-16 19:51:11.2134466] Constructed [4 / 22]: /Script/Engine.Pawn
-[2026-01-16 19:51:11.2144008] Constructed [5 / 22]: /Script/Engine.Character
-[2026-01-16 19:51:11.2145955] Constructed [6 / 22]: /Script/Engine.Actor
-[2026-01-16 19:51:11.2238133] Constructed [7 / 22]: /Script/Engine.ActorComponent
-[2026-01-16 19:51:11.2270181] Constructed [8 / 22]: /Script/Engine.MovementComponent
-[2026-01-16 19:51:11.2282648] Constructed [9 / 22]: /Script/Engine.HUD
-[2026-01-16 19:51:11.2292230] Constructed [10 / 22]: /Script/Engine.PlayerController
-[2026-01-16 19:51:11.2300899] Constructed [11 / 22]: /Script/Engine.PlayerCameraManager
-[2026-01-16 19:51:11.2373028] Constructed [12 / 22]: /Script/UMG.Widget
-[2026-01-16 19:51:11.2377441] Constructed [13 / 22]: /Script/UMG.ComboBoxString
-[2026-01-16 19:51:11.2377663] Constructed [14 / 22]: /Script/CoreUObject.Interface
-[2026-01-16 19:51:12.3031404] Constructed [15 / 22]: /Script/CoreUObject.Vector
-[2026-01-16 19:51:12.3169857] Constructed [16 / 22]: /Script/Engine.HitResult
-[2026-01-16 19:51:12.3327261] Constructed [17 / 22]: /Script/Engine.Default__MaterialExpression
-[2026-01-16 19:51:12.3362377] Constructed [18 / 22]: /Script/CoreUObject.OrientedBox
-[2026-01-16 19:51:12.3397842] Constructed [19 / 22]: /Script/CoreUObject.EInterpCurveMode
-[2026-01-16 19:51:12.3463447] Constructed [20 / 22]: /Script/Engine.ENetRole
-[2026-01-16 19:51:12.3549220] Constructed [21 / 22]: /Script/MovieScene.MovieSceneEditorData
-[2026-01-16 19:51:12.6229076] Constructed [22 / 22]: /Script/Engine.Default__DefaultPawn
-[2026-01-16 19:51:12.9201742] GameEngine::LoadMap address 0x7ff6667d9a00
-[2026-01-16 19:51:12.9202861] GameEngine::Tick address (vtable: 0x7ff666165580; scan: 0x7ff666165580)
-[2026-01-16 19:51:12.9203174] Using scan address for GameEngine::Tick
-[2026-01-16 19:51:12.9207707] GameModeBase::InitGameState address 0x7ff6661529f0
-[2026-01-16 19:51:12.9208138] AActor::BeginPlay address 0x7ff665d52a20
-[2026-01-16 19:51:12.9208404] AActor::EndPlay address 0x7ff665d5a360
-[2026-01-16 19:51:12.9208658] AActor::Tick address 0x7ff665d75d60
-[2026-01-16 19:51:12.9208914] GameViewportClient::Tick address 0x7ff6661d2850
-[2026-01-16 19:51:12.9209193] ProcessEvent address 0x7ff663dec680
-[2026-01-16 19:51:12.9209434] ProcessConsoleExec address 0x7ff663cadd20
-[2026-01-16 19:51:12.9209682] UStruct::Link address 0x7ff663ce04a0
-[2026-01-16 19:51:12.9210011] Constructed 22 of 22 objects
-[2026-01-16 19:51:13.1127373] ProcessInternal address: 0x7ff663decaf0
-[2026-01-16 19:51:13.1128329] ProcessLocalScriptFunction address: 0x7ff663decbf0
-[2026-01-16 19:51:13.1128551] UnrealConfig.FExecVTableOffsetInLocalPlayer: 28
-[2026-01-16 19:51:13.1128738] Post-initialization: GMalloc: 0x7ff66a667b30 -> 0x18086206900
-[2026-01-16 19:51:13.1129461] Unreal Engine modules (non-modular):
-[2026-01-16 19:51:13.1130020] MainExe @ 0x7ff662b40000 size=0x85a7000
-[2026-01-16 19:51:13.1130307] 
+[2026-01-16 21:20:16.9041177] mods directories: 
+[2026-01-16 21:20:16.9041388] [0] C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods
+[2026-01-16 21:20:16.9041597] 
+[2026-01-16 21:20:16.9041822] log directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
+[2026-01-16 21:20:16.9042052] object dumper directory: C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss
+
+
+[2026-01-16 21:20:16.9046019] DebugGame Setting Enabled? false
+[2026-01-16 21:20:16.9061333] PS Scan attempt 1 (Phase 2)
+[2026-01-16 21:20:16.9061719] [PS] Reading image
+[2026-01-16 21:20:16.9062506] [PS] Starting scan
+[2026-01-16 21:20:17.1279549] [PS] Scan finished in 221.6599ms
+[2026-01-16 21:20:17.1280382] [PS] Found EngineVersion: 5.4
+[2026-01-16 21:20:17.1280606] [PS] Found GUObjectArray: 0x7ff66a7809d0
+[2026-01-16 21:20:17.1280823] [PS] Found GMalloc: 0x7ff66a667b30
+[2026-01-16 21:20:17.1281031] [PS] Found FName::ToString: 0x7ff663c1cb10
+[2026-01-16 21:20:17.1281276] [PS] Found FName::FName(wchar_t*): 0x7ff663bfe550
+[2026-01-16 21:20:17.1281490] [PS] Found StaticConstructObject_Internal: 0x7ff663e189a0
+[2026-01-16 21:20:17.1281718] [PS] Failed to find FUObjectHashTables::Get(): FUObjectHashTablesGet: expected at least one value
+[2026-01-16 21:20:17.1281929] [PS] You can supply your own AOB in 'UE4SS_Signatures/GUObjectHashTables.lua'
+[2026-01-16 21:20:17.1282122] [PS] Found GNatives: 0x7ff66a77f470
+[2026-01-16 21:20:17.1282304] [PS] Found ConsoleManagerSingleton: 0x7ff663aa95e0
+[2026-01-16 21:20:17.1282499] [PS] Found GameEngineTick: 0x7ff666165580
+[2026-01-16 21:20:17.1282693] PS scan successful
+[2026-01-16 21:20:17.1287822] Running second pass of Lua override scans
+[2026-01-16 21:20:17.1288197] Lua Scan attempt 1 (Phase 2)
+[2026-01-16 21:20:17.1288543] Need to construct: /Script/CoreUObject.Class
+[2026-01-16 21:20:17.1288737] Need to construct: /Script/CoreUObject
+[2026-01-16 21:20:17.1288923] Need to construct: /Script/CoreUObject.Struct
+[2026-01-16 21:20:17.1289138] Need to construct: /Script/Engine.Pawn
+[2026-01-16 21:20:17.1289316] Need to construct: /Script/Engine.Character
+[2026-01-16 21:20:17.1289500] Need to construct: /Script/Engine.Actor
+[2026-01-16 21:20:17.1289683] Need to construct: /Script/CoreUObject.Vector
+[2026-01-16 21:20:17.1289907] Need to construct: /Script/Engine.Default__DefaultPawn
+[2026-01-16 21:20:17.1290493] Need to construct: /Script/Engine.HitResult
+[2026-01-16 21:20:17.1290712] Need to construct: /Script/Engine.Default__MaterialExpression
+[2026-01-16 21:20:17.1290896] Need to construct: /Script/Engine.ActorComponent
+[2026-01-16 21:20:17.1291079] Need to construct: /Script/CoreUObject.OrientedBox
+[2026-01-16 21:20:17.1291308] Need to construct: /Script/Engine.MovementComponent
+[2026-01-16 21:20:17.1291510] Need to construct: /Script/Engine.HUD
+[2026-01-16 21:20:17.1291688] Need to construct: /Script/Engine.PlayerController
+[2026-01-16 21:20:17.1291867] Need to construct: /Script/Engine.PlayerCameraManager
+[2026-01-16 21:20:17.1292079] Need to construct: /Script/CoreUObject.EInterpCurveMode
+[2026-01-16 21:20:17.1292264] Need to construct: /Script/Engine.ENetRole
+[2026-01-16 21:20:17.1292438] Need to construct: /Script/MovieScene.MovieSceneEditorData
+[2026-01-16 21:20:17.1292620] Need to construct: /Script/UMG.Widget
+[2026-01-16 21:20:17.1292817] Need to construct: /Script/UMG.ComboBoxString
+[2026-01-16 21:20:17.1293048] Need to construct: /Script/CoreUObject.Interface
+[2026-01-16 21:20:17.3837599] Constructed [1 / 22]: /Script/CoreUObject.Class
+[2026-01-16 21:20:17.3838682] Constructed [2 / 22]: /Script/CoreUObject
+[2026-01-16 21:20:17.3839292] Constructed [3 / 22]: /Script/CoreUObject.Struct
+[2026-01-16 21:20:17.3848199] Constructed [4 / 22]: /Script/Engine.Pawn
+[2026-01-16 21:20:17.3856552] Constructed [5 / 22]: /Script/Engine.Character
+[2026-01-16 21:20:17.3858331] Constructed [6 / 22]: /Script/Engine.Actor
+[2026-01-16 21:20:17.3936124] Constructed [7 / 22]: /Script/Engine.ActorComponent
+[2026-01-16 21:20:17.3963350] Constructed [8 / 22]: /Script/Engine.MovementComponent
+[2026-01-16 21:20:17.3971447] Constructed [9 / 22]: /Script/Engine.HUD
+[2026-01-16 21:20:17.3979190] Constructed [10 / 22]: /Script/Engine.PlayerController
+[2026-01-16 21:20:17.3986228] Constructed [11 / 22]: /Script/Engine.PlayerCameraManager
+[2026-01-16 21:20:17.4043942] Constructed [12 / 22]: /Script/UMG.Widget
+[2026-01-16 21:20:17.4047413] Constructed [13 / 22]: /Script/UMG.ComboBoxString
+[2026-01-16 21:20:17.4047616] Constructed [14 / 22]: /Script/CoreUObject.Interface
+[2026-01-16 21:20:18.4783306] Constructed [15 / 22]: /Script/CoreUObject.Vector
+[2026-01-16 21:20:18.4989177] Constructed [16 / 22]: /Script/Engine.HitResult
+[2026-01-16 21:20:18.5216234] Constructed [17 / 22]: /Script/Engine.Default__MaterialExpression
+[2026-01-16 21:20:18.5254746] Constructed [18 / 22]: /Script/CoreUObject.OrientedBox
+[2026-01-16 21:20:18.5295034] Constructed [19 / 22]: /Script/CoreUObject.EInterpCurveMode
+[2026-01-16 21:20:18.5355154] Constructed [20 / 22]: /Script/Engine.ENetRole
+[2026-01-16 21:20:18.5432772] Constructed [21 / 22]: /Script/MovieScene.MovieSceneEditorData
+[2026-01-16 21:20:18.8174033] Constructed [22 / 22]: /Script/Engine.Default__DefaultPawn
+[2026-01-16 21:20:19.1304410] GameEngine::LoadMap address 0x7ff6667d9a00
+[2026-01-16 21:20:19.1305377] GameEngine::Tick address (vtable: 0x7ff666165580; scan: 0x7ff666165580)
+[2026-01-16 21:20:19.1305647] Using scan address for GameEngine::Tick
+[2026-01-16 21:20:19.1310003] GameModeBase::InitGameState address 0x7ff6661529f0
+[2026-01-16 21:20:19.1310460] AActor::BeginPlay address 0x7ff665d52a20
+[2026-01-16 21:20:19.1310724] AActor::EndPlay address 0x7ff665d5a360
+[2026-01-16 21:20:19.1310920] AActor::Tick address 0x7ff665d75d60
+[2026-01-16 21:20:19.1311091] GameViewportClient::Tick address 0x7ff6661d2850
+[2026-01-16 21:20:19.1311254] ProcessEvent address 0x7ff663dec680
+[2026-01-16 21:20:19.1311413] ProcessConsoleExec address 0x7ff663cadd20
+[2026-01-16 21:20:19.1311573] UStruct::Link address 0x7ff663ce04a0
+[2026-01-16 21:20:19.1311806] Constructed 22 of 22 objects
+[2026-01-16 21:20:19.3434052] ProcessInternal address: 0x7ff663decaf0
+[2026-01-16 21:20:19.3435044] ProcessLocalScriptFunction address: 0x7ff663decbf0
+[2026-01-16 21:20:19.3435377] UnrealConfig.FExecVTableOffsetInLocalPlayer: 28
+[2026-01-16 21:20:19.3435663] Post-initialization: GMalloc: 0x7ff66a667b30 -> 0x1f21a42a990
+[2026-01-16 21:20:19.3436493] Unreal Engine modules (non-modular):
+[2026-01-16 21:20:19.3437249] MainExe @ 0x7ff662b40000 size=0x85a7000
+[2026-01-16 21:20:19.3437679] 
 ##### MEMBER OFFSETS START #####
 
-[2026-01-16 19:51:13.1130482] UObjectBase::ActorCategory = 0x61
-[2026-01-16 19:51:13.1130644] UObjectBase::ClassPrivate = 0x10
-[2026-01-16 19:51:13.1130804] UObjectBase::bFindCameraComponentWhenViewTarget = 0x5A
-[2026-01-16 19:51:13.1130965] UObjectBase::InternalIndex = 0xC
-[2026-01-16 19:51:13.1131120] UObjectBase::World = 0x78
-[2026-01-16 19:51:13.1131336] UObjectBase::ObjectFlags = 0x8
-[2026-01-16 19:51:13.1131491] UObjectBase::OnEndCursorOver = 0x1DE
-[2026-01-16 19:51:13.1131647] UObjectBase::CustomTimeDilation = 0x68
-[2026-01-16 19:51:13.1131798] UObjectBase::NamePrivate = 0x18
-[2026-01-16 19:51:13.1131948] UObjectBase::bForceNetAddressable = 0x59
-[2026-01-16 19:51:13.1132103] UObjectBase::InputPriority = 0x154
-[2026-01-16 19:51:13.1132259] UObjectBase::OuterPrivate = 0x20
-[2026-01-16 19:51:13.1132409] UObjectBase::bNetTemporary = 0x58
-[2026-01-16 19:51:13.1132559] UObjectBase::ActorHasBegunPlay = 0x5D
-[2026-01-16 19:51:13.1132711] UObjectBase::OnInputTouchEnd = 0x1E2
-[2026-01-16 19:51:13.1132868] UObjectBase::bHasDeferredComponentRegistration = 0x5C
-[2026-01-16 19:51:13.1133028] UObjectBase::AttachmentReplication = 0x70
-[2026-01-16 19:51:13.1133183] UObjectBase::EngineShowFlags = 0xB8
-[2026-01-16 19:51:13.1133337] UObjectBase::AutoReceiveInput = 0x153
-[2026-01-16 19:51:13.1133487] UObjectBase::Children = 0x190
-[2026-01-16 19:51:13.1133634] UObjectBase::PhysicsReplicationMode = 0x17C
-[2026-01-16 19:51:13.1133784] UObjectBase::DetachFence = 0x288
-[2026-01-16 19:51:13.1133935] UObjectBase::CreationTime = 0x158
-[2026-01-16 19:51:13.1134089] UObjectBase::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
-[2026-01-16 19:51:13.1134248] UObjectBase::InitialLifeSpan = 0x64
-[2026-01-16 19:51:13.1134397] UObjectBase::Tags = 0x1C8
-[2026-01-16 19:51:13.1134547] UObjectBase::InputComponent = 0x160
-[2026-01-16 19:51:13.1134696] UObjectBase::OnTakePointDamage = 0x1D9
-[2026-01-16 19:51:13.1134848] UObjectBase::LastRenderTime = 0x180
-[2026-01-16 19:51:13.1134997] UObjectBase::RemoteRole = 0x60
-[2026-01-16 19:51:13.1135145] UObjectBase::Layers = 0x1B0
-[2026-01-16 19:51:13.1135294] UObjectBase::MinNetUpdateFrequency = 0x174
-[2026-01-16 19:51:13.1135452] UObjectBase::TimerHandle_LifeSpanExpired = 0x1A8
-[2026-01-16 19:51:13.1135605] UObjectBase::OnTakeAnyDamage = 0x1D8
-[2026-01-16 19:51:13.1135753] UObjectBase::NetCullDistanceSquared = 0x168
-[2026-01-16 19:51:13.1135910] UObjectBase::OnActorEndOverlap = 0x1DC
-[2026-01-16 19:51:13.1136060] UObjectBase::NetDormancy = 0x151
-[2026-01-16 19:51:13.1136250] UObjectBase::NetDriverName = 0x148
-[2026-01-16 19:51:13.1136474] UObjectBase::NetTag = 0x16C
-[2026-01-16 19:51:13.1136691] UObjectBase::NetPriority = 0x178
-[2026-01-16 19:51:13.1136842] UObjectBase::PrimaryActorTick = 0x28
-[2026-01-16 19:51:13.1136994] UObjectBase::NetUpdateFrequency = 0x170
-[2026-01-16 19:51:13.1137146] UObjectBase::OnClicked = 0x1DF
-[2026-01-16 19:51:13.1137295] UObjectBase::OnActorBeginOverlap = 0x1DB
-[2026-01-16 19:51:13.1137447] UObjectBase::OnActorHit = 0x1E5
-[2026-01-16 19:51:13.1137597] UObjectBase::StatHitchesData = 0x3A0
-[2026-01-16 19:51:13.1137746] UObjectBase::OnBeginCursorOver = 0x1DD
-[2026-01-16 19:51:13.1137896] UObjectBase::OnDestroyed = 0x1E6
-[2026-01-16 19:51:13.1138045] UObjectBase::OnInputTouchEnter = 0x1E3
-[2026-01-16 19:51:13.1138194] UObjectBase::bHasAudioFocus = 0xFC
-[2026-01-16 19:51:13.1138342] UObjectBase::OnEndPlay = 0x1E7
-[2026-01-16 19:51:13.1138489] UObjectBase::OnInputTouchBegin = 0x1E1
-[2026-01-16 19:51:13.1138637] UObjectBase::OnInputTouchLeave = 0x1E4
-[2026-01-16 19:51:13.1138784] UObjectBase::OnReleased = 0x1E0
-[2026-01-16 19:51:13.1138932] UObjectBase::OnTakeRadialDamage = 0x1DA
-[2026-01-16 19:51:13.1139080] UObjectBase::Owner = 0x140
-[2026-01-16 19:51:13.1139276] UObjectBase::ParentComponent = 0x1C0
-[2026-01-16 19:51:13.1139521] UObjectBase::RayTracingGroupId = 0x6C
-[2026-01-16 19:51:13.1139796] UObjectBase::ReplicatedComponentsInfo = 0x1F8
-[2026-01-16 19:51:13.1140011] UObjectBase::ReplicatedMovement = 0xD0
-[2026-01-16 19:51:13.1140230] UObjectBase::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
-[2026-01-16 19:51:13.1140428] UObjectBase::ReplicatedSubObjects = 0x1E8
-[2026-01-16 19:51:13.1140683] UObjectBase::Role = 0x150
-[2026-01-16 19:51:13.1140951] UObjectBase::RootComponent = 0x1A0
-[2026-01-16 19:51:13.1141237] UObjectBase::SpawnCollisionHandlingMethod = 0x152
-[2026-01-16 19:51:13.1141508] UObjectBase::bNetStartup = 0x58
-[2026-01-16 19:51:13.1141770] UObjectBase::bActorIsBeingConstructed = 0x5D
-[2026-01-16 19:51:13.1141973] UObjectBase::bActorBeginningPlayFromLevelStreaming = 0x5C
-[2026-01-16 19:51:13.1142183] UObjectBase::bIsMouseOverClient = 0x3AD
-[2026-01-16 19:51:13.1142417] UObjectBase::bActorEnableCollision = 0x5C
-[2026-01-16 19:51:13.1142687] UObjectBase::bActorInitialized = 0x5C
-[2026-01-16 19:51:13.1142957] UObjectBase::bActorIsBeingDestroyed = 0x5D
-[2026-01-16 19:51:13.1143186] UObjectBase::bActorSeamlessTraveled = 0x5B
-[2026-01-16 19:51:13.1143402] UObjectBase::bActorWantsDestroyDuringBeginPlay = 0x5D
-[2026-01-16 19:51:13.1143608] UObjectBase::bAllowReceiveTickEventOnDedicatedServer = 0x5B
-[2026-01-16 19:51:13.1143818] UObjectBase::bAllowTickBeforeBeginPlay = 0x5A
-[2026-01-16 19:51:13.1144038] UObjectBase::bAlwaysRelevant = 0x58
-[2026-01-16 19:51:13.1144313] UObjectBase::bAsyncPhysicsTickEnabled = 0x5D
-[2026-01-16 19:51:13.1144575] UObjectBase::bAutoDestroyWhenFinished = 0x5A
-[2026-01-16 19:51:13.1144825] UObjectBase::bBlockInput = 0x5A
-[2026-01-16 19:51:13.1145086] UObjectBase::bCallPreReplication = 0x58
-[2026-01-16 19:51:13.1145351] UObjectBase::bCallPreReplicationForReplay = 0x58
-[2026-01-16 19:51:13.1145559] UObjectBase::bCanBeDamaged = 0x5A
-[2026-01-16 19:51:13.1145788] UObjectBase::bCanBeInCluster = 0x5B
-[2026-01-16 19:51:13.1146052] UObjectBase::bCollideWhenPlacing = 0x5A
-[2026-01-16 19:51:13.1146257] UObjectBase::bHasRegisteredAllComponents = 0x5C
-[2026-01-16 19:51:13.1146487] UObjectBase::bEnableAutoLODGeneration = 0x5B
-[2026-01-16 19:51:13.1146715] UObjectBase::bExchangedRoles = 0x59
-[2026-01-16 19:51:13.1146995] UObjectBase::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
-[2026-01-16 19:51:13.1147252] UObjectBase::bHasFinishedSpawning = 0x5C
-[2026-01-16 19:51:13.1147496] UObjectBase::bHidden = 0x58
-[2026-01-16 19:51:13.1147771] UObjectBase::bIgnoresOriginShifting = 0x5A
-[2026-01-16 19:51:13.1148012] UObjectBase::bIsEditorOnlyActor = 0x5B
-[2026-01-16 19:51:13.1148192] UObjectBase::bNetCheckedInitialPhysicsState = 0x5B
-[2026-01-16 19:51:13.1148346] UObjectBase::bNetLoadOnClient = 0x59
-[2026-01-16 19:51:13.1148497] UObjectBase::bNetUseOwnerRelevancy = 0x59
-[2026-01-16 19:51:13.1148645] UObjectBase::bOnlyRelevantToOwner = 0x58
-[2026-01-16 19:51:13.1148805] UObjectBase::bRelevantForLevelBounds = 0x59
-[2026-01-16 19:51:13.1148958] UObjectBase::bRelevantForNetworkReplays = 0x59
-[2026-01-16 19:51:13.1149113] UObjectBase::bReplayRewindable = 0x59
-[2026-01-16 19:51:13.1149262] UObjectBase::bReplicateMovement = 0x58
-[2026-01-16 19:51:13.1149411] UObjectBase::bReplicateUsingRegisteredSubObjectList = 0x5B
-[2026-01-16 19:51:13.1149566] UObjectBase::bReplicates = 0x5B
-[2026-01-16 19:51:13.1149714] UObjectBase::bRunningUserConstructionScript = 0x5C
-[2026-01-16 19:51:13.1149867] UObjectBase::bTearOff = 0x59
-[2026-01-16 19:51:13.1150017] UObjectBase::bTickFunctionsRegistered = 0x5C
-[2026-01-16 19:51:13.1150238] UObjectBase::ActiveSplitscreenType = 0x70
-[2026-01-16 19:51:13.1150467] UObjectBase::AudioDeviceHandle = 0xF8
-[2026-01-16 19:51:13.1150777] UObjectBase::CurrentBufferVisualizationMode = 0x130
-[2026-01-16 19:51:13.1151031] UObjectBase::CurrentGroomVisualizationMode = 0x150
-[2026-01-16 19:51:13.1151337] UObjectBase::CurrentLumenVisualizationMode = 0x140
-[2026-01-16 19:51:13.1151601] UObjectBase::CurrentNaniteVisualizationMode = 0x138
-[2026-01-16 19:51:13.1151860] UObjectBase::CurrentSubstrateVisualizationMode = 0x148
-[2026-01-16 19:51:13.1152142] UObjectBase::CurrentVirtualShadowMapVisualizationMode = 0x158
-[2026-01-16 19:51:13.1152413] UObjectBase::CursorWidgets = 0x210
-[2026-01-16 19:51:13.1152664] UObjectBase::DebugProperties = 0x48
-[2026-01-16 19:51:13.1152919] UObjectBase::GameLayerManagerPtr = 0x120
-[2026-01-16 19:51:13.1153168] UObjectBase::HardwareCursorCache = 0x170
-[2026-01-16 19:51:13.1153422] UObjectBase::HardwareCursors = 0x1C0
-[2026-01-16 19:51:13.1153673] UObjectBase::HighResScreenshotDialog = 0x160
-[2026-01-16 19:51:13.1153925] UObjectBase::MaxSplitscreenPlayers = 0x68
-[2026-01-16 19:51:13.1154172] UObjectBase::MouseCaptureMode = 0x3AA
-[2026-01-16 19:51:13.1154422] UObjectBase::MouseLockMode = 0x3AC
-[2026-01-16 19:51:13.1154671] UObjectBase::SplitscreenInfo = 0x58
-[2026-01-16 19:51:13.1154918] UObjectBase::StatUnitData = 0x398
-[2026-01-16 19:51:13.1155163] UObjectBase::ViewModeIndex = 0xB0
-[2026-01-16 19:51:13.1155406] UObjectBase::Viewport = 0xE8
-[2026-01-16 19:51:13.1155658] UObjectBase::ViewportConsole = 0x40
-[2026-01-16 19:51:13.1155925] UObjectBase::ViewportFrame = 0xF0
-[2026-01-16 19:51:13.1156185] UObjectBase::ViewportOverlayWidget = 0x110
-[2026-01-16 19:51:13.1156364] UObjectBase::Window = 0x100
-[2026-01-16 19:51:13.1156517] UObjectBase::bDisableSplitScreenOverride = 0x3A8
-[2026-01-16 19:51:13.1156671] UObjectBase::bDisableWorldRendering = 0x6C
-[2026-01-16 19:51:13.1156824] UObjectBase::bHideCursorDuringCapture = 0x3AB
-[2026-01-16 19:51:13.1156976] UObjectBase::bIgnoreInput = 0x3A9
-[2026-01-16 19:51:13.1157124] UObjectBase::bIsPlayInEditorViewport = 0x6C
-[2026-01-16 19:51:13.1157272] UObjectBase::bSuppressTransitionMessage = 0x88
-[2026-01-16 19:51:13.1157430] UObjectBase::bUseSoftwareCursorWidgets = 0x260
-[2026-01-16 19:51:13.1157586] UScriptStruct::ICppStructOps::Alignment = 0xC
-[2026-01-16 19:51:13.1157738] UScriptStruct::ICppStructOps::Size = 0x8
-[2026-01-16 19:51:13.1157891] UStruct::DestructorLink = 0x80
-[2026-01-16 19:51:13.1158039] UStruct::Children = 0x48
-[2026-01-16 19:51:13.1158188] UStruct::ChildProperties = 0x50
-[2026-01-16 19:51:13.1158336] UStruct::PostConstructLink = 0x88
-[2026-01-16 19:51:13.1158484] UStruct::UnresolvedScriptProperties = 0xA0
-[2026-01-16 19:51:13.1158636] UStruct::MinAlignment = 0x5C
-[2026-01-16 19:51:13.1158791] UStruct::PropertiesSize = 0x58
-[2026-01-16 19:51:13.1158940] UStruct::PropertyLink = 0x70
-[2026-01-16 19:51:13.1159088] UStruct::RefLink = 0x78
-[2026-01-16 19:51:13.1159234] UStruct::Script = 0x60
-[2026-01-16 19:51:13.1159380] UStruct::ScriptAndPropertyObjectReferences = 0x90
-[2026-01-16 19:51:13.1159536] UStruct::SuperStruct = 0x40
-[2026-01-16 19:51:13.1159687] UScriptStruct::StructFlags = 0xB0
-[2026-01-16 19:51:13.1159838] UScriptStruct::CppStructOps = 0xB8
-[2026-01-16 19:51:13.1159990] UScriptStruct::bPrepareCppStructOpsCompleted = 0xB4
-[2026-01-16 19:51:13.1160143] UClass::ClassCastFlags = 0xD8
-[2026-01-16 19:51:13.1160292] UClass::AllFunctionsCache = 0x180
-[2026-01-16 19:51:13.1160448] UClass::bCooked = 0xD0
-[2026-01-16 19:51:13.1160594] UClass::ClassConfigName = 0xE8
-[2026-01-16 19:51:13.1160746] UClass::ClassConstructor = 0xB0
-[2026-01-16 19:51:13.1160893] UClass::ClassDefaultObject = 0x110
-[2026-01-16 19:51:13.1161043] UClass::ClassFlags = 0xD4
-[2026-01-16 19:51:13.1161191] UClass::ClassUnique = 0xC8
-[2026-01-16 19:51:13.1161343] UClass::ClassVTableHelperCtorCaller = 0xB8
-[2026-01-16 19:51:13.1161496] UClass::bLayoutChanging = 0xD1
-[2026-01-16 19:51:13.1161645] UClass::ClassWithin = 0xE0
-[2026-01-16 19:51:13.1161791] UClass::FirstOwnedClassRep = 0xCC
-[2026-01-16 19:51:13.1161943] UClass::FuncMap = 0x128
-[2026-01-16 19:51:13.1162089] UClass::Interfaces = 0x1D8
-[2026-01-16 19:51:13.1162238] UClass::NetFields = 0x100
-[2026-01-16 19:51:13.1162386] UClass::ReferenceSchema = 0x1E8
-[2026-01-16 19:51:13.1162539] UClass::SparseClassData = 0x118
-[2026-01-16 19:51:13.1162692] UClass::SparseClassDataStruct = 0x120
-[2026-01-16 19:51:13.1162849] UEnum::CppForm = 0x50
-[2026-01-16 19:51:13.1162993] UEnum::CppType = 0x30
-[2026-01-16 19:51:13.1163139] UEnum::EnumDisplayNameFn = 0x58
-[2026-01-16 19:51:13.1163319] UEnum::Names = 0x40
-[2026-01-16 19:51:13.1163473] UEnum::EnumFlags_Internal = 0x54
-[2026-01-16 19:51:13.1163628] UEnum::EnumPackage = 0x60
-[2026-01-16 19:51:13.1163783] UFunction::EventGraphCallOffset = 0xD0
-[2026-01-16 19:51:13.1163934] UFunction::EventGraphFunction = 0xC8
-[2026-01-16 19:51:13.1164084] UFunction::RPCId = 0xBA
-[2026-01-16 19:51:13.1164231] UFunction::FirstPropertyToInit = 0xC0
-[2026-01-16 19:51:13.1164378] UFunction::Func = 0xD8
-[2026-01-16 19:51:13.1164526] UFunction::FunctionFlags = 0xB0
-[2026-01-16 19:51:13.1164677] UFunction::NumParms = 0xB4
-[2026-01-16 19:51:13.1164826] UFunction::ParmsSize = 0xB6
-[2026-01-16 19:51:13.1164976] UFunction::RPCResponseId = 0xBC
-[2026-01-16 19:51:13.1165125] UFunction::ReturnValueOffset = 0xB8
-[2026-01-16 19:51:13.1165279] USparseDelegateFunction::OwningClassName = 0xE0
-[2026-01-16 19:51:13.1165432] USparseDelegateFunction::DelegateName = 0xE8
-[2026-01-16 19:51:13.1165585] UField::Next = 0x28
-[2026-01-16 19:51:13.1165736] FField::ClassPrivate = 0x8
-[2026-01-16 19:51:13.1165889] FField::NamePrivate = 0x20
-[2026-01-16 19:51:13.1166040] FField::FlagsPrivate = 0x28
-[2026-01-16 19:51:13.1166186] FField::Next = 0x18
-[2026-01-16 19:51:13.1166331] FField::Owner = 0x10
-[2026-01-16 19:51:13.1166482] FProperty::ArrayDim = 0x30
-[2026-01-16 19:51:13.1166632] FProperty::DestructorLinkNext = 0x58
-[2026-01-16 19:51:13.1166784] FProperty::ElementSize = 0x34
-[2026-01-16 19:51:13.1166931] FProperty::NextRef = 0x50
-[2026-01-16 19:51:13.1167078] FProperty::Offset_Internal = 0x44
-[2026-01-16 19:51:13.1167230] FProperty::PostConstructLinkNext = 0x60
-[2026-01-16 19:51:13.1167381] FProperty::PropertyLinkNext = 0x48
-[2026-01-16 19:51:13.1167532] FProperty::PropertyFlags = 0x38
-[2026-01-16 19:51:13.1167683] FProperty::RepIndex = 0x40
-[2026-01-16 19:51:13.1167830] FProperty::RepNotifyFunc = 0x68
-[2026-01-16 19:51:13.1167978] FNumericProperty::ArrayDim = 0x30
-[2026-01-16 19:51:13.1168128] FNumericProperty::DestructorLinkNext = 0x58
-[2026-01-16 19:51:13.1168276] FNumericProperty::ElementSize = 0x34
-[2026-01-16 19:51:13.1168435] FNumericProperty::NextRef = 0x50
-[2026-01-16 19:51:13.1168587] FNumericProperty::Offset_Internal = 0x44
-[2026-01-16 19:51:13.1168736] FNumericProperty::PostConstructLinkNext = 0x60
-[2026-01-16 19:51:13.1168938] FNumericProperty::PropertyLinkNext = 0x48
-[2026-01-16 19:51:13.1169091] FNumericProperty::PropertyFlags = 0x38
-[2026-01-16 19:51:13.1169242] FNumericProperty::RepIndex = 0x40
-[2026-01-16 19:51:13.1169391] FNumericProperty::RepNotifyFunc = 0x68
-[2026-01-16 19:51:13.1169543] FObjectPropertyBase::PropertyClass = 0x70
-[2026-01-16 19:51:13.1169694] FStructProperty::Struct = 0x70
-[2026-01-16 19:51:13.1169843] FArrayProperty::Inner = 0x78
-[2026-01-16 19:51:13.1169993] FArrayProperty::ArrayFlags = 0x70
-[2026-01-16 19:51:13.1170144] FMapProperty::KeyProp = 0x70
-[2026-01-16 19:51:13.1170295] FMapProperty::MapFlags = 0x98
-[2026-01-16 19:51:13.1170444] FMapProperty::ValueProp = 0x78
-[2026-01-16 19:51:13.1170592] FMapProperty::MapLayout = 0x80
-[2026-01-16 19:51:13.1170740] FSetProperty::ElementProp = 0x70
-[2026-01-16 19:51:13.1170888] FSetProperty::SetLayout = 0x78
-[2026-01-16 19:51:13.1171041] FBoolProperty::FieldMask = 0x73
-[2026-01-16 19:51:13.1171188] FBoolProperty::ByteMask = 0x72
-[2026-01-16 19:51:13.1171379] FBoolProperty::FieldSize = 0x70
-[2026-01-16 19:51:13.1171529] FBoolProperty::ByteOffset = 0x71
-[2026-01-16 19:51:13.1171680] FByteProperty::Enum = 0x70
-[2026-01-16 19:51:13.1171827] FEnumProperty::Enum = 0x78
-[2026-01-16 19:51:13.1171974] FEnumProperty::UnderlyingProp = 0x70
-[2026-01-16 19:51:13.1172124] FClassProperty::MetaClass = 0x78
-[2026-01-16 19:51:13.1172305] FSoftClassProperty::MetaClass = 0x78
-[2026-01-16 19:51:13.1172457] FDelegateProperty::SignatureFunction = 0x70
-[2026-01-16 19:51:13.1172607] FMulticastDelegateProperty::SignatureFunction = 0x70
-[2026-01-16 19:51:13.1172765] FInterfaceProperty::InterfaceClass = 0x70
-[2026-01-16 19:51:13.1172915] FFieldPathProperty::PropertyClass = 0x70
-[2026-01-16 19:51:13.1173067] FWorldContext::AudioDeviceID = 0x240
-[2026-01-16 19:51:13.1173229] FWorldContext::ThisCurrentWorld = 0x2C0
-[2026-01-16 19:51:13.1173383] FWorldContext::ExternalReferences = 0x2B0
-[2026-01-16 19:51:13.1173532] FWorldContext::LastRemoteURL = 0x128
-[2026-01-16 19:51:13.1173686] FWorldContext::CustomDescription = 0x248
-[2026-01-16 19:51:13.1173839] FWorldContext::ContextHandle = 0xA0
-[2026-01-16 19:51:13.1173989] FWorldContext::GameViewport = 0x200
-[2026-01-16 19:51:13.1174138] FWorldContext::bShouldCommitPendingMapChange = 0x1D8
-[2026-01-16 19:51:13.1174292] FWorldContext::GarbageObjectsToVerify = 0x260
-[2026-01-16 19:51:13.1174443] FWorldContext::LastURL = 0xC0
-[2026-01-16 19:51:13.1174593] FWorldContext::LevelsToLoadForPendingMapChange = 0x1A8
-[2026-01-16 19:51:13.1174747] FWorldContext::PIEAccumulatedTickSeconds = 0x25C
-[2026-01-16 19:51:13.1174900] FWorldContext::PIEPrefix = 0x228
-[2026-01-16 19:51:13.1175047] FWorldContext::PIEFixedTickSeconds = 0x258
-[2026-01-16 19:51:13.1175196] FWorldContext::PIEInstance = 0x220
-[2026-01-16 19:51:13.1175347] FWorldContext::PendingMapChangeFailureDescription = 0x1C8
-[2026-01-16 19:51:13.1175508] FWorldContext::RunAsDedicated = 0x23C
-[2026-01-16 19:51:13.1175656] FWorldContext::TravelType = 0xB8
-[2026-01-16 19:51:13.1175809] FWorldContext::TravelURL = 0xA8
-[2026-01-16 19:51:13.1175970] FWorldContext::bIsPrimaryPIEInstance = 0x23E
-[2026-01-16 19:51:13.1176124] FWorldContext::bWaitingOnOnlineSubsystem = 0x23D
-[2026-01-16 19:51:13.1176326] FOutputDevice::bAutoEmitLineTerminator = 0x9
-[2026-01-16 19:51:13.1176477] FOutputDevice::bSuppressEventTag = 0x8
-[2026-01-16 19:51:13.1176625] FArchiveState::ArAllowLazyLoading = 0x2A
-[2026-01-16 19:51:13.1176773] FArchiveState::ArContainsCode = 0x29
-[2026-01-16 19:51:13.1176922] FArchiveState::ArCustomPropertyList = 0x60
-[2026-01-16 19:51:13.1177072] FArchiveState::ArEngineVer = 0x4C
-[2026-01-16 19:51:13.1177219] FArchiveState::ArIsNetArchive = 0x2B
-[2026-01-16 19:51:13.1177368] FArchiveState::ArContainsMap = 0x29
-[2026-01-16 19:51:13.1177520] FArchiveState::ArForceUnicode = 0x28
-[2026-01-16 19:51:13.1177668] FArchiveState::ArIsError = 0x29
-[2026-01-16 19:51:13.1177814] FArchiveState::ArForceByteSwapping = 0x2A
-[2026-01-16 19:51:13.1177963] FArchiveState::ArIgnoreArchetypeRef = 0x2A
-[2026-01-16 19:51:13.1178114] FArchiveState::ArIgnoreClassGeneratedByRef = 0x2A
-[2026-01-16 19:51:13.1178269] FArchiveState::ArLicenseeUEVer = 0x48
-[2026-01-16 19:51:13.1178421] FArchiveState::ArIgnoreClassRef = 0x2A
-[2026-01-16 19:51:13.1178569] FArchiveState::ArIgnoreOuterRef = 0x2A
-[2026-01-16 19:51:13.1178717] FArchiveState::NextProxy = 0x88
-[2026-01-16 19:51:13.1178863] FArchiveState::ArIsCountingMemory = 0x2B
-[2026-01-16 19:51:13.1179012] FArchiveState::ArUEVer = 0x40
-[2026-01-16 19:51:13.1179164] FArchiveState::ArIsCriticalError = 0x29
-[2026-01-16 19:51:13.1179314] FArchiveState::ArIsFilterEditorOnly = 0x2B
-[2026-01-16 19:51:13.1179464] FArchiveState::ArIsLoading = 0x28
-[2026-01-16 19:51:13.1179610] FArchiveState::ArIsLoadingFromCookedPackage = 0x28
-[2026-01-16 19:51:13.1179773] FArchiveState::ArUseUnversionedPropertySerialization = 0x28
-[2026-01-16 19:51:13.1179926] FArchiveState::ArIsModifyingWeakAndStrongReferences = 0x2B
-[2026-01-16 19:51:13.1180081] FArchiveState::ArIsPersistent = 0x29
-[2026-01-16 19:51:13.1180228] FArchiveState::ArIsObjectReferenceCollector = 0x2B
-[2026-01-16 19:51:13.1180378] FArchiveState::ArIsSaveGame = 0x2B
-[2026-01-16 19:51:13.1180527] FArchiveState::ArIsSaving = 0x28
-[2026-01-16 19:51:13.1180672] FArchiveState::ArIsTextFormat = 0x28
-[2026-01-16 19:51:13.1180820] FArchiveState::ArPortFlags = 0x30
-[2026-01-16 19:51:13.1180967] FArchiveState::ArIsTransacting = 0x28
-[2026-01-16 19:51:13.1181115] FArchiveState::ArShouldSkipCompilingAssets = 0x29
-[2026-01-16 19:51:13.1181269] FArchiveState::ArMaxSerializeSize = 0x38
-[2026-01-16 19:51:13.1181420] FArchiveState::ArNoDelta = 0x2A
-[2026-01-16 19:51:13.1181566] FArchiveState::ArNoIntraPropertyDelta = 0x2A
-[2026-01-16 19:51:13.1181716] FArchiveState::ArRequiresLocalizationGather = 0x29
-[2026-01-16 19:51:13.1181867] FArchiveState::ArSerializingDefaults = 0x2C
-[2026-01-16 19:51:13.1182028] FArchiveState::bCustomVersionsAreReset = 0x80
-[2026-01-16 19:51:13.1182181] FArchiveState::ArShouldSkipBulkData = 0x2B
-[2026-01-16 19:51:13.1182330] FArchiveState::ArShouldSkipUpdateCustomVersion = 0x29
-[2026-01-16 19:51:13.1182480] FArchiveState::ArUseCustomPropertyList = 0x2B
-[2026-01-16 19:51:13.1182629] FArchiveState::ArWantBinaryPropertySerialization = 0x28
-[2026-01-16 19:51:13.1182781] FArchiveState::CustomVersionContainer = 0x58
-[2026-01-16 19:51:13.1182928] FArchiveState::SerializedProperty = 0x70
-[2026-01-16 19:51:13.1183076] AActor::ActorCategory = 0x61
-[2026-01-16 19:51:13.1183221] AActor::ClassPrivate = 0x10
-[2026-01-16 19:51:13.1183371] AActor::bFindCameraComponentWhenViewTarget = 0x5A
-[2026-01-16 19:51:13.1183522] AActor::InternalIndex = 0xC
-[2026-01-16 19:51:13.1183670] AActor::World = 0x78
-[2026-01-16 19:51:13.1183817] AActor::ObjectFlags = 0x8
-[2026-01-16 19:51:13.1183967] AActor::OnEndCursorOver = 0x1DE
-[2026-01-16 19:51:13.1184112] AActor::CustomTimeDilation = 0x68
-[2026-01-16 19:51:13.1184261] AActor::NamePrivate = 0x18
-[2026-01-16 19:51:13.1184417] AActor::bForceNetAddressable = 0x59
-[2026-01-16 19:51:13.1184565] AActor::InputPriority = 0x154
-[2026-01-16 19:51:13.1184713] AActor::OuterPrivate = 0x20
-[2026-01-16 19:51:13.1184863] AActor::bNetTemporary = 0x58
-[2026-01-16 19:51:13.1185011] AActor::ActorHasBegunPlay = 0x5D
-[2026-01-16 19:51:13.1185157] AActor::OnInputTouchEnd = 0x1E2
-[2026-01-16 19:51:13.1185305] AActor::bHasDeferredComponentRegistration = 0x5C
-[2026-01-16 19:51:13.1185456] AActor::AttachmentReplication = 0x70
-[2026-01-16 19:51:13.1185604] AActor::EngineShowFlags = 0xB8
-[2026-01-16 19:51:13.1185755] AActor::AutoReceiveInput = 0x153
-[2026-01-16 19:51:13.1185906] AActor::Children = 0x190
-[2026-01-16 19:51:13.1186093] AActor::PhysicsReplicationMode = 0x17C
-[2026-01-16 19:51:13.1186242] AActor::DetachFence = 0x288
-[2026-01-16 19:51:13.1186388] AActor::CreationTime = 0x158
-[2026-01-16 19:51:13.1186534] AActor::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
-[2026-01-16 19:51:13.1186689] AActor::InitialLifeSpan = 0x64
-[2026-01-16 19:51:13.1186835] AActor::Tags = 0x1C8
-[2026-01-16 19:51:13.1186981] AActor::InputComponent = 0x160
-[2026-01-16 19:51:13.1187127] AActor::OnTakePointDamage = 0x1D9
-[2026-01-16 19:51:13.1187275] AActor::LastRenderTime = 0x180
-[2026-01-16 19:51:13.1187421] AActor::RemoteRole = 0x60
-[2026-01-16 19:51:13.1187567] AActor::Layers = 0x1B0
-[2026-01-16 19:51:13.1187714] AActor::MinNetUpdateFrequency = 0x174
-[2026-01-16 19:51:13.1187864] AActor::TimerHandle_LifeSpanExpired = 0x1A8
-[2026-01-16 19:51:13.1188011] AActor::OnTakeAnyDamage = 0x1D8
-[2026-01-16 19:51:13.1188159] AActor::NetCullDistanceSquared = 0x168
-[2026-01-16 19:51:13.1188307] AActor::OnActorEndOverlap = 0x1DC
-[2026-01-16 19:51:13.1188454] AActor::NetDormancy = 0x151
-[2026-01-16 19:51:13.1188603] AActor::NetDriverName = 0x148
-[2026-01-16 19:51:13.1188748] AActor::NetTag = 0x16C
-[2026-01-16 19:51:13.1188893] AActor::NetPriority = 0x178
-[2026-01-16 19:51:13.1189040] AActor::PrimaryActorTick = 0x28
-[2026-01-16 19:51:13.1189188] AActor::NetUpdateFrequency = 0x170
-[2026-01-16 19:51:13.1189335] AActor::OnClicked = 0x1DF
-[2026-01-16 19:51:13.1189484] AActor::OnActorBeginOverlap = 0x1DB
-[2026-01-16 19:51:13.1189633] AActor::OnActorHit = 0x1E5
-[2026-01-16 19:51:13.1189780] AActor::StatHitchesData = 0x3A0
-[2026-01-16 19:51:13.1189927] AActor::OnBeginCursorOver = 0x1DD
-[2026-01-16 19:51:13.1190075] AActor::OnDestroyed = 0x1E6
-[2026-01-16 19:51:13.1190224] AActor::OnInputTouchEnter = 0x1E3
-[2026-01-16 19:51:13.1190371] AActor::bHasAudioFocus = 0xFC
-[2026-01-16 19:51:13.1190524] AActor::OnEndPlay = 0x1E7
-[2026-01-16 19:51:13.1190673] AActor::OnInputTouchBegin = 0x1E1
-[2026-01-16 19:51:13.1190821] AActor::OnInputTouchLeave = 0x1E4
-[2026-01-16 19:51:13.1190968] AActor::OnReleased = 0x1E0
-[2026-01-16 19:51:13.1191113] AActor::OnTakeRadialDamage = 0x1DA
-[2026-01-16 19:51:13.1191265] AActor::Owner = 0x140
-[2026-01-16 19:51:13.1191444] AActor::ParentComponent = 0x1C0
-[2026-01-16 19:51:13.1191952] AActor::RayTracingGroupId = 0x6C
-[2026-01-16 19:51:13.1192200] AActor::ReplicatedComponentsInfo = 0x1F8
-[2026-01-16 19:51:13.1192419] AActor::ReplicatedMovement = 0xD0
-[2026-01-16 19:51:13.1192641] AActor::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
-[2026-01-16 19:51:13.1192860] AActor::ReplicatedSubObjects = 0x1E8
-[2026-01-16 19:51:13.1193071] AActor::Role = 0x150
-[2026-01-16 19:51:13.1193305] AActor::RootComponent = 0x1A0
-[2026-01-16 19:51:13.1193766] AActor::SpawnCollisionHandlingMethod = 0x152
-[2026-01-16 19:51:13.1194675] AActor::bNetStartup = 0x58
-[2026-01-16 19:51:13.1195054] AActor::bActorIsBeingConstructed = 0x5D
-[2026-01-16 19:51:13.1195292] AActor::bActorBeginningPlayFromLevelStreaming = 0x5C
-[2026-01-16 19:51:13.1195555] AActor::bIsMouseOverClient = 0x3AD
-[2026-01-16 19:51:13.1195813] AActor::bActorEnableCollision = 0x5C
-[2026-01-16 19:51:13.1196046] AActor::bActorInitialized = 0x5C
-[2026-01-16 19:51:13.1196283] AActor::bActorIsBeingDestroyed = 0x5D
-[2026-01-16 19:51:13.1196517] AActor::bActorSeamlessTraveled = 0x5B
-[2026-01-16 19:51:13.1196756] AActor::bActorWantsDestroyDuringBeginPlay = 0x5D
-[2026-01-16 19:51:13.1196996] AActor::bAllowReceiveTickEventOnDedicatedServer = 0x5B
-[2026-01-16 19:51:13.1197234] AActor::bAllowTickBeforeBeginPlay = 0x5A
-[2026-01-16 19:51:13.1197468] AActor::bAlwaysRelevant = 0x58
-[2026-01-16 19:51:13.1197699] AActor::bAsyncPhysicsTickEnabled = 0x5D
-[2026-01-16 19:51:13.1197931] AActor::bAutoDestroyWhenFinished = 0x5A
-[2026-01-16 19:51:13.1198123] AActor::bBlockInput = 0x5A
-[2026-01-16 19:51:13.1198274] AActor::bCallPreReplication = 0x58
-[2026-01-16 19:51:13.1198431] AActor::bCallPreReplicationForReplay = 0x58
-[2026-01-16 19:51:13.1198583] AActor::bCanBeDamaged = 0x5A
-[2026-01-16 19:51:13.1198734] AActor::bCanBeInCluster = 0x5B
-[2026-01-16 19:51:13.1198888] AActor::bCollideWhenPlacing = 0x5A
-[2026-01-16 19:51:13.1199044] AActor::bHasRegisteredAllComponents = 0x5C
-[2026-01-16 19:51:13.1199197] AActor::bEnableAutoLODGeneration = 0x5B
-[2026-01-16 19:51:13.1199350] AActor::bExchangedRoles = 0x59
-[2026-01-16 19:51:13.1199499] AActor::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
-[2026-01-16 19:51:13.1199657] AActor::bHasFinishedSpawning = 0x5C
-[2026-01-16 19:51:13.1199811] AActor::bHidden = 0x58
-[2026-01-16 19:51:13.1199959] AActor::bIgnoresOriginShifting = 0x5A
-[2026-01-16 19:51:13.1200128] AActor::bIsEditorOnlyActor = 0x5B
-[2026-01-16 19:51:13.1200344] AActor::bNetCheckedInitialPhysicsState = 0x5B
-[2026-01-16 19:51:13.1200616] AActor::bNetLoadOnClient = 0x59
-[2026-01-16 19:51:13.1200911] AActor::bNetUseOwnerRelevancy = 0x59
-[2026-01-16 19:51:13.1201159] AActor::bOnlyRelevantToOwner = 0x58
-[2026-01-16 19:51:13.1201409] AActor::bRelevantForLevelBounds = 0x59
-[2026-01-16 19:51:13.1201675] AActor::bRelevantForNetworkReplays = 0x59
-[2026-01-16 19:51:13.1201944] AActor::bReplayRewindable = 0x59
-[2026-01-16 19:51:13.1202208] AActor::bReplicateMovement = 0x58
-[2026-01-16 19:51:13.1202426] AActor::bReplicateUsingRegisteredSubObjectList = 0x5B
-[2026-01-16 19:51:13.1202580] AActor::bReplicates = 0x5B
-[2026-01-16 19:51:13.1202732] AActor::bRunningUserConstructionScript = 0x5C
-[2026-01-16 19:51:13.1202937] AActor::bTearOff = 0x59
-[2026-01-16 19:51:13.1203158] AActor::bTickFunctionsRegistered = 0x5C
-[2026-01-16 19:51:13.1203420] AActor::ActiveSplitscreenType = 0x70
-[2026-01-16 19:51:13.1203663] AActor::AudioDeviceHandle = 0xF8
-[2026-01-16 19:51:13.1203872] AActor::CurrentBufferVisualizationMode = 0x130
-[2026-01-16 19:51:13.1204029] AActor::CurrentGroomVisualizationMode = 0x150
-[2026-01-16 19:51:13.1204181] AActor::CurrentLumenVisualizationMode = 0x140
-[2026-01-16 19:51:13.1204332] AActor::CurrentNaniteVisualizationMode = 0x138
-[2026-01-16 19:51:13.1204483] AActor::CurrentSubstrateVisualizationMode = 0x148
-[2026-01-16 19:51:13.1204636] AActor::CurrentVirtualShadowMapVisualizationMode = 0x158
-[2026-01-16 19:51:13.1204787] AActor::CursorWidgets = 0x210
-[2026-01-16 19:51:13.1204935] AActor::DebugProperties = 0x48
-[2026-01-16 19:51:13.1205083] AActor::GameLayerManagerPtr = 0x120
-[2026-01-16 19:51:13.1205282] AActor::HardwareCursorCache = 0x170
-[2026-01-16 19:51:13.1205454] AActor::HardwareCursors = 0x1C0
-[2026-01-16 19:51:13.1205602] AActor::HighResScreenshotDialog = 0x160
-[2026-01-16 19:51:13.1205753] AActor::MaxSplitscreenPlayers = 0x68
-[2026-01-16 19:51:13.1205912] AActor::MouseCaptureMode = 0x3AA
-[2026-01-16 19:51:13.1206147] AActor::MouseLockMode = 0x3AC
-[2026-01-16 19:51:13.1206406] AActor::SplitscreenInfo = 0x58
-[2026-01-16 19:51:13.1206638] AActor::StatUnitData = 0x398
-[2026-01-16 19:51:13.1206883] AActor::ViewModeIndex = 0xB0
-[2026-01-16 19:51:13.1207035] AActor::Viewport = 0xE8
-[2026-01-16 19:51:13.1207186] AActor::ViewportConsole = 0x40
-[2026-01-16 19:51:13.1207365] AActor::ViewportFrame = 0xF0
-[2026-01-16 19:51:13.1207561] AActor::ViewportOverlayWidget = 0x110
-[2026-01-16 19:51:13.1207711] AActor::Window = 0x100
-[2026-01-16 19:51:13.1207859] AActor::bDisableSplitScreenOverride = 0x3A8
-[2026-01-16 19:51:13.1208011] AActor::bDisableWorldRendering = 0x6C
-[2026-01-16 19:51:13.1208160] AActor::bHideCursorDuringCapture = 0x3AB
-[2026-01-16 19:51:13.1208309] AActor::bIgnoreInput = 0x3A9
-[2026-01-16 19:51:13.1208459] AActor::bIsPlayInEditorViewport = 0x6C
-[2026-01-16 19:51:13.1208609] AActor::bSuppressTransitionMessage = 0x88
-[2026-01-16 19:51:13.1208760] AActor::bUseSoftwareCursorWidgets = 0x260
-[2026-01-16 19:51:13.1208910] AGameModeBase::SpectatorClass = 0x2D0
-[2026-01-16 19:51:13.1209059] AGameModeBase::HUDClass = 0x2C0
-[2026-01-16 19:51:13.1209211] AGameModeBase::DefaultPlayerName = 0x300
-[2026-01-16 19:51:13.1209362] AGameModeBase::ServerStatReplicator = 0x2F8
-[2026-01-16 19:51:13.1209513] AGameModeBase::GameSessionClass = 0x2A0
-[2026-01-16 19:51:13.1209662] AGameModeBase::GameNetDriverReplicationSystem = 0x314
-[2026-01-16 19:51:13.1209817] AGameModeBase::GameSession = 0x2E8
-[2026-01-16 19:51:13.1209965] AGameModeBase::OptionsString = 0x290
-[2026-01-16 19:51:13.1210113] AGameModeBase::PlayerStateClass = 0x2B8
-[2026-01-16 19:51:13.1210262] AGameModeBase::ServerStatReplicatorClass = 0x2E0
-[2026-01-16 19:51:13.1210413] AGameModeBase::bPauseable = 0x310
-[2026-01-16 19:51:13.1210563] AGameModeBase::bStartPlayersAsSpectators = 0x310
-[2026-01-16 19:51:13.1210716] AGameModeBase::bUseSeamlessTravel = 0x310
-[2026-01-16 19:51:13.1210903] AGameMode::EngineMessageClass = 0x348
-[2026-01-16 19:51:13.1211151] AGameMode::MinRespawnDelay = 0x340
-[2026-01-16 19:51:13.1211327] AGameMode::InactivePlayerArray = 0x350
-[2026-01-16 19:51:13.1211574] AGameMode::InactivePlayerStateLifeSpan = 0x360
-[2026-01-16 19:51:13.1211772] AGameMode::NumBots = 0x33C
-[2026-01-16 19:51:13.1211924] AGameMode::NumSpectators = 0x334
-[2026-01-16 19:51:13.1212079] AGameMode::MatchState = 0x328
-[2026-01-16 19:51:13.1212228] AGameMode::MaxInactivePlayers = 0x364
-[2026-01-16 19:51:13.1212378] AGameMode::NumPlayers = 0x338
-[2026-01-16 19:51:13.1212524] AGameMode::NumTravellingPlayers = 0x344
-[2026-01-16 19:51:13.1212676] AGameMode::bDelayedStart = 0x330
-[2026-01-16 19:51:13.1212826] AGameMode::bHandleDedicatedServerReplays = 0x368
-[2026-01-16 19:51:13.1213008] UEngine::ActorCategory = 0x61
-[2026-01-16 19:51:13.1213248] UEngine::ClassPrivate = 0x10
-[2026-01-16 19:51:13.1213503] UEngine::bFindCameraComponentWhenViewTarget = 0x5A
-[2026-01-16 19:51:13.1213733] UEngine::InternalIndex = 0xC
-[2026-01-16 19:51:13.1213894] UEngine::World = 0x78
-[2026-01-16 19:51:13.1214098] UEngine::ObjectFlags = 0x8
-[2026-01-16 19:51:13.1214250] UEngine::OnEndCursorOver = 0x1DE
-[2026-01-16 19:51:13.1214400] UEngine::CustomTimeDilation = 0x68
-[2026-01-16 19:51:13.1214556] UEngine::NamePrivate = 0x18
-[2026-01-16 19:51:13.1214726] UEngine::bForceNetAddressable = 0x59
-[2026-01-16 19:51:13.1214972] UEngine::InputPriority = 0x154
-[2026-01-16 19:51:13.1215192] UEngine::OuterPrivate = 0x20
-[2026-01-16 19:51:13.1215404] UEngine::bNetTemporary = 0x58
-[2026-01-16 19:51:13.1215621] UEngine::ActorHasBegunPlay = 0x5D
-[2026-01-16 19:51:13.1215865] UEngine::OnInputTouchEnd = 0x1E2
-[2026-01-16 19:51:13.1216095] UEngine::bHasDeferredComponentRegistration = 0x5C
-[2026-01-16 19:51:13.1216400] UEngine::AttachmentReplication = 0x70
-[2026-01-16 19:51:13.1216660] UEngine::EngineShowFlags = 0xB8
-[2026-01-16 19:51:13.1216894] UEngine::AutoReceiveInput = 0x153
-[2026-01-16 19:51:13.1217142] UEngine::Children = 0x190
-[2026-01-16 19:51:13.1217368] UEngine::PhysicsReplicationMode = 0x17C
-[2026-01-16 19:51:13.1217616] UEngine::DetachFence = 0x288
-[2026-01-16 19:51:13.1217840] UEngine::CreationTime = 0x158
-[2026-01-16 19:51:13.1218078] UEngine::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
-[2026-01-16 19:51:13.1218272] UEngine::InitialLifeSpan = 0x64
-[2026-01-16 19:51:13.1218422] UEngine::Tags = 0x1C8
-[2026-01-16 19:51:13.1218569] UEngine::InputComponent = 0x160
-[2026-01-16 19:51:13.1218769] UEngine::OnTakePointDamage = 0x1D9
-[2026-01-16 19:51:13.1218928] UEngine::LastRenderTime = 0x180
-[2026-01-16 19:51:13.1219077] UEngine::RemoteRole = 0x60
-[2026-01-16 19:51:13.1219225] UEngine::Layers = 0x1B0
-[2026-01-16 19:51:13.1219371] UEngine::MinNetUpdateFrequency = 0x174
-[2026-01-16 19:51:13.1219520] UEngine::TimerHandle_LifeSpanExpired = 0x1A8
-[2026-01-16 19:51:13.1219670] UEngine::OnTakeAnyDamage = 0x1D8
-[2026-01-16 19:51:13.1219816] UEngine::NetCullDistanceSquared = 0x168
-[2026-01-16 19:51:13.1219965] UEngine::OnActorEndOverlap = 0x1DC
-[2026-01-16 19:51:13.1220112] UEngine::NetDormancy = 0x151
-[2026-01-16 19:51:13.1220289] UEngine::NetDriverName = 0x148
-[2026-01-16 19:51:13.1220470] UEngine::NetTag = 0x16C
-[2026-01-16 19:51:13.1220615] UEngine::NetPriority = 0x178
-[2026-01-16 19:51:13.1220763] UEngine::PrimaryActorTick = 0x28
-[2026-01-16 19:51:13.1220911] UEngine::NetUpdateFrequency = 0x170
-[2026-01-16 19:51:13.1221059] UEngine::OnClicked = 0x1DF
-[2026-01-16 19:51:13.1221207] UEngine::OnActorBeginOverlap = 0x1DB
-[2026-01-16 19:51:13.1221355] UEngine::OnActorHit = 0x1E5
-[2026-01-16 19:51:13.1221507] UEngine::StatHitchesData = 0x3A0
-[2026-01-16 19:51:13.1221659] UEngine::OnBeginCursorOver = 0x1DD
-[2026-01-16 19:51:13.1221809] UEngine::OnDestroyed = 0x1E6
-[2026-01-16 19:51:13.1221955] UEngine::OnInputTouchEnter = 0x1E3
-[2026-01-16 19:51:13.1222104] UEngine::bHasAudioFocus = 0xFC
-[2026-01-16 19:51:13.1222253] UEngine::OnEndPlay = 0x1E7
-[2026-01-16 19:51:13.1222400] UEngine::OnInputTouchBegin = 0x1E1
-[2026-01-16 19:51:13.1222549] UEngine::OnInputTouchLeave = 0x1E4
-[2026-01-16 19:51:13.1222708] UEngine::OnReleased = 0x1E0
-[2026-01-16 19:51:13.1222855] UEngine::OnTakeRadialDamage = 0x1DA
-[2026-01-16 19:51:13.1223001] UEngine::Owner = 0x140
-[2026-01-16 19:51:13.1223146] UEngine::ParentComponent = 0x1C0
-[2026-01-16 19:51:13.1223291] UEngine::RayTracingGroupId = 0x6C
-[2026-01-16 19:51:13.1223439] UEngine::ReplicatedComponentsInfo = 0x1F8
-[2026-01-16 19:51:13.1223590] UEngine::ReplicatedMovement = 0xD0
-[2026-01-16 19:51:13.1223737] UEngine::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
-[2026-01-16 19:51:13.1223890] UEngine::ReplicatedSubObjects = 0x1E8
-[2026-01-16 19:51:13.1224039] UEngine::Role = 0x150
-[2026-01-16 19:51:13.1224183] UEngine::RootComponent = 0x1A0
-[2026-01-16 19:51:13.1224330] UEngine::SpawnCollisionHandlingMethod = 0x152
-[2026-01-16 19:51:13.1224481] UEngine::bNetStartup = 0x58
-[2026-01-16 19:51:13.1224627] UEngine::bActorIsBeingConstructed = 0x5D
-[2026-01-16 19:51:13.1224778] UEngine::bActorBeginningPlayFromLevelStreaming = 0x5C
-[2026-01-16 19:51:13.1224930] UEngine::bIsMouseOverClient = 0x3AD
-[2026-01-16 19:51:13.1225080] UEngine::bActorEnableCollision = 0x5C
-[2026-01-16 19:51:13.1225231] UEngine::bActorInitialized = 0x5C
-[2026-01-16 19:51:13.1225379] UEngine::bActorIsBeingDestroyed = 0x5D
-[2026-01-16 19:51:13.1225525] UEngine::bActorSeamlessTraveled = 0x5B
-[2026-01-16 19:51:13.1225673] UEngine::bActorWantsDestroyDuringBeginPlay = 0x5D
-[2026-01-16 19:51:13.1225826] UEngine::bAllowReceiveTickEventOnDedicatedServer = 0x5B
-[2026-01-16 19:51:13.1225979] UEngine::bAllowTickBeforeBeginPlay = 0x5A
-[2026-01-16 19:51:13.1226169] UEngine::bAlwaysRelevant = 0x58
-[2026-01-16 19:51:13.1226317] UEngine::bAsyncPhysicsTickEnabled = 0x5D
-[2026-01-16 19:51:13.1226469] UEngine::bAutoDestroyWhenFinished = 0x5A
-[2026-01-16 19:51:13.1226637] UEngine::bBlockInput = 0x5A
-[2026-01-16 19:51:13.1226790] UEngine::bCallPreReplication = 0x58
-[2026-01-16 19:51:13.1226936] UEngine::bCallPreReplicationForReplay = 0x58
-[2026-01-16 19:51:13.1227084] UEngine::bCanBeDamaged = 0x5A
-[2026-01-16 19:51:13.1227230] UEngine::bCanBeInCluster = 0x5B
-[2026-01-16 19:51:13.1227376] UEngine::bCollideWhenPlacing = 0x5A
-[2026-01-16 19:51:13.1227520] UEngine::bHasRegisteredAllComponents = 0x5C
-[2026-01-16 19:51:13.1227668] UEngine::bEnableAutoLODGeneration = 0x5B
-[2026-01-16 19:51:13.1227814] UEngine::bExchangedRoles = 0x59
-[2026-01-16 19:51:13.1227958] UEngine::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
-[2026-01-16 19:51:13.1228108] UEngine::bHasFinishedSpawning = 0x5C
-[2026-01-16 19:51:13.1228254] UEngine::bHidden = 0x58
-[2026-01-16 19:51:13.1228396] UEngine::bIgnoresOriginShifting = 0x5A
-[2026-01-16 19:51:13.1228542] UEngine::bIsEditorOnlyActor = 0x5B
-[2026-01-16 19:51:13.1228686] UEngine::bNetCheckedInitialPhysicsState = 0x5B
-[2026-01-16 19:51:13.1228832] UEngine::bNetLoadOnClient = 0x59
-[2026-01-16 19:51:13.1228976] UEngine::bNetUseOwnerRelevancy = 0x59
-[2026-01-16 19:51:13.1229120] UEngine::bOnlyRelevantToOwner = 0x58
-[2026-01-16 19:51:13.1229264] UEngine::bRelevantForLevelBounds = 0x59
-[2026-01-16 19:51:13.1229412] UEngine::bRelevantForNetworkReplays = 0x59
-[2026-01-16 19:51:13.1229558] UEngine::bReplayRewindable = 0x59
-[2026-01-16 19:51:13.1229701] UEngine::bReplicateMovement = 0x58
-[2026-01-16 19:51:13.1229847] UEngine::bReplicateUsingRegisteredSubObjectList = 0x5B
-[2026-01-16 19:51:13.1229997] UEngine::bReplicates = 0x5B
-[2026-01-16 19:51:13.1230140] UEngine::bRunningUserConstructionScript = 0x5C
-[2026-01-16 19:51:13.1230290] UEngine::bTearOff = 0x59
-[2026-01-16 19:51:13.1230434] UEngine::bTickFunctionsRegistered = 0x5C
-[2026-01-16 19:51:13.1230579] UEngine::ActiveSplitscreenType = 0x70
-[2026-01-16 19:51:13.1230723] UEngine::AudioDeviceHandle = 0xF8
-[2026-01-16 19:51:13.1230868] UEngine::CurrentBufferVisualizationMode = 0x130
-[2026-01-16 19:51:13.1231015] UEngine::CurrentGroomVisualizationMode = 0x150
-[2026-01-16 19:51:13.1231161] UEngine::CurrentLumenVisualizationMode = 0x140
-[2026-01-16 19:51:13.1231309] UEngine::CurrentNaniteVisualizationMode = 0x138
-[2026-01-16 19:51:13.1231501] UEngine::CurrentSubstrateVisualizationMode = 0x148
-[2026-01-16 19:51:13.1231651] UEngine::CurrentVirtualShadowMapVisualizationMode = 0x158
-[2026-01-16 19:51:13.1231799] UEngine::CursorWidgets = 0x210
-[2026-01-16 19:51:13.1231942] UEngine::DebugProperties = 0x48
-[2026-01-16 19:51:13.1232087] UEngine::GameLayerManagerPtr = 0x120
-[2026-01-16 19:51:13.1232231] UEngine::HardwareCursorCache = 0x170
-[2026-01-16 19:51:13.1232375] UEngine::HardwareCursors = 0x1C0
-[2026-01-16 19:51:13.1232519] UEngine::HighResScreenshotDialog = 0x160
-[2026-01-16 19:51:13.1232666] UEngine::MaxSplitscreenPlayers = 0x68
-[2026-01-16 19:51:13.1232810] UEngine::MouseCaptureMode = 0x3AA
-[2026-01-16 19:51:13.1232954] UEngine::MouseLockMode = 0x3AC
-[2026-01-16 19:51:13.1233102] UEngine::SplitscreenInfo = 0x58
-[2026-01-16 19:51:13.1233249] UEngine::StatUnitData = 0x398
-[2026-01-16 19:51:13.1233396] UEngine::ViewModeIndex = 0xB0
-[2026-01-16 19:51:13.1233540] UEngine::Viewport = 0xE8
-[2026-01-16 19:51:13.1233685] UEngine::ViewportConsole = 0x40
-[2026-01-16 19:51:13.1233831] UEngine::ViewportFrame = 0xF0
-[2026-01-16 19:51:13.1233974] UEngine::ViewportOverlayWidget = 0x110
-[2026-01-16 19:51:13.1234119] UEngine::Window = 0x100
-[2026-01-16 19:51:13.1234263] UEngine::bDisableSplitScreenOverride = 0x3A8
-[2026-01-16 19:51:13.1234408] UEngine::bDisableWorldRendering = 0x6C
-[2026-01-16 19:51:13.1234553] UEngine::bHideCursorDuringCapture = 0x3AB
-[2026-01-16 19:51:13.1234700] UEngine::bIgnoreInput = 0x3A9
-[2026-01-16 19:51:13.1234844] UEngine::bIsPlayInEditorViewport = 0x6C
-[2026-01-16 19:51:13.1234990] UEngine::bSuppressTransitionMessage = 0x88
-[2026-01-16 19:51:13.1235136] UEngine::bUseSoftwareCursorWidgets = 0x260
-[2026-01-16 19:51:13.1235283] UGameViewportClient::ActorCategory = 0x61
-[2026-01-16 19:51:13.1235514] UGameViewportClient::ClassPrivate = 0x10
-[2026-01-16 19:51:13.1235672] UGameViewportClient::bFindCameraComponentWhenViewTarget = 0x5A
-[2026-01-16 19:51:13.1235827] UGameViewportClient::InternalIndex = 0xC
-[2026-01-16 19:51:13.1235976] UGameViewportClient::World = 0x78
-[2026-01-16 19:51:13.1236126] UGameViewportClient::ObjectFlags = 0x8
-[2026-01-16 19:51:13.1236275] UGameViewportClient::OnEndCursorOver = 0x1DE
-[2026-01-16 19:51:13.1236467] UGameViewportClient::CustomTimeDilation = 0x68
-[2026-01-16 19:51:13.1236617] UGameViewportClient::NamePrivate = 0x18
-[2026-01-16 19:51:13.1236764] UGameViewportClient::bForceNetAddressable = 0x59
-[2026-01-16 19:51:13.1236915] UGameViewportClient::InputPriority = 0x154
-[2026-01-16 19:51:13.1237063] UGameViewportClient::OuterPrivate = 0x20
-[2026-01-16 19:51:13.1237210] UGameViewportClient::bNetTemporary = 0x58
-[2026-01-16 19:51:13.1237357] UGameViewportClient::ActorHasBegunPlay = 0x5D
-[2026-01-16 19:51:13.1237508] UGameViewportClient::OnInputTouchEnd = 0x1E2
-[2026-01-16 19:51:13.1237656] UGameViewportClient::bHasDeferredComponentRegistration = 0x5C
-[2026-01-16 19:51:13.1237809] UGameViewportClient::AttachmentReplication = 0x70
-[2026-01-16 19:51:13.1237959] UGameViewportClient::EngineShowFlags = 0xB8
-[2026-01-16 19:51:13.1238108] UGameViewportClient::AutoReceiveInput = 0x153
-[2026-01-16 19:51:13.1238263] UGameViewportClient::Children = 0x190
-[2026-01-16 19:51:13.1238412] UGameViewportClient::PhysicsReplicationMode = 0x17C
-[2026-01-16 19:51:13.1238565] UGameViewportClient::DetachFence = 0x288
-[2026-01-16 19:51:13.1238713] UGameViewportClient::CreationTime = 0x158
-[2026-01-16 19:51:13.1238862] UGameViewportClient::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
-[2026-01-16 19:51:13.1239018] UGameViewportClient::InitialLifeSpan = 0x64
-[2026-01-16 19:51:13.1239166] UGameViewportClient::Tags = 0x1C8
-[2026-01-16 19:51:13.1239311] UGameViewportClient::InputComponent = 0x160
-[2026-01-16 19:51:13.1239459] UGameViewportClient::OnTakePointDamage = 0x1D9
-[2026-01-16 19:51:13.1239622] UGameViewportClient::LastRenderTime = 0x180
-[2026-01-16 19:51:13.1239774] UGameViewportClient::RemoteRole = 0x60
-[2026-01-16 19:51:13.1239923] UGameViewportClient::Layers = 0x1B0
-[2026-01-16 19:51:13.1240071] UGameViewportClient::MinNetUpdateFrequency = 0x174
-[2026-01-16 19:51:13.1240221] UGameViewportClient::TimerHandle_LifeSpanExpired = 0x1A8
-[2026-01-16 19:51:13.1240371] UGameViewportClient::OnTakeAnyDamage = 0x1D8
-[2026-01-16 19:51:13.1240519] UGameViewportClient::NetCullDistanceSquared = 0x168
-[2026-01-16 19:51:13.1240670] UGameViewportClient::OnActorEndOverlap = 0x1DC
-[2026-01-16 19:51:13.1240820] UGameViewportClient::NetDormancy = 0x151
-[2026-01-16 19:51:13.1240968] UGameViewportClient::NetDriverName = 0x148
-[2026-01-16 19:51:13.1241118] UGameViewportClient::NetTag = 0x16C
-[2026-01-16 19:51:13.1241265] UGameViewportClient::NetPriority = 0x178
-[2026-01-16 19:51:13.1241413] UGameViewportClient::PrimaryActorTick = 0x28
-[2026-01-16 19:51:13.1241562] UGameViewportClient::NetUpdateFrequency = 0x170
-[2026-01-16 19:51:13.1241712] UGameViewportClient::OnClicked = 0x1DF
-[2026-01-16 19:51:13.1241859] UGameViewportClient::OnActorBeginOverlap = 0x1DB
-[2026-01-16 19:51:13.1242009] UGameViewportClient::OnActorHit = 0x1E5
-[2026-01-16 19:51:13.1242157] UGameViewportClient::StatHitchesData = 0x3A0
-[2026-01-16 19:51:13.1242305] UGameViewportClient::OnBeginCursorOver = 0x1DD
-[2026-01-16 19:51:13.1242457] UGameViewportClient::OnDestroyed = 0x1E6
-[2026-01-16 19:51:13.1242606] UGameViewportClient::OnInputTouchEnter = 0x1E3
-[2026-01-16 19:51:13.1242756] UGameViewportClient::bHasAudioFocus = 0xFC
-[2026-01-16 19:51:13.1242903] UGameViewportClient::OnEndPlay = 0x1E7
-[2026-01-16 19:51:13.1243052] UGameViewportClient::OnInputTouchBegin = 0x1E1
-[2026-01-16 19:51:13.1243202] UGameViewportClient::OnInputTouchLeave = 0x1E4
-[2026-01-16 19:51:13.1243352] UGameViewportClient::OnReleased = 0x1E0
-[2026-01-16 19:51:13.1243499] UGameViewportClient::OnTakeRadialDamage = 0x1DA
-[2026-01-16 19:51:13.1243651] UGameViewportClient::Owner = 0x140
-[2026-01-16 19:51:13.1243808] UGameViewportClient::ParentComponent = 0x1C0
-[2026-01-16 19:51:13.1243959] UGameViewportClient::RayTracingGroupId = 0x6C
-[2026-01-16 19:51:13.1244107] UGameViewportClient::ReplicatedComponentsInfo = 0x1F8
-[2026-01-16 19:51:13.1244261] UGameViewportClient::ReplicatedMovement = 0xD0
-[2026-01-16 19:51:13.1244411] UGameViewportClient::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
-[2026-01-16 19:51:13.1244568] UGameViewportClient::ReplicatedSubObjects = 0x1E8
-[2026-01-16 19:51:13.1244718] UGameViewportClient::Role = 0x150
-[2026-01-16 19:51:13.1244864] UGameViewportClient::RootComponent = 0x1A0
-[2026-01-16 19:51:13.1245012] UGameViewportClient::SpawnCollisionHandlingMethod = 0x152
-[2026-01-16 19:51:13.1245165] UGameViewportClient::bNetStartup = 0x58
-[2026-01-16 19:51:13.1245313] UGameViewportClient::bActorIsBeingConstructed = 0x5D
-[2026-01-16 19:51:13.1245468] UGameViewportClient::bActorBeginningPlayFromLevelStreaming = 0x5C
-[2026-01-16 19:51:13.1245624] UGameViewportClient::bIsMouseOverClient = 0x3AD
-[2026-01-16 19:51:13.1245776] UGameViewportClient::bActorEnableCollision = 0x5C
-[2026-01-16 19:51:13.1245927] UGameViewportClient::bActorInitialized = 0x5C
-[2026-01-16 19:51:13.1246077] UGameViewportClient::bActorIsBeingDestroyed = 0x5D
-[2026-01-16 19:51:13.1246231] UGameViewportClient::bActorSeamlessTraveled = 0x5B
-[2026-01-16 19:51:13.1246381] UGameViewportClient::bActorWantsDestroyDuringBeginPlay = 0x5D
-[2026-01-16 19:51:13.1246534] UGameViewportClient::bAllowReceiveTickEventOnDedicatedServer = 0x5B
-[2026-01-16 19:51:13.1246687] UGameViewportClient::bAllowTickBeforeBeginPlay = 0x5A
-[2026-01-16 19:51:13.1246837] UGameViewportClient::bAlwaysRelevant = 0x58
-[2026-01-16 19:51:13.1246985] UGameViewportClient::bAsyncPhysicsTickEnabled = 0x5D
-[2026-01-16 19:51:13.1247141] UGameViewportClient::bAutoDestroyWhenFinished = 0x5A
-[2026-01-16 19:51:13.1247294] UGameViewportClient::bBlockInput = 0x5A
-[2026-01-16 19:51:13.1247445] UGameViewportClient::bCallPreReplication = 0x58
-[2026-01-16 19:51:13.1247596] UGameViewportClient::bCallPreReplicationForReplay = 0x58
-[2026-01-16 19:51:13.1247750] UGameViewportClient::bCanBeDamaged = 0x5A
-[2026-01-16 19:51:13.1247899] UGameViewportClient::bCanBeInCluster = 0x5B
-[2026-01-16 19:51:13.1248048] UGameViewportClient::bCollideWhenPlacing = 0x5A
-[2026-01-16 19:51:13.1248200] UGameViewportClient::bHasRegisteredAllComponents = 0x5C
-[2026-01-16 19:51:13.1248354] UGameViewportClient::bEnableAutoLODGeneration = 0x5B
-[2026-01-16 19:51:13.1248506] UGameViewportClient::bExchangedRoles = 0x59
-[2026-01-16 19:51:13.1248656] UGameViewportClient::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
-[2026-01-16 19:51:13.1248810] UGameViewportClient::bHasFinishedSpawning = 0x5C
-[2026-01-16 19:51:13.1248961] UGameViewportClient::bHidden = 0x58
-[2026-01-16 19:51:13.1249110] UGameViewportClient::bIgnoresOriginShifting = 0x5A
-[2026-01-16 19:51:13.1249261] UGameViewportClient::bIsEditorOnlyActor = 0x5B
-[2026-01-16 19:51:13.1249411] UGameViewportClient::bNetCheckedInitialPhysicsState = 0x5B
-[2026-01-16 19:51:13.1249569] UGameViewportClient::bNetLoadOnClient = 0x59
-[2026-01-16 19:51:13.1249718] UGameViewportClient::bNetUseOwnerRelevancy = 0x59
-[2026-01-16 19:51:13.1249870] UGameViewportClient::bOnlyRelevantToOwner = 0x58
-[2026-01-16 19:51:13.1250026] UGameViewportClient::bRelevantForLevelBounds = 0x59
-[2026-01-16 19:51:13.1250182] UGameViewportClient::bRelevantForNetworkReplays = 0x59
-[2026-01-16 19:51:13.1250342] UGameViewportClient::bReplayRewindable = 0x59
-[2026-01-16 19:51:13.1250494] UGameViewportClient::bReplicateMovement = 0x58
-[2026-01-16 19:51:13.1250647] UGameViewportClient::bReplicateUsingRegisteredSubObjectList = 0x5B
-[2026-01-16 19:51:13.1250802] UGameViewportClient::bReplicates = 0x5B
-[2026-01-16 19:51:13.1250951] UGameViewportClient::bRunningUserConstructionScript = 0x5C
-[2026-01-16 19:51:13.1251103] UGameViewportClient::bTearOff = 0x59
-[2026-01-16 19:51:13.1251253] UGameViewportClient::bTickFunctionsRegistered = 0x5C
-[2026-01-16 19:51:13.1251404] UGameViewportClient::ActiveSplitscreenType = 0x70
-[2026-01-16 19:51:13.1251596] UGameViewportClient::AudioDeviceHandle = 0xF8
-[2026-01-16 19:51:13.1251749] UGameViewportClient::CurrentBufferVisualizationMode = 0x130
-[2026-01-16 19:51:13.1251904] UGameViewportClient::CurrentGroomVisualizationMode = 0x150
-[2026-01-16 19:51:13.1252059] UGameViewportClient::CurrentLumenVisualizationMode = 0x140
-[2026-01-16 19:51:13.1252211] UGameViewportClient::CurrentNaniteVisualizationMode = 0x138
-[2026-01-16 19:51:13.1252363] UGameViewportClient::CurrentSubstrateVisualizationMode = 0x148
-[2026-01-16 19:51:13.1252520] UGameViewportClient::CurrentVirtualShadowMapVisualizationMode = 0x158
-[2026-01-16 19:51:13.1252677] UGameViewportClient::CursorWidgets = 0x210
-[2026-01-16 19:51:13.1252826] UGameViewportClient::DebugProperties = 0x48
-[2026-01-16 19:51:13.1252975] UGameViewportClient::GameLayerManagerPtr = 0x120
-[2026-01-16 19:51:13.1253124] UGameViewportClient::HardwareCursorCache = 0x170
-[2026-01-16 19:51:13.1253275] UGameViewportClient::HardwareCursors = 0x1C0
-[2026-01-16 19:51:13.1253425] UGameViewportClient::HighResScreenshotDialog = 0x160
-[2026-01-16 19:51:13.1253580] UGameViewportClient::MaxSplitscreenPlayers = 0x68
-[2026-01-16 19:51:13.1253732] UGameViewportClient::MouseCaptureMode = 0x3AA
-[2026-01-16 19:51:13.1253886] UGameViewportClient::MouseLockMode = 0x3AC
-[2026-01-16 19:51:13.1254036] UGameViewportClient::SplitscreenInfo = 0x58
-[2026-01-16 19:51:13.1254185] UGameViewportClient::StatUnitData = 0x398
-[2026-01-16 19:51:13.1254333] UGameViewportClient::ViewModeIndex = 0xB0
-[2026-01-16 19:51:13.1254486] UGameViewportClient::Viewport = 0xE8
-[2026-01-16 19:51:13.1254633] UGameViewportClient::ViewportConsole = 0x40
-[2026-01-16 19:51:13.1254781] UGameViewportClient::ViewportFrame = 0xF0
-[2026-01-16 19:51:13.1254929] UGameViewportClient::ViewportOverlayWidget = 0x110
-[2026-01-16 19:51:13.1255080] UGameViewportClient::Window = 0x100
-[2026-01-16 19:51:13.1255231] UGameViewportClient::bDisableSplitScreenOverride = 0x3A8
-[2026-01-16 19:51:13.1255383] UGameViewportClient::bDisableWorldRendering = 0x6C
-[2026-01-16 19:51:13.1255534] UGameViewportClient::bHideCursorDuringCapture = 0x3AB
-[2026-01-16 19:51:13.1255685] UGameViewportClient::bIgnoreInput = 0x3A9
-[2026-01-16 19:51:13.1255833] UGameViewportClient::bIsPlayInEditorViewport = 0x6C
-[2026-01-16 19:51:13.1255983] UGameViewportClient::bSuppressTransitionMessage = 0x88
-[2026-01-16 19:51:13.1256134] UGameViewportClient::bUseSoftwareCursorWidgets = 0x260
-[2026-01-16 19:51:13.1256290] UPlayer::ConfiguredLanSpeed = 0x40
-[2026-01-16 19:51:13.1256439] UPlayer::ConfiguredInternetSpeed = 0x3C
-[2026-01-16 19:51:13.1256588] UPlayer::CurrentNetSpeed = 0x38
-[2026-01-16 19:51:13.1256737] ULocalPlayer::AspectRatioAxisConstraint = 0xB8
-[2026-01-16 19:51:13.1256896] ULocalPlayer::SlateOperations = 0x1F8
-[2026-01-16 19:51:13.1257047] ULocalPlayer::ControllerId = 0xE0
-[2026-01-16 19:51:13.1257198] ULocalPlayer::CachedUniqueNetId = 0x48
-[2026-01-16 19:51:13.1257347] ULocalPlayer::OnPlayerControllerChangedEvent = 0x120
-[2026-01-16 19:51:13.1257499] ULocalPlayer::PlatformUserId = 0x100
-[2026-01-16 19:51:13.1257648] ULocalPlayer::ViewportClient = 0x78
-[2026-01-16 19:51:13.1257794] ULocalPlayer::bSentSplitJoin = 0xC8
-[2026-01-16 19:51:13.1257943] UWorld::AllLevelsChangedEvent = 0x540
-[2026-01-16 19:51:13.1258092] UWorld::BlockTillLevelStreamingCompletedEpoch = 0x148
-[2026-01-16 19:51:13.1258247] UWorld::bAllowAudioPlayback = 0x13E
-[2026-01-16 19:51:13.1258397] UWorld::ActiveLevelCollectionIndex = 0x198
-[2026-01-16 19:51:13.1258545] UWorld::AudioTimeSeconds = 0x6D8
-[2026-01-16 19:51:13.1258694] UWorld::CommittedPersistentLevelName = 0x760
-[2026-01-16 19:51:13.1258846] UWorld::bInTick = 0x13B
-[2026-01-16 19:51:13.1258994] UWorld::CleanupWorldTag = 0x76C
-[2026-01-16 19:51:13.1259144] UWorld::DeltaRealTimeSeconds = 0x6E0
-[2026-01-16 19:51:13.1259298] UWorld::bTickNewlySpawned = 0x13B
-[2026-01-16 19:51:13.1259447] UWorld::AuthorityGameMode = 0x158
-[2026-01-16 19:51:13.1259593] UWorld::BuildStreamingDataTimer = 0x4A8
-[2026-01-16 19:51:13.1259744] UWorld::DeltaTimeSeconds = 0x6E4
-[2026-01-16 19:51:13.1259902] UWorld::bPlayersOnly = 0x13D
-[2026-01-16 19:51:13.1260057] UWorld::bSupportsMakingInvisibleTransactionRequests = 0xDA
-[2026-01-16 19:51:13.1260213] UWorld::ExtraReferencedObjects = 0x68
-[2026-01-16 19:51:13.1260363] UWorld::PreparingLevelNames = 0x750
-[2026-01-16 19:51:13.1260513] UWorld::IsInBlockTillLevelStreamingCompleted = 0x144
-[2026-01-16 19:51:13.1260668] UWorld::bIsRunningConstructionScript = 0x13C
-[2026-01-16 19:51:13.1260818] UWorld::bAllowDeferredPhysicsStateCreation = 0x108
-[2026-01-16 19:51:13.1260969] UWorld::LastRenderTime = 0x130
-[2026-01-16 19:51:13.1261117] UWorld::LastTimeUnbuiltLightingWasEncountered = 0x6B8
-[2026-01-16 19:51:13.1261271] UWorld::bHasEverBeenInitialized = 0x13F
-[2026-01-16 19:51:13.1261419] UWorld::NextSwitchCountdown = 0x720
-[2026-01-16 19:51:13.1261569] UWorld::bMaterialParameterCollectionInstanceNeedsDeferredUpdate = 0x13F
-[2026-01-16 19:51:13.1261729] UWorld::RealTimeSeconds = 0x6D0
-[2026-01-16 19:51:13.1261876] UWorld::NextURL = 0x740
-[2026-01-16 19:51:13.1262023] UWorld::NumStreamingLevelsBeingLoaded = 0x73A
-[2026-01-16 19:51:13.1262174] UWorld::OnBeginPlay = 0x1A0
-[2026-01-16 19:51:13.1262322] UWorld::PauseDelay = 0x6E8
-[2026-01-16 19:51:13.1262468] UWorld::PerModuleDataObjects = 0x78
-[2026-01-16 19:51:13.1262616] UWorld::bIsDefaultLevel = 0x13C
-[2026-01-16 19:51:13.1262764] UWorld::PlayerNum = 0x678
-[2026-01-16 19:51:13.1262918] UWorld::bAggressiveLOD = 0x13C
-[2026-01-16 19:51:13.1263071] UWorld::StreamingLevelsPrefix = 0xC8
-[2026-01-16 19:51:13.1263224] UWorld::bIsLevelStreamingFrozen = 0x13B
-[2026-01-16 19:51:13.1263373] UWorld::StreamingVolumeUpdateDelay = 0x67C
-[2026-01-16 19:51:13.1263523] UWorld::bIsBuilt = 0x13B
-[2026-01-16 19:51:13.1263673] UWorld::TimeSeconds = 0x6C0
-[2026-01-16 19:51:13.1263818] UWorld::URL = 0x5A0
-[2026-01-16 19:51:13.1263963] UWorld::UnpausedTimeSeconds = 0x6C8
-[2026-01-16 19:51:13.1264111] UWorld::bIsBeingCleanedUp = 0x140
-[2026-01-16 19:51:13.1264264] UWorld::bActorsInitialized = 0x13C
-[2026-01-16 19:51:13.1264410] UWorld::bIsTearingDown = 0x13D
-[2026-01-16 19:51:13.1264556] UWorld::bAreConstraintsDirty = 0x13E
-[2026-01-16 19:51:13.1264722] UWorld::bBegunPlay = 0x13D
-[2026-01-16 19:51:13.1264870] UWorld::bDebugPauseExecution = 0x13D
-[2026-01-16 19:51:13.1265018] UWorld::bDoDelayedUpdateCullDistanceVolumes = 0x13C
-[2026-01-16 19:51:13.1265172] UWorld::bRequestedBlockOnAsyncLoading = 0x13C
-[2026-01-16 19:51:13.1265322] UWorld::bDropDetail = 0x13C
-[2026-01-16 19:51:13.1265468] UWorld::bMatchStarted = 0x13D
-[2026-01-16 19:51:13.1265616] UWorld::bIsCameraMoveableWhenPaused = 0x13E
-[2026-01-16 19:51:13.1265766] UWorld::bShouldSimulatePhysics = 0x13C
-[2026-01-16 19:51:13.1265914] UWorld::bIsWorldInitialized = 0x13B
-[2026-01-16 19:51:13.1266065] UWorld::bKismetScriptError = 0x13D
-[2026-01-16 19:51:13.1266215] UWorld::bMarkedObjectsPendingKill = 0x768
-[2026-01-16 19:51:13.1266364] UWorld::bPlayersOnlyPending = 0x13D
-[2026-01-16 19:51:13.1266511] UWorld::bPostTickComponentUpdate = 0x13B
-[2026-01-16 19:51:13.1266661] UWorld::bRequiresHitProxies = 0x13E
-[2026-01-16 19:51:13.1266808] UWorld::bShouldForceUnloadStreamingLevels = 0x13E
-[2026-01-16 19:51:13.1266968] UWorld::bSupportsMakingVisibleTransactionRequests = 0xD8
-[2026-01-16 19:51:13.1267128] UWorld::bShouldForceVisibleStreamingLevels = 0x13E
-[2026-01-16 19:51:13.1267288] UWorld::bShouldTick = 0x13E
-[2026-01-16 19:51:13.1267441] UWorld::bStartup = 0x13D
-[2026-01-16 19:51:13.1267592] UWorld::bStreamingDataDirty = 0x13E
-[2026-01-16 19:51:13.1267752] UWorld::bTriggerPostLoadMap = 0x13B
-[2026-01-16 19:51:13.1267911] UWorld::bWorldWasLoadedThisTick = 0x13B
-[2026-01-16 19:51:13.1268080] UDataTable::RowStruct = 0x28
-[2026-01-16 19:51:13.1268255] UDataTable::RowMap = 0x30
-[2026-01-16 19:51:13.1268419] UDataTable::bStripFromClientBuilds = 0x80
-[2026-01-16 19:51:13.1268578] UDataTable::bIgnoreExtraFields = 0x80
-[2026-01-16 19:51:13.1268738] UDataTable::bIgnoreMissingFields = 0x80
-[2026-01-16 19:51:13.1268898] UDataTable::ImportKeyField = 0x88
-[2026-01-16 19:51:13.1269575] 
+[2026-01-16 21:20:19.3437964] UObjectBase::ActorCategory = 0x61
+[2026-01-16 21:20:19.3438237] UObjectBase::ClassPrivate = 0x10
+[2026-01-16 21:20:19.3438509] UObjectBase::bFindCameraComponentWhenViewTarget = 0x5A
+[2026-01-16 21:20:19.3438835] UObjectBase::InternalIndex = 0xC
+[2026-01-16 21:20:19.3439145] UObjectBase::World = 0x78
+[2026-01-16 21:20:19.3439412] UObjectBase::ObjectFlags = 0x8
+[2026-01-16 21:20:19.3439680] UObjectBase::OnEndCursorOver = 0x1DE
+[2026-01-16 21:20:19.3439939] UObjectBase::CustomTimeDilation = 0x68
+[2026-01-16 21:20:19.3440201] UObjectBase::NamePrivate = 0x18
+[2026-01-16 21:20:19.3440460] UObjectBase::bForceNetAddressable = 0x59
+[2026-01-16 21:20:19.3440716] UObjectBase::InputPriority = 0x154
+[2026-01-16 21:20:19.3440971] UObjectBase::OuterPrivate = 0x20
+[2026-01-16 21:20:19.3441230] UObjectBase::bNetTemporary = 0x58
+[2026-01-16 21:20:19.3441392] UObjectBase::ActorHasBegunPlay = 0x5D
+[2026-01-16 21:20:19.3441546] UObjectBase::OnInputTouchEnd = 0x1E2
+[2026-01-16 21:20:19.3441693] UObjectBase::bHasDeferredComponentRegistration = 0x5C
+[2026-01-16 21:20:19.3441845] UObjectBase::AttachmentReplication = 0x70
+[2026-01-16 21:20:19.3441996] UObjectBase::EngineShowFlags = 0xB8
+[2026-01-16 21:20:19.3442145] UObjectBase::AutoReceiveInput = 0x153
+[2026-01-16 21:20:19.3442290] UObjectBase::Children = 0x190
+[2026-01-16 21:20:19.3442437] UObjectBase::PhysicsReplicationMode = 0x17C
+[2026-01-16 21:20:19.3442582] UObjectBase::DetachFence = 0x288
+[2026-01-16 21:20:19.3442727] UObjectBase::CreationTime = 0x158
+[2026-01-16 21:20:19.3442876] UObjectBase::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
+[2026-01-16 21:20:19.3443034] UObjectBase::InitialLifeSpan = 0x64
+[2026-01-16 21:20:19.3443179] UObjectBase::Tags = 0x1C8
+[2026-01-16 21:20:19.3443329] UObjectBase::InputComponent = 0x160
+[2026-01-16 21:20:19.3443475] UObjectBase::OnTakePointDamage = 0x1D9
+[2026-01-16 21:20:19.3443621] UObjectBase::LastRenderTime = 0x180
+[2026-01-16 21:20:19.3443767] UObjectBase::RemoteRole = 0x60
+[2026-01-16 21:20:19.3443912] UObjectBase::Layers = 0x1B0
+[2026-01-16 21:20:19.3444056] UObjectBase::MinNetUpdateFrequency = 0x174
+[2026-01-16 21:20:19.3444204] UObjectBase::TimerHandle_LifeSpanExpired = 0x1A8
+[2026-01-16 21:20:19.3444356] UObjectBase::OnTakeAnyDamage = 0x1D8
+[2026-01-16 21:20:19.3444501] UObjectBase::NetCullDistanceSquared = 0x168
+[2026-01-16 21:20:19.3444686] UObjectBase::OnActorEndOverlap = 0x1DC
+[2026-01-16 21:20:19.3444853] UObjectBase::NetDormancy = 0x151
+[2026-01-16 21:20:19.3445010] UObjectBase::NetDriverName = 0x148
+[2026-01-16 21:20:19.3445210] UObjectBase::NetTag = 0x16C
+[2026-01-16 21:20:19.3445388] UObjectBase::NetPriority = 0x178
+[2026-01-16 21:20:19.3445534] UObjectBase::PrimaryActorTick = 0x28
+[2026-01-16 21:20:19.3445687] UObjectBase::NetUpdateFrequency = 0x170
+[2026-01-16 21:20:19.3445834] UObjectBase::OnClicked = 0x1DF
+[2026-01-16 21:20:19.3445988] UObjectBase::OnActorBeginOverlap = 0x1DB
+[2026-01-16 21:20:19.3446135] UObjectBase::OnActorHit = 0x1E5
+[2026-01-16 21:20:19.3446283] UObjectBase::StatHitchesData = 0x3A0
+[2026-01-16 21:20:19.3446430] UObjectBase::OnBeginCursorOver = 0x1DD
+[2026-01-16 21:20:19.3446578] UObjectBase::OnDestroyed = 0x1E6
+[2026-01-16 21:20:19.3446722] UObjectBase::OnInputTouchEnter = 0x1E3
+[2026-01-16 21:20:19.3446870] UObjectBase::bHasAudioFocus = 0xFC
+[2026-01-16 21:20:19.3447016] UObjectBase::OnEndPlay = 0x1E7
+[2026-01-16 21:20:19.3447160] UObjectBase::OnInputTouchBegin = 0x1E1
+[2026-01-16 21:20:19.3447307] UObjectBase::OnInputTouchLeave = 0x1E4
+[2026-01-16 21:20:19.3447488] UObjectBase::OnReleased = 0x1E0
+[2026-01-16 21:20:19.3447726] UObjectBase::OnTakeRadialDamage = 0x1DA
+[2026-01-16 21:20:19.3447902] UObjectBase::Owner = 0x140
+[2026-01-16 21:20:19.3448051] UObjectBase::ParentComponent = 0x1C0
+[2026-01-16 21:20:19.3448210] UObjectBase::RayTracingGroupId = 0x6C
+[2026-01-16 21:20:19.3448409] UObjectBase::ReplicatedComponentsInfo = 0x1F8
+[2026-01-16 21:20:19.3448569] UObjectBase::ReplicatedMovement = 0xD0
+[2026-01-16 21:20:19.3448717] UObjectBase::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
+[2026-01-16 21:20:19.3448875] UObjectBase::ReplicatedSubObjects = 0x1E8
+[2026-01-16 21:20:19.3449026] UObjectBase::Role = 0x150
+[2026-01-16 21:20:19.3449174] UObjectBase::RootComponent = 0x1A0
+[2026-01-16 21:20:19.3449403] UObjectBase::SpawnCollisionHandlingMethod = 0x152
+[2026-01-16 21:20:19.3449647] UObjectBase::bNetStartup = 0x58
+[2026-01-16 21:20:19.3449892] UObjectBase::bActorIsBeingConstructed = 0x5D
+[2026-01-16 21:20:19.3450048] UObjectBase::bActorBeginningPlayFromLevelStreaming = 0x5C
+[2026-01-16 21:20:19.3450202] UObjectBase::bIsMouseOverClient = 0x3AD
+[2026-01-16 21:20:19.3450352] UObjectBase::bActorEnableCollision = 0x5C
+[2026-01-16 21:20:19.3450503] UObjectBase::bActorInitialized = 0x5C
+[2026-01-16 21:20:19.3450658] UObjectBase::bActorIsBeingDestroyed = 0x5D
+[2026-01-16 21:20:19.3450806] UObjectBase::bActorSeamlessTraveled = 0x5B
+[2026-01-16 21:20:19.3450992] UObjectBase::bActorWantsDestroyDuringBeginPlay = 0x5D
+[2026-01-16 21:20:19.3451184] UObjectBase::bAllowReceiveTickEventOnDedicatedServer = 0x5B
+[2026-01-16 21:20:19.3451355] UObjectBase::bAllowTickBeforeBeginPlay = 0x5A
+[2026-01-16 21:20:19.3451506] UObjectBase::bAlwaysRelevant = 0x58
+[2026-01-16 21:20:19.3451656] UObjectBase::bAsyncPhysicsTickEnabled = 0x5D
+[2026-01-16 21:20:19.3451825] UObjectBase::bAutoDestroyWhenFinished = 0x5A
+[2026-01-16 21:20:19.3451975] UObjectBase::bBlockInput = 0x5A
+[2026-01-16 21:20:19.3452119] UObjectBase::bCallPreReplication = 0x58
+[2026-01-16 21:20:19.3452269] UObjectBase::bCallPreReplicationForReplay = 0x58
+[2026-01-16 21:20:19.3452421] UObjectBase::bCanBeDamaged = 0x5A
+[2026-01-16 21:20:19.3452568] UObjectBase::bCanBeInCluster = 0x5B
+[2026-01-16 21:20:19.3452752] UObjectBase::bCollideWhenPlacing = 0x5A
+[2026-01-16 21:20:19.3452907] UObjectBase::bHasRegisteredAllComponents = 0x5C
+[2026-01-16 21:20:19.3453060] UObjectBase::bEnableAutoLODGeneration = 0x5B
+[2026-01-16 21:20:19.3453211] UObjectBase::bExchangedRoles = 0x59
+[2026-01-16 21:20:19.3453366] UObjectBase::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
+[2026-01-16 21:20:19.3453578] UObjectBase::bHasFinishedSpawning = 0x5C
+[2026-01-16 21:20:19.3453807] UObjectBase::bHidden = 0x58
+[2026-01-16 21:20:19.3454043] UObjectBase::bIgnoresOriginShifting = 0x5A
+[2026-01-16 21:20:19.3454283] UObjectBase::bIsEditorOnlyActor = 0x5B
+[2026-01-16 21:20:19.3454534] UObjectBase::bNetCheckedInitialPhysicsState = 0x5B
+[2026-01-16 21:20:19.3454781] UObjectBase::bNetLoadOnClient = 0x59
+[2026-01-16 21:20:19.3455034] UObjectBase::bNetUseOwnerRelevancy = 0x59
+[2026-01-16 21:20:19.3455280] UObjectBase::bOnlyRelevantToOwner = 0x58
+[2026-01-16 21:20:19.3455506] UObjectBase::bRelevantForLevelBounds = 0x59
+[2026-01-16 21:20:19.3455783] UObjectBase::bRelevantForNetworkReplays = 0x59
+[2026-01-16 21:20:19.3456066] UObjectBase::bReplayRewindable = 0x59
+[2026-01-16 21:20:19.3456348] UObjectBase::bReplicateMovement = 0x58
+[2026-01-16 21:20:19.3456654] UObjectBase::bReplicateUsingRegisteredSubObjectList = 0x5B
+[2026-01-16 21:20:19.3456946] UObjectBase::bReplicates = 0x5B
+[2026-01-16 21:20:19.3457226] UObjectBase::bRunningUserConstructionScript = 0x5C
+[2026-01-16 21:20:19.3457517] UObjectBase::bTearOff = 0x59
+[2026-01-16 21:20:19.3457800] UObjectBase::bTickFunctionsRegistered = 0x5C
+[2026-01-16 21:20:19.3458090] UObjectBase::ActiveSplitscreenType = 0x70
+[2026-01-16 21:20:19.3458396] UObjectBase::AudioDeviceHandle = 0xF8
+[2026-01-16 21:20:19.3458739] UObjectBase::CurrentBufferVisualizationMode = 0x130
+[2026-01-16 21:20:19.3459052] UObjectBase::CurrentGroomVisualizationMode = 0x150
+[2026-01-16 21:20:19.3459320] UObjectBase::CurrentLumenVisualizationMode = 0x140
+[2026-01-16 21:20:19.3459563] UObjectBase::CurrentNaniteVisualizationMode = 0x138
+[2026-01-16 21:20:19.3459805] UObjectBase::CurrentSubstrateVisualizationMode = 0x148
+[2026-01-16 21:20:19.3460098] UObjectBase::CurrentVirtualShadowMapVisualizationMode = 0x158
+[2026-01-16 21:20:19.3460360] UObjectBase::CursorWidgets = 0x210
+[2026-01-16 21:20:19.3460588] UObjectBase::DebugProperties = 0x48
+[2026-01-16 21:20:19.3460828] UObjectBase::GameLayerManagerPtr = 0x120
+[2026-01-16 21:20:19.3461071] UObjectBase::HardwareCursorCache = 0x170
+[2026-01-16 21:20:19.3461303] UObjectBase::HardwareCursors = 0x1C0
+[2026-01-16 21:20:19.3461532] UObjectBase::HighResScreenshotDialog = 0x160
+[2026-01-16 21:20:19.3461749] UObjectBase::MaxSplitscreenPlayers = 0x68
+[2026-01-16 21:20:19.3461904] UObjectBase::MouseCaptureMode = 0x3AA
+[2026-01-16 21:20:19.3462052] UObjectBase::MouseLockMode = 0x3AC
+[2026-01-16 21:20:19.3462198] UObjectBase::SplitscreenInfo = 0x58
+[2026-01-16 21:20:19.3462345] UObjectBase::StatUnitData = 0x398
+[2026-01-16 21:20:19.3462491] UObjectBase::ViewModeIndex = 0xB0
+[2026-01-16 21:20:19.3462642] UObjectBase::Viewport = 0xE8
+[2026-01-16 21:20:19.3462801] UObjectBase::ViewportConsole = 0x40
+[2026-01-16 21:20:19.3462948] UObjectBase::ViewportFrame = 0xF0
+[2026-01-16 21:20:19.3463093] UObjectBase::ViewportOverlayWidget = 0x110
+[2026-01-16 21:20:19.3463241] UObjectBase::Window = 0x100
+[2026-01-16 21:20:19.3463390] UObjectBase::bDisableSplitScreenOverride = 0x3A8
+[2026-01-16 21:20:19.3463545] UObjectBase::bDisableWorldRendering = 0x6C
+[2026-01-16 21:20:19.3463692] UObjectBase::bHideCursorDuringCapture = 0x3AB
+[2026-01-16 21:20:19.3463846] UObjectBase::bIgnoreInput = 0x3A9
+[2026-01-16 21:20:19.3463993] UObjectBase::bIsPlayInEditorViewport = 0x6C
+[2026-01-16 21:20:19.3464141] UObjectBase::bSuppressTransitionMessage = 0x88
+[2026-01-16 21:20:19.3464294] UObjectBase::bUseSoftwareCursorWidgets = 0x260
+[2026-01-16 21:20:19.3464448] UScriptStruct::ICppStructOps::Alignment = 0xC
+[2026-01-16 21:20:19.3464598] UScriptStruct::ICppStructOps::Size = 0x8
+[2026-01-16 21:20:19.3464746] UStruct::DestructorLink = 0x80
+[2026-01-16 21:20:19.3464890] UStruct::Children = 0x48
+[2026-01-16 21:20:19.3465039] UStruct::ChildProperties = 0x50
+[2026-01-16 21:20:19.3465183] UStruct::PostConstructLink = 0x88
+[2026-01-16 21:20:19.3465328] UStruct::UnresolvedScriptProperties = 0xA0
+[2026-01-16 21:20:19.3465475] UStruct::MinAlignment = 0x5C
+[2026-01-16 21:20:19.3465619] UStruct::PropertiesSize = 0x58
+[2026-01-16 21:20:19.3465765] UStruct::PropertyLink = 0x70
+[2026-01-16 21:20:19.3465908] UStruct::RefLink = 0x78
+[2026-01-16 21:20:19.3466051] UStruct::Script = 0x60
+[2026-01-16 21:20:19.3466195] UStruct::ScriptAndPropertyObjectReferences = 0x90
+[2026-01-16 21:20:19.3466344] UStruct::SuperStruct = 0x40
+[2026-01-16 21:20:19.3466488] UScriptStruct::StructFlags = 0xB0
+[2026-01-16 21:20:19.3466633] UScriptStruct::CppStructOps = 0xB8
+[2026-01-16 21:20:19.3466831] UScriptStruct::bPrepareCppStructOpsCompleted = 0xB4
+[2026-01-16 21:20:19.3466988] UClass::ClassCastFlags = 0xD8
+[2026-01-16 21:20:19.3467134] UClass::AllFunctionsCache = 0x180
+[2026-01-16 21:20:19.3467281] UClass::bCooked = 0xD0
+[2026-01-16 21:20:19.3467423] UClass::ClassConfigName = 0xE8
+[2026-01-16 21:20:19.3467567] UClass::ClassConstructor = 0xB0
+[2026-01-16 21:20:19.3467713] UClass::ClassDefaultObject = 0x110
+[2026-01-16 21:20:19.3467855] UClass::ClassFlags = 0xD4
+[2026-01-16 21:20:19.3467998] UClass::ClassUnique = 0xC8
+[2026-01-16 21:20:19.3468141] UClass::ClassVTableHelperCtorCaller = 0xB8
+[2026-01-16 21:20:19.3468287] UClass::bLayoutChanging = 0xD1
+[2026-01-16 21:20:19.3468433] UClass::ClassWithin = 0xE0
+[2026-01-16 21:20:19.3468576] UClass::FirstOwnedClassRep = 0xCC
+[2026-01-16 21:20:19.3468727] UClass::FuncMap = 0x128
+[2026-01-16 21:20:19.3468869] UClass::Interfaces = 0x1D8
+[2026-01-16 21:20:19.3469014] UClass::NetFields = 0x100
+[2026-01-16 21:20:19.3469202] UClass::ReferenceSchema = 0x1E8
+[2026-01-16 21:20:19.3469348] UClass::SparseClassData = 0x118
+[2026-01-16 21:20:19.3469509] UClass::SparseClassDataStruct = 0x120
+[2026-01-16 21:20:19.3469656] UEnum::CppForm = 0x50
+[2026-01-16 21:20:19.3469797] UEnum::CppType = 0x30
+[2026-01-16 21:20:19.3469954] UEnum::EnumDisplayNameFn = 0x58
+[2026-01-16 21:20:19.3470113] UEnum::Names = 0x40
+[2026-01-16 21:20:19.3470260] UEnum::EnumFlags_Internal = 0x54
+[2026-01-16 21:20:19.3470404] UEnum::EnumPackage = 0x60
+[2026-01-16 21:20:19.3470549] UFunction::EventGraphCallOffset = 0xD0
+[2026-01-16 21:20:19.3470714] UFunction::EventGraphFunction = 0xC8
+[2026-01-16 21:20:19.3470864] UFunction::RPCId = 0xBA
+[2026-01-16 21:20:19.3471006] UFunction::FirstPropertyToInit = 0xC0
+[2026-01-16 21:20:19.3471151] UFunction::Func = 0xD8
+[2026-01-16 21:20:19.3471300] UFunction::FunctionFlags = 0xB0
+[2026-01-16 21:20:19.3471445] UFunction::NumParms = 0xB4
+[2026-01-16 21:20:19.3471587] UFunction::ParmsSize = 0xB6
+[2026-01-16 21:20:19.3471729] UFunction::RPCResponseId = 0xBC
+[2026-01-16 21:20:19.3471873] UFunction::ReturnValueOffset = 0xB8
+[2026-01-16 21:20:19.3472019] USparseDelegateFunction::OwningClassName = 0xE0
+[2026-01-16 21:20:19.3472176] USparseDelegateFunction::DelegateName = 0xE8
+[2026-01-16 21:20:19.3472382] UField::Next = 0x28
+[2026-01-16 21:20:19.3472530] FField::ClassPrivate = 0x8
+[2026-01-16 21:20:19.3472709] FField::NamePrivate = 0x20
+[2026-01-16 21:20:19.3472878] FField::FlagsPrivate = 0x28
+[2026-01-16 21:20:19.3473097] FField::Next = 0x18
+[2026-01-16 21:20:19.3473270] FField::Owner = 0x10
+[2026-01-16 21:20:19.3473413] FProperty::ArrayDim = 0x30
+[2026-01-16 21:20:19.3473567] FProperty::DestructorLinkNext = 0x58
+[2026-01-16 21:20:19.3473716] FProperty::ElementSize = 0x34
+[2026-01-16 21:20:19.3473906] FProperty::NextRef = 0x50
+[2026-01-16 21:20:19.3474150] FProperty::Offset_Internal = 0x44
+[2026-01-16 21:20:19.3474301] FProperty::PostConstructLinkNext = 0x60
+[2026-01-16 21:20:19.3474453] FProperty::PropertyLinkNext = 0x48
+[2026-01-16 21:20:19.3474683] FProperty::PropertyFlags = 0x38
+[2026-01-16 21:20:19.3474938] FProperty::RepIndex = 0x40
+[2026-01-16 21:20:19.3475089] FProperty::RepNotifyFunc = 0x68
+[2026-01-16 21:20:19.3475260] FNumericProperty::ArrayDim = 0x30
+[2026-01-16 21:20:19.3475429] FNumericProperty::DestructorLinkNext = 0x58
+[2026-01-16 21:20:19.3475611] FNumericProperty::ElementSize = 0x34
+[2026-01-16 21:20:19.3475793] FNumericProperty::NextRef = 0x50
+[2026-01-16 21:20:19.3475940] FNumericProperty::Offset_Internal = 0x44
+[2026-01-16 21:20:19.3476088] FNumericProperty::PostConstructLinkNext = 0x60
+[2026-01-16 21:20:19.3476324] FNumericProperty::PropertyLinkNext = 0x48
+[2026-01-16 21:20:19.3476479] FNumericProperty::PropertyFlags = 0x38
+[2026-01-16 21:20:19.3476628] FNumericProperty::RepIndex = 0x40
+[2026-01-16 21:20:19.3476773] FNumericProperty::RepNotifyFunc = 0x68
+[2026-01-16 21:20:19.3476918] FObjectPropertyBase::PropertyClass = 0x70
+[2026-01-16 21:20:19.3477086] FStructProperty::Struct = 0x70
+[2026-01-16 21:20:19.3477239] FArrayProperty::Inner = 0x78
+[2026-01-16 21:20:19.3477387] FArrayProperty::ArrayFlags = 0x70
+[2026-01-16 21:20:19.3477537] FMapProperty::KeyProp = 0x70
+[2026-01-16 21:20:19.3477684] FMapProperty::MapFlags = 0x98
+[2026-01-16 21:20:19.3477828] FMapProperty::ValueProp = 0x78
+[2026-01-16 21:20:19.3477971] FMapProperty::MapLayout = 0x80
+[2026-01-16 21:20:19.3478117] FSetProperty::ElementProp = 0x70
+[2026-01-16 21:20:19.3478262] FSetProperty::SetLayout = 0x78
+[2026-01-16 21:20:19.3478408] FBoolProperty::FieldMask = 0x73
+[2026-01-16 21:20:19.3478585] FBoolProperty::ByteMask = 0x72
+[2026-01-16 21:20:19.3478753] FBoolProperty::FieldSize = 0x70
+[2026-01-16 21:20:19.3478918] FBoolProperty::ByteOffset = 0x71
+[2026-01-16 21:20:19.3479107] FByteProperty::Enum = 0x70
+[2026-01-16 21:20:19.3479304] FEnumProperty::Enum = 0x78
+[2026-01-16 21:20:19.3479485] FEnumProperty::UnderlyingProp = 0x70
+[2026-01-16 21:20:19.3479670] FClassProperty::MetaClass = 0x78
+[2026-01-16 21:20:19.3479894] FSoftClassProperty::MetaClass = 0x78
+[2026-01-16 21:20:19.3480080] FDelegateProperty::SignatureFunction = 0x70
+[2026-01-16 21:20:19.3480250] FMulticastDelegateProperty::SignatureFunction = 0x70
+[2026-01-16 21:20:19.3480403] FInterfaceProperty::InterfaceClass = 0x70
+[2026-01-16 21:20:19.3480560] FFieldPathProperty::PropertyClass = 0x70
+[2026-01-16 21:20:19.3480716] FWorldContext::AudioDeviceID = 0x240
+[2026-01-16 21:20:19.3480883] FWorldContext::ThisCurrentWorld = 0x2C0
+[2026-01-16 21:20:19.3481040] FWorldContext::ExternalReferences = 0x2B0
+[2026-01-16 21:20:19.3481191] FWorldContext::LastRemoteURL = 0x128
+[2026-01-16 21:20:19.3481338] FWorldContext::CustomDescription = 0x248
+[2026-01-16 21:20:19.3481491] FWorldContext::ContextHandle = 0xA0
+[2026-01-16 21:20:19.3481644] FWorldContext::GameViewport = 0x200
+[2026-01-16 21:20:19.3481789] FWorldContext::bShouldCommitPendingMapChange = 0x1D8
+[2026-01-16 21:20:19.3481941] FWorldContext::GarbageObjectsToVerify = 0x260
+[2026-01-16 21:20:19.3482092] FWorldContext::LastURL = 0xC0
+[2026-01-16 21:20:19.3482241] FWorldContext::LevelsToLoadForPendingMapChange = 0x1A8
+[2026-01-16 21:20:19.3482394] FWorldContext::PIEAccumulatedTickSeconds = 0x25C
+[2026-01-16 21:20:19.3482546] FWorldContext::PIEPrefix = 0x228
+[2026-01-16 21:20:19.3482697] FWorldContext::PIEFixedTickSeconds = 0x258
+[2026-01-16 21:20:19.3482844] FWorldContext::PIEInstance = 0x220
+[2026-01-16 21:20:19.3482991] FWorldContext::PendingMapChangeFailureDescription = 0x1C8
+[2026-01-16 21:20:19.3483142] FWorldContext::RunAsDedicated = 0x23C
+[2026-01-16 21:20:19.3483288] FWorldContext::TravelType = 0xB8
+[2026-01-16 21:20:19.3483432] FWorldContext::TravelURL = 0xA8
+[2026-01-16 21:20:19.3483575] FWorldContext::bIsPrimaryPIEInstance = 0x23E
+[2026-01-16 21:20:19.3483721] FWorldContext::bWaitingOnOnlineSubsystem = 0x23D
+[2026-01-16 21:20:19.3483873] FOutputDevice::bAutoEmitLineTerminator = 0x9
+[2026-01-16 21:20:19.3484020] FOutputDevice::bSuppressEventTag = 0x8
+[2026-01-16 21:20:19.3484166] FArchiveState::ArAllowLazyLoading = 0x2A
+[2026-01-16 21:20:19.3484312] FArchiveState::ArContainsCode = 0x29
+[2026-01-16 21:20:19.3484458] FArchiveState::ArCustomPropertyList = 0x60
+[2026-01-16 21:20:19.3484605] FArchiveState::ArEngineVer = 0x4C
+[2026-01-16 21:20:19.3484757] FArchiveState::ArIsNetArchive = 0x2B
+[2026-01-16 21:20:19.3484904] FArchiveState::ArContainsMap = 0x29
+[2026-01-16 21:20:19.3485052] FArchiveState::ArForceUnicode = 0x28
+[2026-01-16 21:20:19.3485199] FArchiveState::ArIsError = 0x29
+[2026-01-16 21:20:19.3485344] FArchiveState::ArForceByteSwapping = 0x2A
+[2026-01-16 21:20:19.3485490] FArchiveState::ArIgnoreArchetypeRef = 0x2A
+[2026-01-16 21:20:19.3485638] FArchiveState::ArIgnoreClassGeneratedByRef = 0x2A
+[2026-01-16 21:20:19.3485789] FArchiveState::ArLicenseeUEVer = 0x48
+[2026-01-16 21:20:19.3485934] FArchiveState::ArIgnoreClassRef = 0x2A
+[2026-01-16 21:20:19.3486082] FArchiveState::ArIgnoreOuterRef = 0x2A
+[2026-01-16 21:20:19.3486281] FArchiveState::NextProxy = 0x88
+[2026-01-16 21:20:19.3486431] FArchiveState::ArIsCountingMemory = 0x2B
+[2026-01-16 21:20:19.3486584] FArchiveState::ArUEVer = 0x40
+[2026-01-16 21:20:19.3486731] FArchiveState::ArIsCriticalError = 0x29
+[2026-01-16 21:20:19.3486881] FArchiveState::ArIsFilterEditorOnly = 0x2B
+[2026-01-16 21:20:19.3487028] FArchiveState::ArIsLoading = 0x28
+[2026-01-16 21:20:19.3487175] FArchiveState::ArIsLoadingFromCookedPackage = 0x28
+[2026-01-16 21:20:19.3487327] FArchiveState::ArUseUnversionedPropertySerialization = 0x28
+[2026-01-16 21:20:19.3487480] FArchiveState::ArIsModifyingWeakAndStrongReferences = 0x2B
+[2026-01-16 21:20:19.3487632] FArchiveState::ArIsPersistent = 0x29
+[2026-01-16 21:20:19.3487785] FArchiveState::ArIsObjectReferenceCollector = 0x2B
+[2026-01-16 21:20:19.3487935] FArchiveState::ArIsSaveGame = 0x2B
+[2026-01-16 21:20:19.3488082] FArchiveState::ArIsSaving = 0x28
+[2026-01-16 21:20:19.3488227] FArchiveState::ArIsTextFormat = 0x28
+[2026-01-16 21:20:19.3488372] FArchiveState::ArPortFlags = 0x30
+[2026-01-16 21:20:19.3488519] FArchiveState::ArIsTransacting = 0x28
+[2026-01-16 21:20:19.3488666] FArchiveState::ArShouldSkipCompilingAssets = 0x29
+[2026-01-16 21:20:19.3488816] FArchiveState::ArMaxSerializeSize = 0x38
+[2026-01-16 21:20:19.3488963] FArchiveState::ArNoDelta = 0x2A
+[2026-01-16 21:20:19.3489149] FArchiveState::ArNoIntraPropertyDelta = 0x2A
+[2026-01-16 21:20:19.3489296] FArchiveState::ArRequiresLocalizationGather = 0x29
+[2026-01-16 21:20:19.3489448] FArchiveState::ArSerializingDefaults = 0x2C
+[2026-01-16 21:20:19.3489608] FArchiveState::bCustomVersionsAreReset = 0x80
+[2026-01-16 21:20:19.3489759] FArchiveState::ArShouldSkipBulkData = 0x2B
+[2026-01-16 21:20:19.3489907] FArchiveState::ArShouldSkipUpdateCustomVersion = 0x29
+[2026-01-16 21:20:19.3490056] FArchiveState::ArUseCustomPropertyList = 0x2B
+[2026-01-16 21:20:19.3490207] FArchiveState::ArWantBinaryPropertySerialization = 0x28
+[2026-01-16 21:20:19.3490359] FArchiveState::CustomVersionContainer = 0x58
+[2026-01-16 21:20:19.3490504] FArchiveState::SerializedProperty = 0x70
+[2026-01-16 21:20:19.3490650] AActor::ActorCategory = 0x61
+[2026-01-16 21:20:19.3490795] AActor::ClassPrivate = 0x10
+[2026-01-16 21:20:19.3490939] AActor::bFindCameraComponentWhenViewTarget = 0x5A
+[2026-01-16 21:20:19.3491086] AActor::InternalIndex = 0xC
+[2026-01-16 21:20:19.3491230] AActor::World = 0x78
+[2026-01-16 21:20:19.3491374] AActor::ObjectFlags = 0x8
+[2026-01-16 21:20:19.3491516] AActor::OnEndCursorOver = 0x1DE
+[2026-01-16 21:20:19.3491660] AActor::CustomTimeDilation = 0x68
+[2026-01-16 21:20:19.3491806] AActor::NamePrivate = 0x18
+[2026-01-16 21:20:19.3491951] AActor::bForceNetAddressable = 0x59
+[2026-01-16 21:20:19.3492095] AActor::InputPriority = 0x154
+[2026-01-16 21:20:19.3492237] AActor::OuterPrivate = 0x20
+[2026-01-16 21:20:19.3492377] AActor::bNetTemporary = 0x58
+[2026-01-16 21:20:19.3492519] AActor::ActorHasBegunPlay = 0x5D
+[2026-01-16 21:20:19.3492661] AActor::OnInputTouchEnd = 0x1E2
+[2026-01-16 21:20:19.3492837] AActor::bHasDeferredComponentRegistration = 0x5C
+[2026-01-16 21:20:19.3492992] AActor::AttachmentReplication = 0x70
+[2026-01-16 21:20:19.3493137] AActor::EngineShowFlags = 0xB8
+[2026-01-16 21:20:19.3493282] AActor::AutoReceiveInput = 0x153
+[2026-01-16 21:20:19.3493425] AActor::Children = 0x190
+[2026-01-16 21:20:19.3493567] AActor::PhysicsReplicationMode = 0x17C
+[2026-01-16 21:20:19.3493715] AActor::DetachFence = 0x288
+[2026-01-16 21:20:19.3493858] AActor::CreationTime = 0x158
+[2026-01-16 21:20:19.3494003] AActor::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
+[2026-01-16 21:20:19.3494153] AActor::InitialLifeSpan = 0x64
+[2026-01-16 21:20:19.3494305] AActor::Tags = 0x1C8
+[2026-01-16 21:20:19.3494445] AActor::InputComponent = 0x160
+[2026-01-16 21:20:19.3494589] AActor::OnTakePointDamage = 0x1D9
+[2026-01-16 21:20:19.3494733] AActor::LastRenderTime = 0x180
+[2026-01-16 21:20:19.3494877] AActor::RemoteRole = 0x60
+[2026-01-16 21:20:19.3495021] AActor::Layers = 0x1B0
+[2026-01-16 21:20:19.3495163] AActor::MinNetUpdateFrequency = 0x174
+[2026-01-16 21:20:19.3495308] AActor::TimerHandle_LifeSpanExpired = 0x1A8
+[2026-01-16 21:20:19.3495452] AActor::OnTakeAnyDamage = 0x1D8
+[2026-01-16 21:20:19.3495595] AActor::NetCullDistanceSquared = 0x168
+[2026-01-16 21:20:19.3495740] AActor::OnActorEndOverlap = 0x1DC
+[2026-01-16 21:20:19.3495906] AActor::NetDormancy = 0x151
+[2026-01-16 21:20:19.3496068] AActor::NetDriverName = 0x148
+[2026-01-16 21:20:19.3496240] AActor::NetTag = 0x16C
+[2026-01-16 21:20:19.3496382] AActor::NetPriority = 0x178
+[2026-01-16 21:20:19.3496525] AActor::PrimaryActorTick = 0x28
+[2026-01-16 21:20:19.3496669] AActor::NetUpdateFrequency = 0x170
+[2026-01-16 21:20:19.3496813] AActor::OnClicked = 0x1DF
+[2026-01-16 21:20:19.3496954] AActor::OnActorBeginOverlap = 0x1DB
+[2026-01-16 21:20:19.3497150] AActor::OnActorHit = 0x1E5
+[2026-01-16 21:20:19.3497309] AActor::StatHitchesData = 0x3A0
+[2026-01-16 21:20:19.3497452] AActor::OnBeginCursorOver = 0x1DD
+[2026-01-16 21:20:19.3497596] AActor::OnDestroyed = 0x1E6
+[2026-01-16 21:20:19.3497741] AActor::OnInputTouchEnter = 0x1E3
+[2026-01-16 21:20:19.3497888] AActor::bHasAudioFocus = 0xFC
+[2026-01-16 21:20:19.3498032] AActor::OnEndPlay = 0x1E7
+[2026-01-16 21:20:19.3498178] AActor::OnInputTouchBegin = 0x1E1
+[2026-01-16 21:20:19.3498377] AActor::OnInputTouchLeave = 0x1E4
+[2026-01-16 21:20:19.3498541] AActor::OnReleased = 0x1E0
+[2026-01-16 21:20:19.3498887] AActor::OnTakeRadialDamage = 0x1DA
+[2026-01-16 21:20:19.3499250] AActor::Owner = 0x140
+[2026-01-16 21:20:19.3499442] AActor::ParentComponent = 0x1C0
+[2026-01-16 21:20:19.3500109] AActor::RayTracingGroupId = 0x6C
+[2026-01-16 21:20:19.3500392] AActor::ReplicatedComponentsInfo = 0x1F8
+[2026-01-16 21:20:19.3500558] AActor::ReplicatedMovement = 0xD0
+[2026-01-16 21:20:19.3500710] AActor::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
+[2026-01-16 21:20:19.3500867] AActor::ReplicatedSubObjects = 0x1E8
+[2026-01-16 21:20:19.3501017] AActor::Role = 0x150
+[2026-01-16 21:20:19.3501162] AActor::RootComponent = 0x1A0
+[2026-01-16 21:20:19.3501307] AActor::SpawnCollisionHandlingMethod = 0x152
+[2026-01-16 21:20:19.3501507] AActor::bNetStartup = 0x58
+[2026-01-16 21:20:19.3501695] AActor::bActorIsBeingConstructed = 0x5D
+[2026-01-16 21:20:19.3501919] AActor::bActorBeginningPlayFromLevelStreaming = 0x5C
+[2026-01-16 21:20:19.3502135] AActor::bIsMouseOverClient = 0x3AD
+[2026-01-16 21:20:19.3502364] AActor::bActorEnableCollision = 0x5C
+[2026-01-16 21:20:19.3502512] AActor::bActorInitialized = 0x5C
+[2026-01-16 21:20:19.3502661] AActor::bActorIsBeingDestroyed = 0x5D
+[2026-01-16 21:20:19.3502911] AActor::bActorSeamlessTraveled = 0x5B
+[2026-01-16 21:20:19.3503130] AActor::bActorWantsDestroyDuringBeginPlay = 0x5D
+[2026-01-16 21:20:19.3503283] AActor::bAllowReceiveTickEventOnDedicatedServer = 0x5B
+[2026-01-16 21:20:19.3503435] AActor::bAllowTickBeforeBeginPlay = 0x5A
+[2026-01-16 21:20:19.3503583] AActor::bAlwaysRelevant = 0x58
+[2026-01-16 21:20:19.3503729] AActor::bAsyncPhysicsTickEnabled = 0x5D
+[2026-01-16 21:20:19.3503875] AActor::bAutoDestroyWhenFinished = 0x5A
+[2026-01-16 21:20:19.3504020] AActor::bBlockInput = 0x5A
+[2026-01-16 21:20:19.3504163] AActor::bCallPreReplication = 0x58
+[2026-01-16 21:20:19.3504308] AActor::bCallPreReplicationForReplay = 0x58
+[2026-01-16 21:20:19.3504454] AActor::bCanBeDamaged = 0x5A
+[2026-01-16 21:20:19.3504597] AActor::bCanBeInCluster = 0x5B
+[2026-01-16 21:20:19.3504743] AActor::bCollideWhenPlacing = 0x5A
+[2026-01-16 21:20:19.3504887] AActor::bHasRegisteredAllComponents = 0x5C
+[2026-01-16 21:20:19.3505036] AActor::bEnableAutoLODGeneration = 0x5B
+[2026-01-16 21:20:19.3505184] AActor::bExchangedRoles = 0x59
+[2026-01-16 21:20:19.3505330] AActor::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
+[2026-01-16 21:20:19.3505486] AActor::bHasFinishedSpawning = 0x5C
+[2026-01-16 21:20:19.3505639] AActor::bHidden = 0x58
+[2026-01-16 21:20:19.3505847] AActor::bIgnoresOriginShifting = 0x5A
+[2026-01-16 21:20:19.3505993] AActor::bIsEditorOnlyActor = 0x5B
+[2026-01-16 21:20:19.3506137] AActor::bNetCheckedInitialPhysicsState = 0x5B
+[2026-01-16 21:20:19.3506287] AActor::bNetLoadOnClient = 0x59
+[2026-01-16 21:20:19.3506432] AActor::bNetUseOwnerRelevancy = 0x59
+[2026-01-16 21:20:19.3506578] AActor::bOnlyRelevantToOwner = 0x58
+[2026-01-16 21:20:19.3506721] AActor::bRelevantForLevelBounds = 0x59
+[2026-01-16 21:20:19.3506870] AActor::bRelevantForNetworkReplays = 0x59
+[2026-01-16 21:20:19.3507014] AActor::bReplayRewindable = 0x59
+[2026-01-16 21:20:19.3507158] AActor::bReplicateMovement = 0x58
+[2026-01-16 21:20:19.3507303] AActor::bReplicateUsingRegisteredSubObjectList = 0x5B
+[2026-01-16 21:20:19.3507507] AActor::bReplicates = 0x5B
+[2026-01-16 21:20:19.3507718] AActor::bRunningUserConstructionScript = 0x5C
+[2026-01-16 21:20:19.3507932] AActor::bTearOff = 0x59
+[2026-01-16 21:20:19.3508117] AActor::bTickFunctionsRegistered = 0x5C
+[2026-01-16 21:20:19.3508268] AActor::ActiveSplitscreenType = 0x70
+[2026-01-16 21:20:19.3508415] AActor::AudioDeviceHandle = 0xF8
+[2026-01-16 21:20:19.3508558] AActor::CurrentBufferVisualizationMode = 0x130
+[2026-01-16 21:20:19.3508708] AActor::CurrentGroomVisualizationMode = 0x150
+[2026-01-16 21:20:19.3508859] AActor::CurrentLumenVisualizationMode = 0x140
+[2026-01-16 21:20:19.3509007] AActor::CurrentNaniteVisualizationMode = 0x138
+[2026-01-16 21:20:19.3509155] AActor::CurrentSubstrateVisualizationMode = 0x148
+[2026-01-16 21:20:19.3509303] AActor::CurrentVirtualShadowMapVisualizationMode = 0x158
+[2026-01-16 21:20:19.3509454] AActor::CursorWidgets = 0x210
+[2026-01-16 21:20:19.3509648] AActor::DebugProperties = 0x48
+[2026-01-16 21:20:19.3509794] AActor::GameLayerManagerPtr = 0x120
+[2026-01-16 21:20:19.3510204] AActor::HardwareCursorCache = 0x170
+[2026-01-16 21:20:19.3510373] AActor::HardwareCursors = 0x1C0
+[2026-01-16 21:20:19.3510521] AActor::HighResScreenshotDialog = 0x160
+[2026-01-16 21:20:19.3510669] AActor::MaxSplitscreenPlayers = 0x68
+[2026-01-16 21:20:19.3510884] AActor::MouseCaptureMode = 0x3AA
+[2026-01-16 21:20:19.3511081] AActor::MouseLockMode = 0x3AC
+[2026-01-16 21:20:19.3511319] AActor::SplitscreenInfo = 0x58
+[2026-01-16 21:20:19.3511469] AActor::StatUnitData = 0x398
+[2026-01-16 21:20:19.3511615] AActor::ViewModeIndex = 0xB0
+[2026-01-16 21:20:19.3511761] AActor::Viewport = 0xE8
+[2026-01-16 21:20:19.3511925] AActor::ViewportConsole = 0x40
+[2026-01-16 21:20:19.3512103] AActor::ViewportFrame = 0xF0
+[2026-01-16 21:20:19.3512269] AActor::ViewportOverlayWidget = 0x110
+[2026-01-16 21:20:19.3512437] AActor::Window = 0x100
+[2026-01-16 21:20:19.3512578] AActor::bDisableSplitScreenOverride = 0x3A8
+[2026-01-16 21:20:19.3512765] AActor::bDisableWorldRendering = 0x6C
+[2026-01-16 21:20:19.3512911] AActor::bHideCursorDuringCapture = 0x3AB
+[2026-01-16 21:20:19.3513060] AActor::bIgnoreInput = 0x3A9
+[2026-01-16 21:20:19.3513206] AActor::bIsPlayInEditorViewport = 0x6C
+[2026-01-16 21:20:19.3513353] AActor::bSuppressTransitionMessage = 0x88
+[2026-01-16 21:20:19.3513496] AActor::bUseSoftwareCursorWidgets = 0x260
+[2026-01-16 21:20:19.3513643] AGameModeBase::SpectatorClass = 0x2D0
+[2026-01-16 21:20:19.3513789] AGameModeBase::HUDClass = 0x2C0
+[2026-01-16 21:20:19.3513933] AGameModeBase::DefaultPlayerName = 0x300
+[2026-01-16 21:20:19.3514080] AGameModeBase::ServerStatReplicator = 0x2F8
+[2026-01-16 21:20:19.3514225] AGameModeBase::GameSessionClass = 0x2A0
+[2026-01-16 21:20:19.3514369] AGameModeBase::GameNetDriverReplicationSystem = 0x314
+[2026-01-16 21:20:19.3514519] AGameModeBase::GameSession = 0x2E8
+[2026-01-16 21:20:19.3514662] AGameModeBase::OptionsString = 0x290
+[2026-01-16 21:20:19.3514807] AGameModeBase::PlayerStateClass = 0x2B8
+[2026-01-16 21:20:19.3514952] AGameModeBase::ServerStatReplicatorClass = 0x2E0
+[2026-01-16 21:20:19.3515100] AGameModeBase::bPauseable = 0x310
+[2026-01-16 21:20:19.3515243] AGameModeBase::bStartPlayersAsSpectators = 0x310
+[2026-01-16 21:20:19.3515391] AGameModeBase::bUseSeamlessTravel = 0x310
+[2026-01-16 21:20:19.3515535] AGameMode::EngineMessageClass = 0x348
+[2026-01-16 21:20:19.3515680] AGameMode::MinRespawnDelay = 0x340
+[2026-01-16 21:20:19.3515827] AGameMode::InactivePlayerArray = 0x350
+[2026-01-16 21:20:19.3515973] AGameMode::InactivePlayerStateLifeSpan = 0x360
+[2026-01-16 21:20:19.3516121] AGameMode::NumBots = 0x33C
+[2026-01-16 21:20:19.3516265] AGameMode::NumSpectators = 0x334
+[2026-01-16 21:20:19.3516428] AGameMode::MatchState = 0x328
+[2026-01-16 21:20:19.3516607] AGameMode::MaxInactivePlayers = 0x364
+[2026-01-16 21:20:19.3516751] AGameMode::NumPlayers = 0x338
+[2026-01-16 21:20:19.3516894] AGameMode::NumTravellingPlayers = 0x344
+[2026-01-16 21:20:19.3517057] AGameMode::bDelayedStart = 0x330
+[2026-01-16 21:20:19.3517203] AGameMode::bHandleDedicatedServerReplays = 0x368
+[2026-01-16 21:20:19.3517349] UEngine::ActorCategory = 0x61
+[2026-01-16 21:20:19.3517492] UEngine::ClassPrivate = 0x10
+[2026-01-16 21:20:19.3517635] UEngine::bFindCameraComponentWhenViewTarget = 0x5A
+[2026-01-16 21:20:19.3517786] UEngine::InternalIndex = 0xC
+[2026-01-16 21:20:19.3517929] UEngine::World = 0x78
+[2026-01-16 21:20:19.3518072] UEngine::ObjectFlags = 0x8
+[2026-01-16 21:20:19.3518218] UEngine::OnEndCursorOver = 0x1DE
+[2026-01-16 21:20:19.3518361] UEngine::CustomTimeDilation = 0x68
+[2026-01-16 21:20:19.3518504] UEngine::NamePrivate = 0x18
+[2026-01-16 21:20:19.3518647] UEngine::bForceNetAddressable = 0x59
+[2026-01-16 21:20:19.3518791] UEngine::InputPriority = 0x154
+[2026-01-16 21:20:19.3518934] UEngine::OuterPrivate = 0x20
+[2026-01-16 21:20:19.3519077] UEngine::bNetTemporary = 0x58
+[2026-01-16 21:20:19.3519222] UEngine::ActorHasBegunPlay = 0x5D
+[2026-01-16 21:20:19.3519408] UEngine::OnInputTouchEnd = 0x1E2
+[2026-01-16 21:20:19.3519551] UEngine::bHasDeferredComponentRegistration = 0x5C
+[2026-01-16 21:20:19.3519943] UEngine::AttachmentReplication = 0x70
+[2026-01-16 21:20:19.3520123] UEngine::EngineShowFlags = 0xB8
+[2026-01-16 21:20:19.3520272] UEngine::AutoReceiveInput = 0x153
+[2026-01-16 21:20:19.3520416] UEngine::Children = 0x190
+[2026-01-16 21:20:19.3520559] UEngine::PhysicsReplicationMode = 0x17C
+[2026-01-16 21:20:19.3520706] UEngine::DetachFence = 0x288
+[2026-01-16 21:20:19.3520865] UEngine::CreationTime = 0x158
+[2026-01-16 21:20:19.3521011] UEngine::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
+[2026-01-16 21:20:19.3521163] UEngine::InitialLifeSpan = 0x64
+[2026-01-16 21:20:19.3521306] UEngine::Tags = 0x1C8
+[2026-01-16 21:20:19.3521514] UEngine::InputComponent = 0x160
+[2026-01-16 21:20:19.3521659] UEngine::OnTakePointDamage = 0x1D9
+[2026-01-16 21:20:19.3521806] UEngine::LastRenderTime = 0x180
+[2026-01-16 21:20:19.3521966] UEngine::RemoteRole = 0x60
+[2026-01-16 21:20:19.3522110] UEngine::Layers = 0x1B0
+[2026-01-16 21:20:19.3522253] UEngine::MinNetUpdateFrequency = 0x174
+[2026-01-16 21:20:19.3522401] UEngine::TimerHandle_LifeSpanExpired = 0x1A8
+[2026-01-16 21:20:19.3522545] UEngine::OnTakeAnyDamage = 0x1D8
+[2026-01-16 21:20:19.3522688] UEngine::NetCullDistanceSquared = 0x168
+[2026-01-16 21:20:19.3522835] UEngine::OnActorEndOverlap = 0x1DC
+[2026-01-16 21:20:19.3522980] UEngine::NetDormancy = 0x151
+[2026-01-16 21:20:19.3523126] UEngine::NetDriverName = 0x148
+[2026-01-16 21:20:19.3523270] UEngine::NetTag = 0x16C
+[2026-01-16 21:20:19.3523412] UEngine::NetPriority = 0x178
+[2026-01-16 21:20:19.3523557] UEngine::PrimaryActorTick = 0x28
+[2026-01-16 21:20:19.3523702] UEngine::NetUpdateFrequency = 0x170
+[2026-01-16 21:20:19.3523863] UEngine::OnClicked = 0x1DF
+[2026-01-16 21:20:19.3524008] UEngine::OnActorBeginOverlap = 0x1DB
+[2026-01-16 21:20:19.3524153] UEngine::OnActorHit = 0x1E5
+[2026-01-16 21:20:19.3524296] UEngine::StatHitchesData = 0x3A0
+[2026-01-16 21:20:19.3524439] UEngine::OnBeginCursorOver = 0x1DD
+[2026-01-16 21:20:19.3524600] UEngine::OnDestroyed = 0x1E6
+[2026-01-16 21:20:19.3524744] UEngine::OnInputTouchEnter = 0x1E3
+[2026-01-16 21:20:19.3524888] UEngine::bHasAudioFocus = 0xFC
+[2026-01-16 21:20:19.3525031] UEngine::OnEndPlay = 0x1E7
+[2026-01-16 21:20:19.3525175] UEngine::OnInputTouchBegin = 0x1E1
+[2026-01-16 21:20:19.3525319] UEngine::OnInputTouchLeave = 0x1E4
+[2026-01-16 21:20:19.3525480] UEngine::OnReleased = 0x1E0
+[2026-01-16 21:20:19.3525624] UEngine::OnTakeRadialDamage = 0x1DA
+[2026-01-16 21:20:19.3525768] UEngine::Owner = 0x140
+[2026-01-16 21:20:19.3525910] UEngine::ParentComponent = 0x1C0
+[2026-01-16 21:20:19.3526065] UEngine::RayTracingGroupId = 0x6C
+[2026-01-16 21:20:19.3526213] UEngine::ReplicatedComponentsInfo = 0x1F8
+[2026-01-16 21:20:19.3526367] UEngine::ReplicatedMovement = 0xD0
+[2026-01-16 21:20:19.3526579] UEngine::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
+[2026-01-16 21:20:19.3526756] UEngine::ReplicatedSubObjects = 0x1E8
+[2026-01-16 21:20:19.3526904] UEngine::Role = 0x150
+[2026-01-16 21:20:19.3527046] UEngine::RootComponent = 0x1A0
+[2026-01-16 21:20:19.3527195] UEngine::SpawnCollisionHandlingMethod = 0x152
+[2026-01-16 21:20:19.3527347] UEngine::bNetStartup = 0x58
+[2026-01-16 21:20:19.3527491] UEngine::bActorIsBeingConstructed = 0x5D
+[2026-01-16 21:20:19.3527638] UEngine::bActorBeginningPlayFromLevelStreaming = 0x5C
+[2026-01-16 21:20:19.3527787] UEngine::bIsMouseOverClient = 0x3AD
+[2026-01-16 21:20:19.3527959] UEngine::bActorEnableCollision = 0x5C
+[2026-01-16 21:20:19.3528108] UEngine::bActorInitialized = 0x5C
+[2026-01-16 21:20:19.3528272] UEngine::bActorIsBeingDestroyed = 0x5D
+[2026-01-16 21:20:19.3528417] UEngine::bActorSeamlessTraveled = 0x5B
+[2026-01-16 21:20:19.3528562] UEngine::bActorWantsDestroyDuringBeginPlay = 0x5D
+[2026-01-16 21:20:19.3528711] UEngine::bAllowReceiveTickEventOnDedicatedServer = 0x5B
+[2026-01-16 21:20:19.3528859] UEngine::bAllowTickBeforeBeginPlay = 0x5A
+[2026-01-16 21:20:19.3529006] UEngine::bAlwaysRelevant = 0x58
+[2026-01-16 21:20:19.3529151] UEngine::bAsyncPhysicsTickEnabled = 0x5D
+[2026-01-16 21:20:19.3529298] UEngine::bAutoDestroyWhenFinished = 0x5A
+[2026-01-16 21:20:19.3529562] UEngine::bBlockInput = 0x5A
+[2026-01-16 21:20:19.3529718] UEngine::bCallPreReplication = 0x58
+[2026-01-16 21:20:19.3529865] UEngine::bCallPreReplicationForReplay = 0x58
+[2026-01-16 21:20:19.3530011] UEngine::bCanBeDamaged = 0x5A
+[2026-01-16 21:20:19.3530156] UEngine::bCanBeInCluster = 0x5B
+[2026-01-16 21:20:19.3530300] UEngine::bCollideWhenPlacing = 0x5A
+[2026-01-16 21:20:19.3530447] UEngine::bHasRegisteredAllComponents = 0x5C
+[2026-01-16 21:20:19.3530593] UEngine::bEnableAutoLODGeneration = 0x5B
+[2026-01-16 21:20:19.3530756] UEngine::bExchangedRoles = 0x59
+[2026-01-16 21:20:19.3530902] UEngine::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
+[2026-01-16 21:20:19.3531053] UEngine::bHasFinishedSpawning = 0x5C
+[2026-01-16 21:20:19.3531199] UEngine::bHidden = 0x58
+[2026-01-16 21:20:19.3531359] UEngine::bIgnoresOriginShifting = 0x5A
+[2026-01-16 21:20:19.3531503] UEngine::bIsEditorOnlyActor = 0x5B
+[2026-01-16 21:20:19.3531665] UEngine::bNetCheckedInitialPhysicsState = 0x5B
+[2026-01-16 21:20:19.3531812] UEngine::bNetLoadOnClient = 0x59
+[2026-01-16 21:20:19.3531955] UEngine::bNetUseOwnerRelevancy = 0x59
+[2026-01-16 21:20:19.3532115] UEngine::bOnlyRelevantToOwner = 0x58
+[2026-01-16 21:20:19.3532275] UEngine::bRelevantForLevelBounds = 0x59
+[2026-01-16 21:20:19.3532438] UEngine::bRelevantForNetworkReplays = 0x59
+[2026-01-16 21:20:19.3532584] UEngine::bReplayRewindable = 0x59
+[2026-01-16 21:20:19.3532773] UEngine::bReplicateMovement = 0x58
+[2026-01-16 21:20:19.3532919] UEngine::bReplicateUsingRegisteredSubObjectList = 0x5B
+[2026-01-16 21:20:19.3533068] UEngine::bReplicates = 0x5B
+[2026-01-16 21:20:19.3533212] UEngine::bRunningUserConstructionScript = 0x5C
+[2026-01-16 21:20:19.3533408] UEngine::bTearOff = 0x59
+[2026-01-16 21:20:19.3533559] UEngine::bTickFunctionsRegistered = 0x5C
+[2026-01-16 21:20:19.3533706] UEngine::ActiveSplitscreenType = 0x70
+[2026-01-16 21:20:19.3533879] UEngine::AudioDeviceHandle = 0xF8
+[2026-01-16 21:20:19.3534043] UEngine::CurrentBufferVisualizationMode = 0x130
+[2026-01-16 21:20:19.3534198] UEngine::CurrentGroomVisualizationMode = 0x150
+[2026-01-16 21:20:19.3534344] UEngine::CurrentLumenVisualizationMode = 0x140
+[2026-01-16 21:20:19.3534499] UEngine::CurrentNaniteVisualizationMode = 0x138
+[2026-01-16 21:20:19.3534645] UEngine::CurrentSubstrateVisualizationMode = 0x148
+[2026-01-16 21:20:19.3534793] UEngine::CurrentVirtualShadowMapVisualizationMode = 0x158
+[2026-01-16 21:20:19.3534963] UEngine::CursorWidgets = 0x210
+[2026-01-16 21:20:19.3535129] UEngine::DebugProperties = 0x48
+[2026-01-16 21:20:19.3535274] UEngine::GameLayerManagerPtr = 0x120
+[2026-01-16 21:20:19.3535417] UEngine::HardwareCursorCache = 0x170
+[2026-01-16 21:20:19.3535561] UEngine::HardwareCursors = 0x1C0
+[2026-01-16 21:20:19.3535703] UEngine::HighResScreenshotDialog = 0x160
+[2026-01-16 21:20:19.3535847] UEngine::MaxSplitscreenPlayers = 0x68
+[2026-01-16 21:20:19.3535992] UEngine::MouseCaptureMode = 0x3AA
+[2026-01-16 21:20:19.3536135] UEngine::MouseLockMode = 0x3AC
+[2026-01-16 21:20:19.3536295] UEngine::SplitscreenInfo = 0x58
+[2026-01-16 21:20:19.3536438] UEngine::StatUnitData = 0x398
+[2026-01-16 21:20:19.3536582] UEngine::ViewModeIndex = 0xB0
+[2026-01-16 21:20:19.3536724] UEngine::Viewport = 0xE8
+[2026-01-16 21:20:19.3536866] UEngine::ViewportConsole = 0x40
+[2026-01-16 21:20:19.3537008] UEngine::ViewportFrame = 0xF0
+[2026-01-16 21:20:19.3537151] UEngine::ViewportOverlayWidget = 0x110
+[2026-01-16 21:20:19.3537294] UEngine::Window = 0x100
+[2026-01-16 21:20:19.3537435] UEngine::bDisableSplitScreenOverride = 0x3A8
+[2026-01-16 21:20:19.3537579] UEngine::bDisableWorldRendering = 0x6C
+[2026-01-16 21:20:19.3537723] UEngine::bHideCursorDuringCapture = 0x3AB
+[2026-01-16 21:20:19.3537867] UEngine::bIgnoreInput = 0x3A9
+[2026-01-16 21:20:19.3538009] UEngine::bIsPlayInEditorViewport = 0x6C
+[2026-01-16 21:20:19.3538157] UEngine::bSuppressTransitionMessage = 0x88
+[2026-01-16 21:20:19.3538303] UEngine::bUseSoftwareCursorWidgets = 0x260
+[2026-01-16 21:20:19.3538449] UGameViewportClient::ActorCategory = 0x61
+[2026-01-16 21:20:19.3538851] UGameViewportClient::ClassPrivate = 0x10
+[2026-01-16 21:20:19.3539011] UGameViewportClient::bFindCameraComponentWhenViewTarget = 0x5A
+[2026-01-16 21:20:19.3539181] UGameViewportClient::InternalIndex = 0xC
+[2026-01-16 21:20:19.3539326] UGameViewportClient::World = 0x78
+[2026-01-16 21:20:19.3539488] UGameViewportClient::ObjectFlags = 0x8
+[2026-01-16 21:20:19.3539633] UGameViewportClient::OnEndCursorOver = 0x1DE
+[2026-01-16 21:20:19.3539778] UGameViewportClient::CustomTimeDilation = 0x68
+[2026-01-16 21:20:19.3539926] UGameViewportClient::NamePrivate = 0x18
+[2026-01-16 21:20:19.3540074] UGameViewportClient::bForceNetAddressable = 0x59
+[2026-01-16 21:20:19.3540225] UGameViewportClient::InputPriority = 0x154
+[2026-01-16 21:20:19.3540372] UGameViewportClient::OuterPrivate = 0x20
+[2026-01-16 21:20:19.3540518] UGameViewportClient::bNetTemporary = 0x58
+[2026-01-16 21:20:19.3540665] UGameViewportClient::ActorHasBegunPlay = 0x5D
+[2026-01-16 21:20:19.3540813] UGameViewportClient::OnInputTouchEnd = 0x1E2
+[2026-01-16 21:20:19.3540958] UGameViewportClient::bHasDeferredComponentRegistration = 0x5C
+[2026-01-16 21:20:19.3541108] UGameViewportClient::AttachmentReplication = 0x70
+[2026-01-16 21:20:19.3541256] UGameViewportClient::EngineShowFlags = 0xB8
+[2026-01-16 21:20:19.3541402] UGameViewportClient::AutoReceiveInput = 0x153
+[2026-01-16 21:20:19.3541552] UGameViewportClient::Children = 0x190
+[2026-01-16 21:20:19.3541696] UGameViewportClient::PhysicsReplicationMode = 0x17C
+[2026-01-16 21:20:19.3541844] UGameViewportClient::DetachFence = 0x288
+[2026-01-16 21:20:19.3541988] UGameViewportClient::CreationTime = 0x158
+[2026-01-16 21:20:19.3542133] UGameViewportClient::DefaultUpdateOverlapsMethodDuringLevelStreaming = 0x5F
+[2026-01-16 21:20:19.3542287] UGameViewportClient::InitialLifeSpan = 0x64
+[2026-01-16 21:20:19.3542431] UGameViewportClient::Tags = 0x1C8
+[2026-01-16 21:20:19.3542611] UGameViewportClient::InputComponent = 0x160
+[2026-01-16 21:20:19.3542775] UGameViewportClient::OnTakePointDamage = 0x1D9
+[2026-01-16 21:20:19.3542930] UGameViewportClient::LastRenderTime = 0x180
+[2026-01-16 21:20:19.3543074] UGameViewportClient::RemoteRole = 0x60
+[2026-01-16 21:20:19.3543221] UGameViewportClient::Layers = 0x1B0
+[2026-01-16 21:20:19.3543366] UGameViewportClient::MinNetUpdateFrequency = 0x174
+[2026-01-16 21:20:19.3543515] UGameViewportClient::TimerHandle_LifeSpanExpired = 0x1A8
+[2026-01-16 21:20:19.3543667] UGameViewportClient::OnTakeAnyDamage = 0x1D8
+[2026-01-16 21:20:19.3543813] UGameViewportClient::NetCullDistanceSquared = 0x168
+[2026-01-16 21:20:19.3543962] UGameViewportClient::OnActorEndOverlap = 0x1DC
+[2026-01-16 21:20:19.3544128] UGameViewportClient::NetDormancy = 0x151
+[2026-01-16 21:20:19.3544273] UGameViewportClient::NetDriverName = 0x148
+[2026-01-16 21:20:19.3544418] UGameViewportClient::NetTag = 0x16C
+[2026-01-16 21:20:19.3544578] UGameViewportClient::NetPriority = 0x178
+[2026-01-16 21:20:19.3544727] UGameViewportClient::PrimaryActorTick = 0x28
+[2026-01-16 21:20:19.3544890] UGameViewportClient::NetUpdateFrequency = 0x170
+[2026-01-16 21:20:19.3545040] UGameViewportClient::OnClicked = 0x1DF
+[2026-01-16 21:20:19.3545202] UGameViewportClient::OnActorBeginOverlap = 0x1DB
+[2026-01-16 21:20:19.3545355] UGameViewportClient::OnActorHit = 0x1E5
+[2026-01-16 21:20:19.3545502] UGameViewportClient::StatHitchesData = 0x3A0
+[2026-01-16 21:20:19.3545648] UGameViewportClient::OnBeginCursorOver = 0x1DD
+[2026-01-16 21:20:19.3545797] UGameViewportClient::OnDestroyed = 0x1E6
+[2026-01-16 21:20:19.3545943] UGameViewportClient::OnInputTouchEnter = 0x1E3
+[2026-01-16 21:20:19.3546136] UGameViewportClient::bHasAudioFocus = 0xFC
+[2026-01-16 21:20:19.3546288] UGameViewportClient::OnEndPlay = 0x1E7
+[2026-01-16 21:20:19.3546433] UGameViewportClient::OnInputTouchBegin = 0x1E1
+[2026-01-16 21:20:19.3546582] UGameViewportClient::OnInputTouchLeave = 0x1E4
+[2026-01-16 21:20:19.3546733] UGameViewportClient::OnReleased = 0x1E0
+[2026-01-16 21:20:19.3546877] UGameViewportClient::OnTakeRadialDamage = 0x1DA
+[2026-01-16 21:20:19.3547024] UGameViewportClient::Owner = 0x140
+[2026-01-16 21:20:19.3547181] UGameViewportClient::ParentComponent = 0x1C0
+[2026-01-16 21:20:19.3547332] UGameViewportClient::RayTracingGroupId = 0x6C
+[2026-01-16 21:20:19.3547478] UGameViewportClient::ReplicatedComponentsInfo = 0x1F8
+[2026-01-16 21:20:19.3547631] UGameViewportClient::ReplicatedMovement = 0xD0
+[2026-01-16 21:20:19.3547781] UGameViewportClient::UpdateOverlapsMethodDuringLevelStreaming = 0x5E
+[2026-01-16 21:20:19.3547936] UGameViewportClient::ReplicatedSubObjects = 0x1E8
+[2026-01-16 21:20:19.3548085] UGameViewportClient::Role = 0x150
+[2026-01-16 21:20:19.3548228] UGameViewportClient::RootComponent = 0x1A0
+[2026-01-16 21:20:19.3548376] UGameViewportClient::SpawnCollisionHandlingMethod = 0x152
+[2026-01-16 21:20:19.3548526] UGameViewportClient::bNetStartup = 0x58
+[2026-01-16 21:20:19.3548672] UGameViewportClient::bActorIsBeingConstructed = 0x5D
+[2026-01-16 21:20:19.3548820] UGameViewportClient::bActorBeginningPlayFromLevelStreaming = 0x5C
+[2026-01-16 21:20:19.3548974] UGameViewportClient::bIsMouseOverClient = 0x3AD
+[2026-01-16 21:20:19.3549124] UGameViewportClient::bActorEnableCollision = 0x5C
+[2026-01-16 21:20:19.3549270] UGameViewportClient::bActorInitialized = 0x5C
+[2026-01-16 21:20:19.3549419] UGameViewportClient::bActorIsBeingDestroyed = 0x5D
+[2026-01-16 21:20:19.3549568] UGameViewportClient::bActorSeamlessTraveled = 0x5B
+[2026-01-16 21:20:19.3549715] UGameViewportClient::bActorWantsDestroyDuringBeginPlay = 0x5D
+[2026-01-16 21:20:19.3549865] UGameViewportClient::bAllowReceiveTickEventOnDedicatedServer = 0x5B
+[2026-01-16 21:20:19.3550020] UGameViewportClient::bAllowTickBeforeBeginPlay = 0x5A
+[2026-01-16 21:20:19.3550177] UGameViewportClient::bAlwaysRelevant = 0x58
+[2026-01-16 21:20:19.3550323] UGameViewportClient::bAsyncPhysicsTickEnabled = 0x5D
+[2026-01-16 21:20:19.3550470] UGameViewportClient::bAutoDestroyWhenFinished = 0x5A
+[2026-01-16 21:20:19.3550617] UGameViewportClient::bBlockInput = 0x5A
+[2026-01-16 21:20:19.3550764] UGameViewportClient::bCallPreReplication = 0x58
+[2026-01-16 21:20:19.3550914] UGameViewportClient::bCallPreReplicationForReplay = 0x58
+[2026-01-16 21:20:19.3551063] UGameViewportClient::bCanBeDamaged = 0x5A
+[2026-01-16 21:20:19.3551207] UGameViewportClient::bCanBeInCluster = 0x5B
+[2026-01-16 21:20:19.3551356] UGameViewportClient::bCollideWhenPlacing = 0x5A
+[2026-01-16 21:20:19.3551505] UGameViewportClient::bHasRegisteredAllComponents = 0x5C
+[2026-01-16 21:20:19.3551654] UGameViewportClient::bEnableAutoLODGeneration = 0x5B
+[2026-01-16 21:20:19.3551803] UGameViewportClient::bExchangedRoles = 0x59
+[2026-01-16 21:20:19.3551951] UGameViewportClient::bGenerateOverlapEventsDuringLevelStreaming = 0x5A
+[2026-01-16 21:20:19.3552103] UGameViewportClient::bHasFinishedSpawning = 0x5C
+[2026-01-16 21:20:19.3552257] UGameViewportClient::bHidden = 0x58
+[2026-01-16 21:20:19.3552410] UGameViewportClient::bIgnoresOriginShifting = 0x5A
+[2026-01-16 21:20:19.3552558] UGameViewportClient::bIsEditorOnlyActor = 0x5B
+[2026-01-16 21:20:19.3552703] UGameViewportClient::bNetCheckedInitialPhysicsState = 0x5B
+[2026-01-16 21:20:19.3552889] UGameViewportClient::bNetLoadOnClient = 0x59
+[2026-01-16 21:20:19.3553050] UGameViewportClient::bNetUseOwnerRelevancy = 0x59
+[2026-01-16 21:20:19.3553234] UGameViewportClient::bOnlyRelevantToOwner = 0x58
+[2026-01-16 21:20:19.3553382] UGameViewportClient::bRelevantForLevelBounds = 0x59
+[2026-01-16 21:20:19.3553533] UGameViewportClient::bRelevantForNetworkReplays = 0x59
+[2026-01-16 21:20:19.3553683] UGameViewportClient::bReplayRewindable = 0x59
+[2026-01-16 21:20:19.3553832] UGameViewportClient::bReplicateMovement = 0x58
+[2026-01-16 21:20:19.3554001] UGameViewportClient::bReplicateUsingRegisteredSubObjectList = 0x5B
+[2026-01-16 21:20:19.3554190] UGameViewportClient::bReplicates = 0x5B
+[2026-01-16 21:20:19.3554361] UGameViewportClient::bRunningUserConstructionScript = 0x5C
+[2026-01-16 21:20:19.3554520] UGameViewportClient::bTearOff = 0x59
+[2026-01-16 21:20:19.3554665] UGameViewportClient::bTickFunctionsRegistered = 0x5C
+[2026-01-16 21:20:19.3554817] UGameViewportClient::ActiveSplitscreenType = 0x70
+[2026-01-16 21:20:19.3554991] UGameViewportClient::AudioDeviceHandle = 0xF8
+[2026-01-16 21:20:19.3555143] UGameViewportClient::CurrentBufferVisualizationMode = 0x130
+[2026-01-16 21:20:19.3555319] UGameViewportClient::CurrentGroomVisualizationMode = 0x150
+[2026-01-16 21:20:19.3555505] UGameViewportClient::CurrentLumenVisualizationMode = 0x140
+[2026-01-16 21:20:19.3555691] UGameViewportClient::CurrentNaniteVisualizationMode = 0x138
+[2026-01-16 21:20:19.3555850] UGameViewportClient::CurrentSubstrateVisualizationMode = 0x148
+[2026-01-16 21:20:19.3556002] UGameViewportClient::CurrentVirtualShadowMapVisualizationMode = 0x158
+[2026-01-16 21:20:19.3556154] UGameViewportClient::CursorWidgets = 0x210
+[2026-01-16 21:20:19.3556301] UGameViewportClient::DebugProperties = 0x48
+[2026-01-16 21:20:19.3556447] UGameViewportClient::GameLayerManagerPtr = 0x120
+[2026-01-16 21:20:19.3556628] UGameViewportClient::HardwareCursorCache = 0x170
+[2026-01-16 21:20:19.3556790] UGameViewportClient::HardwareCursors = 0x1C0
+[2026-01-16 21:20:19.3556960] UGameViewportClient::HighResScreenshotDialog = 0x160
+[2026-01-16 21:20:19.3557157] UGameViewportClient::MaxSplitscreenPlayers = 0x68
+[2026-01-16 21:20:19.3557356] UGameViewportClient::MouseCaptureMode = 0x3AA
+[2026-01-16 21:20:19.3557542] UGameViewportClient::MouseLockMode = 0x3AC
+[2026-01-16 21:20:19.3557720] UGameViewportClient::SplitscreenInfo = 0x58
+[2026-01-16 21:20:19.3557865] UGameViewportClient::StatUnitData = 0x398
+[2026-01-16 21:20:19.3558010] UGameViewportClient::ViewModeIndex = 0xB0
+[2026-01-16 21:20:19.3558178] UGameViewportClient::Viewport = 0xE8
+[2026-01-16 21:20:19.3558372] UGameViewportClient::ViewportConsole = 0x40
+[2026-01-16 21:20:19.3558547] UGameViewportClient::ViewportFrame = 0xF0
+[2026-01-16 21:20:19.3558713] UGameViewportClient::ViewportOverlayWidget = 0x110
+[2026-01-16 21:20:19.3558898] UGameViewportClient::Window = 0x100
+[2026-01-16 21:20:19.3559073] UGameViewportClient::bDisableSplitScreenOverride = 0x3A8
+[2026-01-16 21:20:19.3559273] UGameViewportClient::bDisableWorldRendering = 0x6C
+[2026-01-16 21:20:19.3559456] UGameViewportClient::bHideCursorDuringCapture = 0x3AB
+[2026-01-16 21:20:19.3559642] UGameViewportClient::bIgnoreInput = 0x3A9
+[2026-01-16 21:20:19.3559877] UGameViewportClient::bIsPlayInEditorViewport = 0x6C
+[2026-01-16 21:20:19.3560061] UGameViewportClient::bSuppressTransitionMessage = 0x88
+[2026-01-16 21:20:19.3560241] UGameViewportClient::bUseSoftwareCursorWidgets = 0x260
+[2026-01-16 21:20:19.3560420] UPlayer::ConfiguredLanSpeed = 0x40
+[2026-01-16 21:20:19.3560606] UPlayer::ConfiguredInternetSpeed = 0x3C
+[2026-01-16 21:20:19.3560786] UPlayer::CurrentNetSpeed = 0x38
+[2026-01-16 21:20:19.3560976] ULocalPlayer::AspectRatioAxisConstraint = 0xB8
+[2026-01-16 21:20:19.3561148] ULocalPlayer::SlateOperations = 0x1F8
+[2026-01-16 21:20:19.3561329] ULocalPlayer::ControllerId = 0xE0
+[2026-01-16 21:20:19.3561510] ULocalPlayer::CachedUniqueNetId = 0x48
+[2026-01-16 21:20:19.3561705] ULocalPlayer::OnPlayerControllerChangedEvent = 0x120
+[2026-01-16 21:20:19.3561889] ULocalPlayer::PlatformUserId = 0x100
+[2026-01-16 21:20:19.3562073] ULocalPlayer::ViewportClient = 0x78
+[2026-01-16 21:20:19.3562253] ULocalPlayer::bSentSplitJoin = 0xC8
+[2026-01-16 21:20:19.3562416] UWorld::AllLevelsChangedEvent = 0x540
+[2026-01-16 21:20:19.3562598] UWorld::BlockTillLevelStreamingCompletedEpoch = 0x148
+[2026-01-16 21:20:19.3562801] UWorld::bAllowAudioPlayback = 0x13E
+[2026-01-16 21:20:19.3562990] UWorld::ActiveLevelCollectionIndex = 0x198
+[2026-01-16 21:20:19.3563190] UWorld::AudioTimeSeconds = 0x6D8
+[2026-01-16 21:20:19.3563373] UWorld::CommittedPersistentLevelName = 0x760
+[2026-01-16 21:20:19.3563619] UWorld::bInTick = 0x13B
+[2026-01-16 21:20:19.3564006] UWorld::CleanupWorldTag = 0x76C
+[2026-01-16 21:20:19.3564393] UWorld::DeltaRealTimeSeconds = 0x6E0
+[2026-01-16 21:20:19.3564612] UWorld::bTickNewlySpawned = 0x13B
+[2026-01-16 21:20:19.3564789] UWorld::AuthorityGameMode = 0x158
+[2026-01-16 21:20:19.3564970] UWorld::BuildStreamingDataTimer = 0x4A8
+[2026-01-16 21:20:19.3565144] UWorld::DeltaTimeSeconds = 0x6E4
+[2026-01-16 21:20:19.3565424] UWorld::bPlayersOnly = 0x13D
+[2026-01-16 21:20:19.3565635] UWorld::bSupportsMakingInvisibleTransactionRequests = 0xDA
+[2026-01-16 21:20:19.3565810] UWorld::ExtraReferencedObjects = 0x68
+[2026-01-16 21:20:19.3565992] UWorld::PreparingLevelNames = 0x750
+[2026-01-16 21:20:19.3566151] UWorld::IsInBlockTillLevelStreamingCompleted = 0x144
+[2026-01-16 21:20:19.3566340] UWorld::bIsRunningConstructionScript = 0x13C
+[2026-01-16 21:20:19.3566505] UWorld::bAllowDeferredPhysicsStateCreation = 0x108
+[2026-01-16 21:20:19.3566680] UWorld::LastRenderTime = 0x130
+[2026-01-16 21:20:19.3566845] UWorld::LastTimeUnbuiltLightingWasEncountered = 0x6B8
+[2026-01-16 21:20:19.3567020] UWorld::bHasEverBeenInitialized = 0x13F
+[2026-01-16 21:20:19.3567190] UWorld::NextSwitchCountdown = 0x720
+[2026-01-16 21:20:19.3567374] UWorld::bMaterialParameterCollectionInstanceNeedsDeferredUpdate = 0x13F
+[2026-01-16 21:20:19.3567565] UWorld::RealTimeSeconds = 0x6D0
+[2026-01-16 21:20:19.3567756] UWorld::NextURL = 0x740
+[2026-01-16 21:20:19.3567922] UWorld::NumStreamingLevelsBeingLoaded = 0x73A
+[2026-01-16 21:20:19.3568111] UWorld::OnBeginPlay = 0x1A0
+[2026-01-16 21:20:19.3568294] UWorld::PauseDelay = 0x6E8
+[2026-01-16 21:20:19.3568473] UWorld::PerModuleDataObjects = 0x78
+[2026-01-16 21:20:19.3568661] UWorld::bIsDefaultLevel = 0x13C
+[2026-01-16 21:20:19.3568822] UWorld::PlayerNum = 0x678
+[2026-01-16 21:20:19.3569004] UWorld::bAggressiveLOD = 0x13C
+[2026-01-16 21:20:19.3569182] UWorld::StreamingLevelsPrefix = 0xC8
+[2026-01-16 21:20:19.3569360] UWorld::bIsLevelStreamingFrozen = 0x13B
+[2026-01-16 21:20:19.3569582] UWorld::StreamingVolumeUpdateDelay = 0x67C
+[2026-01-16 21:20:19.3569764] UWorld::bIsBuilt = 0x13B
+[2026-01-16 21:20:19.3569951] UWorld::TimeSeconds = 0x6C0
+[2026-01-16 21:20:19.3570125] UWorld::URL = 0x5A0
+[2026-01-16 21:20:19.3570365] UWorld::UnpausedTimeSeconds = 0x6C8
+[2026-01-16 21:20:19.3570549] UWorld::bIsBeingCleanedUp = 0x140
+[2026-01-16 21:20:19.3570992] UWorld::bActorsInitialized = 0x13C
+[2026-01-16 21:20:19.3571212] UWorld::bIsTearingDown = 0x13D
+[2026-01-16 21:20:19.3571394] UWorld::bAreConstraintsDirty = 0x13E
+[2026-01-16 21:20:19.3571653] UWorld::bBegunPlay = 0x13D
+[2026-01-16 21:20:19.3571835] UWorld::bDebugPauseExecution = 0x13D
+[2026-01-16 21:20:19.3572076] UWorld::bDoDelayedUpdateCullDistanceVolumes = 0x13C
+[2026-01-16 21:20:19.3572294] UWorld::bRequestedBlockOnAsyncLoading = 0x13C
+[2026-01-16 21:20:19.3572481] UWorld::bDropDetail = 0x13C
+[2026-01-16 21:20:19.3572670] UWorld::bMatchStarted = 0x13D
+[2026-01-16 21:20:19.3572827] UWorld::bIsCameraMoveableWhenPaused = 0x13E
+[2026-01-16 21:20:19.3572973] UWorld::bShouldSimulatePhysics = 0x13C
+[2026-01-16 21:20:19.3573132] UWorld::bIsWorldInitialized = 0x13B
+[2026-01-16 21:20:19.3573280] UWorld::bKismetScriptError = 0x13D
+[2026-01-16 21:20:19.3573426] UWorld::bMarkedObjectsPendingKill = 0x768
+[2026-01-16 21:20:19.3573573] UWorld::bPlayersOnlyPending = 0x13D
+[2026-01-16 21:20:19.3573721] UWorld::bPostTickComponentUpdate = 0x13B
+[2026-01-16 21:20:19.3573868] UWorld::bRequiresHitProxies = 0x13E
+[2026-01-16 21:20:19.3574013] UWorld::bShouldForceUnloadStreamingLevels = 0x13E
+[2026-01-16 21:20:19.3574162] UWorld::bSupportsMakingVisibleTransactionRequests = 0xD8
+[2026-01-16 21:20:19.3574322] UWorld::bShouldForceVisibleStreamingLevels = 0x13E
+[2026-01-16 21:20:19.3574470] UWorld::bShouldTick = 0x13E
+[2026-01-16 21:20:19.3574613] UWorld::bStartup = 0x13D
+[2026-01-16 21:20:19.3574755] UWorld::bStreamingDataDirty = 0x13E
+[2026-01-16 21:20:19.3574908] UWorld::bTriggerPostLoadMap = 0x13B
+[2026-01-16 21:20:19.3575053] UWorld::bWorldWasLoadedThisTick = 0x13B
+[2026-01-16 21:20:19.3575201] UDataTable::RowStruct = 0x28
+[2026-01-16 21:20:19.3575345] UDataTable::RowMap = 0x30
+[2026-01-16 21:20:19.3575491] UDataTable::bStripFromClientBuilds = 0x80
+[2026-01-16 21:20:19.3575635] UDataTable::bIgnoreExtraFields = 0x80
+[2026-01-16 21:20:19.3575780] UDataTable::bIgnoreMissingFields = 0x80
+[2026-01-16 21:20:19.3575924] UDataTable::ImportKeyField = 0x88
+[2026-01-16 21:20:19.3576116] 
 ##### MEMBER OFFSETS END #####
 
-[2026-01-16 19:51:13.1269742] m_shared_functions: 0x180845ead78
-[2026-01-16 19:51:13.1273481] Input source set to: Win32Async
-[2026-01-16 19:51:13.1559943] Enabling custom events
-[2026-01-16 19:51:13.1566263] Starting mods (from mods.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods\mods.txt) load order)...
-[2026-01-16 19:51:13.1568836] Mod 'ActorDumperMod' disabled in mods.txt.
-[2026-01-16 19:51:13.1569191] Starting Lua mod 'ConsoleCommandsMod'
-[2026-01-16 19:51:13.1585660] Starting Lua mod 'ConsoleEnablerMod'
-[2026-01-16 19:51:13.1667163] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
-[2026-01-16 19:51:13.1667727] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
-[2026-01-16 19:51:13.1668753] Mod 'SplitScreenMod' disabled in mods.txt.
-[2026-01-16 19:51:13.1669030] Mod 'LineTraceMod' disabled in mods.txt.
-[2026-01-16 19:51:13.1669255] Starting Lua mod 'BPModLoaderMod'
-[2026-01-16 19:51:13.2475156] [Lua] Mods/BPModLoaderMod/load_order.txt not present or no matching mods, loading all BP mods in random order.[2026-01-16 19:51:13.2476163] Starting Lua mod 'BPML_GenericFunctions'
-[2026-01-16 19:51:13.2480890] Mod 'jsbLuaProfilerMod' disabled in mods.txt.
-[2026-01-16 19:51:13.2481226] Starting Lua mod 'HalfSwordMP'
-[2026-01-16 19:51:13.2485978] [Lua] === Half Sword Multiplayer Mod v6.0 (Position Sync) ===[2026-01-16 19:51:13.2488780] [Lua] [PositionSync] Loading Position Sync Module...[2026-01-16 19:51:13.2491077] [Lua] [PositionSync] Module loaded. Sync starts automatically. F10 for status.[2026-01-16 19:51:13.2492625] [Lua] === Testing Socket Support ===[2026-01-16 19:51:13.2504456] [Lua] [OK] require('socket') works![2026-01-16 19:51:13.2504900] [Lua] [OK] require('socket.core') works![2026-01-16 19:51:13.2508472] [Lua] [FAIL] require('luasocket'): ...ies/Win64/ue4ss/Mods/HalfSwordMP/Scripts/socket_test.lua:10: module 'luasocket' not found:
-	module 'luasocket' not found:
-	C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/Scripts/luasocket.lua
-	C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/luasocket.lua
-	C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/luasocket/luasocket.lua
-	no field package.preload['luasocket']
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\lua\luasocket.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\lua\luasocket\init.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\luasocket.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\luasocket\init.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\share\lua\5.4\luasocket.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\share\lua\5.4\luasocket\init.lua'
-	no file '.\luasocket.lua'
-	no file '.\luasocket\init.lua'
-	no file 'C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/Scripts/luasocket.lua'
-	no file 'C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/luasocket.lua'
-	no file 'C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/luasocket/luasocket.lua'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\luasocket.dll'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\lib\lua\5.4\luasocket.dll'
-	no file 'C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\loadall.dll'
-	no file '.\luasocket.dll'
-	no file 'C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/Scripts/luasocket.dll'
-	no file 'C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/luasocket/luasocket.dll'[2026-01-16 19:51:13.7514575] [Lua] [PositionSync] Starting sync loop...[2026-01-16 19:51:15.7487615] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
-[2026-01-16 19:51:15.7488534] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
-[2026-01-16 19:51:15.8438523] [Lua] [OK] io.popen works![2026-01-16 19:51:15.8439258] [Lua] 
-package.cpath:[2026-01-16 19:51:15.8439667] [Lua] C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\?.dll;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\lib\lua\5.4\?.dll;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\loadall.dll;.\?.dll;C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/Scripts/?.dll;C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/?/?.dll[2026-01-16 19:51:15.8440453] [Lua] 
-package.path:[2026-01-16 19:51:15.8440774] [Lua] C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\lua\?.lua;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\lua\?\init.lua;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\?.lua;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\?\init.lua;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\share\lua\5.4\?.lua;C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\..\share\lua\5.4\?\init.lua;.\?.lua;.\?\init.lua;C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/HalfSwordMP/Scripts/?.lua;C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/?.lua;C:/Program Files (x86)/Steam/steamapps/common/Half Sword Demo/HalfSwordUE5/Binaries/Win64/ue4ss/Mods/shared/?/?.lua[2026-01-16 19:51:15.8441471] [Lua] 
-=== Socket Test Complete ===[2026-01-16 19:51:15.8441698] [Lua] Check output above. If all FAIL, LuaSocket is not available.[2026-01-16 19:51:15.8443289] [Lua] Mod Loaded v6.0. Hotkeys: F1=Menu, F5=Host, F8=Join, F7=Disconnect, F10=Sync Status[2026-01-16 19:51:15.8443804] Starting Lua mod 'Keybinds'
-[2026-01-16 19:51:15.8449091] Starting mods (from enabled.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods), no defined load order)...
-[2026-01-16 19:51:15.8450935] Mod 'CheatManagerEnablerMod' has enabled.txt, starting mod.
-[2026-01-16 19:51:15.8463130] [RegisterHook] Registered native hook (1, 2) for Function /Script/Engine.PlayerController:ClientRestart
-[2026-01-16 19:51:15.8464953] Event loop start
-[2026-01-16 19:51:16.4467645] [Lua] [PositionSync] Initialized. IsHost: true[2026-01-16 19:51:30.9101096] [Lua] Hosting Abyss_Map_Open_Intermediate...[2026-01-16 19:51:30.9269691] [Lua] ClientTravel(Abyss_Map_Open_Intermediate?listen?port=7777)...[2026-01-16 19:51:30.9270696] [Lua] Host Started. Loading...[2026-01-16 19:51:32.1099643] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
-[2026-01-16 19:51:32.1100474] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
-[2026-01-16 19:51:32.1157260] [Lua] [CheatManager Creator] Constructed CheatManager [0x18179949A20]
-[2026-01-16 19:51:32.1157756] [Lua] [CheatManager Creator] Enabled CheatManager
-[2026-01-16 19:51:32.1217749] [Lua] [CheatManager Creator] Constructed CheatManager [0x180E20393E0]
-[2026-01-16 19:51:32.1218175] [Lua] [CheatManager Creator] Enabled CheatManager
+[2026-01-16 21:20:19.3576286] m_shared_functions: 0x1f218947298
+[2026-01-16 21:20:19.3580774] Input source set to: Win32Async
+[2026-01-16 21:20:19.3818110] Enabling custom events
+[2026-01-16 21:20:19.3824286] Starting mods (from mods.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods\mods.txt) load order)...
+[2026-01-16 21:20:19.3825829] Mod 'ActorDumperMod' disabled in mods.txt.
+[2026-01-16 21:20:19.3826103] Starting Lua mod 'ConsoleCommandsMod'
+[2026-01-16 21:20:19.3838088] Starting Lua mod 'ConsoleEnablerMod'
+[2026-01-16 21:20:19.3898093] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
+[2026-01-16 21:20:19.3898514] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
+[2026-01-16 21:20:19.3899218] Mod 'SplitScreenMod' disabled in mods.txt.
+[2026-01-16 21:20:19.3899412] Mod 'LineTraceMod' disabled in mods.txt.
+[2026-01-16 21:20:19.3899580] Starting Lua mod 'BPModLoaderMod'
+[2026-01-16 21:20:19.4504143] [Lua] Mods/BPModLoaderMod/load_order.txt not present or no matching mods, loading all BP mods in random order.[2026-01-16 21:20:19.4505091] Starting Lua mod 'BPML_GenericFunctions'
+[2026-01-16 21:20:19.4510098] Mod 'jsbLuaProfilerMod' disabled in mods.txt.
+[2026-01-16 21:20:19.4510666] Starting Lua mod 'HalfSwordMP'
+[2026-01-16 21:20:19.4517811] [Lua] === Half Sword Multiplayer Mod v7.0 (UDP Sync) ===[2026-01-16 21:20:19.4521142] [Lua] [UDPSync] Loading Ultimate UDP Sync Module (Stable)...[2026-01-16 21:20:19.4560657] [Lua] [OK] UDP Sync module loaded![2026-01-16 21:20:19.4561994] [Lua] Mod Loaded v7.0. Hotkeys: F1=Menu, F5=Host, F8=Join, F7=Disconnect, F11=UDP Status[2026-01-16 21:20:19.4562404] Starting Lua mod 'Keybinds'
+[2026-01-16 21:20:19.4566700] Starting mods (from enabled.txt (C:\Program Files (x86)\Steam\steamapps\common\Half Sword Demo\HalfSwordUE5\Binaries\Win64\ue4ss\Mods), no defined load order)...
+[2026-01-16 21:20:19.4568071] Mod 'CheatManagerEnablerMod' has enabled.txt, starting mod.
+[2026-01-16 21:20:19.4576422] [RegisterHook] Registered native hook (1, 2) for Function /Script/Engine.PlayerController:ClientRestart
+[2026-01-16 21:20:19.4578164] Event loop start
+[2026-01-16 21:20:21.7927314] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
+[2026-01-16 21:20:21.7928162] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
+[2026-01-16 21:20:21.7929839] [Lua] [CheatManager Creator] Constructed CheatManager [0x1F2CA915380]
+[2026-01-16 21:20:21.7930155] [Lua] [CheatManager Creator] Enabled CheatManager
+[2026-01-16 21:20:21.7931223] [Lua] [CheatManager Creator] Constructed CheatManager [0x1F2CA9152E0]
+[2026-01-16 21:20:21.7931492] [Lua] [CheatManager Creator] Enabled CheatManager
+[2026-01-16 21:21:04.7083337] [Lua] [UDPSync] Debug: IsHost=false Init=false[2026-01-16 21:21:08.8848478] [Lua] [UDPSync] Debug: IsHost=false Init=false[2026-01-16 21:21:15.4464847] [Lua] F8 Pressed. Current IP from file: 192.168.178.30[2026-01-16 21:21:15.4465671] [Lua] Joining 192.168.178.30...[2026-01-16 21:21:17.4577820] [Lua] [UDPSync] CLIENT Listening on 7778[2026-01-16 21:21:17.4578815] [Lua] [UDPSync] Ultimate Sync Loop Started! (Safe Mode)[2026-01-16 21:21:18.0828915] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
+[2026-01-16 21:21:18.0829814] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
+[2026-01-16 21:21:18.2883747] [Lua] [ConsoleEnabler] ConsoleKey[1]: F10
+[2026-01-16 21:21:18.2884739] [Lua] [ConsoleEnabler] ConsoleKey[2]: @
+[2026-01-16 21:21:18.2887130] [Lua] [CheatManager Creator] Constructed CheatManager [0x1F2517EAF60]
+[2026-01-16 21:21:18.2887839] [Lua] [CheatManager Creator] Enabled CheatManager
+[2026-01-16 21:21:18.3668180] [Lua] [CheatManager Creator] Constructed CheatManager [0x1F26CCCEE80]
+[2026-01-16 21:21:18.3669319] [Lua] [CheatManager Creator] Enabled CheatManager
