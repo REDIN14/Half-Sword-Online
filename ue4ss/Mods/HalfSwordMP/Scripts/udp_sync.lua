@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 10.1: Respawn Protection
--- Detects pawn changes and pauses sync during respawn
+-- Version 11.0: Safe Controller Rotation with Proper Checks
+-- Only calls SetControlRotation on valid PlayerController instances
 
-print("[UDPSync] Loading v10.1 with Respawn Protection...")
+print("[UDPSync] Loading v11.0 Safe Controller Rotation...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -14,7 +14,7 @@ local UEHelpers = require("UEHelpers")
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
 local SYNC_INTERVAL = 50  -- 20 Hz
-local RESPAWN_COOLDOWN = 3  -- Seconds to wait after pawn change
+local RESPAWN_COOLDOWN = 3
 
 -- ============================================================================
 -- State
@@ -30,8 +30,6 @@ local TargetHostIP = nil
 local TickCount = 0
 local RecvCount = 0
 local StartTime = 0
-
--- Pawn tracking for respawn detection
 local LastLocalPawnPtr = nil
 local LastRemotePawnPtr = nil
 local LocalPawnChangeTime = 0
@@ -47,9 +45,8 @@ local function SafeGet(fn)
 end
 
 local function GetPawnPtr(pawn)
-    -- Get a unique identifier for the pawn to detect changes
     if not pawn then return nil end
-    return SafeGet(function() return pawn:GetAddress() end)
+    return SafeGet(function() return tostring(pawn:GetAddress()) end)
 end
 
 local function GetMyController()
@@ -85,15 +82,23 @@ local function FindRemotePawn(myPawn)
 end
 
 local function IsPawnStable(pawn)
-    -- Extra validation to check pawn is fully ready
     if not pawn then return false end
     if not SafeGet(function() return pawn:IsValid() end) then return false end
-    
-    -- Try to access location - if this fails, pawn isn't ready
     local loc = SafeGet(function() return pawn:GetActorLocation() end)
-    if not loc then return false end
+    return loc ~= nil
+end
+
+-- Check if controller is a valid PlayerController (not AIController)
+local function IsPlayerController(ctrl)
+    if not ctrl then return false end
+    if not SafeGet(function() return ctrl:IsValid() end) then return false end
     
-    return true
+    -- Check if it's player-controlled
+    local isPlayerCtrl = SafeGet(function()
+        return ctrl:IsPlayerControlled()
+    end)
+    
+    return isPlayerCtrl == true
 end
 
 -- ============================================================================
@@ -172,28 +177,23 @@ local function StartSync(hostIP)
         TickCount = TickCount + 1
         local now = os.time()
         
-        -- Wait for initial load
         if now - StartTime < 3 then return true end
         
         ExecuteInGameThread(function()
             local myPawn = GetMyPawn()
             local myController = GetMyController()
             
-            -- Check for local pawn change (respawn)
+            -- Respawn detection for local pawn
             local myPtr = GetPawnPtr(myPawn)
             if myPtr ~= LastLocalPawnPtr then
                 if LastLocalPawnPtr ~= nil then
                     LocalPawnChangeTime = now
-                    if DebugMode then print("[UDPSync] Local pawn changed - respawn detected") end
+                    if DebugMode then print("[UDPSync] Local respawn") end
                 end
                 LastLocalPawnPtr = myPtr
             end
             
-            -- Skip if local pawn recently changed (respawning)
-            if now - LocalPawnChangeTime < RESPAWN_COOLDOWN then
-                return
-            end
-            
+            if now - LocalPawnChangeTime < RESPAWN_COOLDOWN then return end
             if not myPawn or not myController then return end
             if not IsPawnStable(myPawn) then return end
             
@@ -217,20 +217,17 @@ local function StartSync(hostIP)
                 if state then
                     local remote = FindRemotePawn(myPawn)
                     
-                    -- Check for remote pawn change
+                    -- Respawn detection for remote pawn
                     local remotePtr = GetPawnPtr(remote)
                     if remotePtr ~= LastRemotePawnPtr then
                         if LastRemotePawnPtr ~= nil then
                             RemotePawnChangeTime = now
-                            if DebugMode then print("[UDPSync] Remote pawn changed") end
+                            if DebugMode then print("[UDPSync] Remote respawn") end
                         end
                         LastRemotePawnPtr = remotePtr
                     end
                     
-                    -- Skip if remote pawn recently changed
-                    if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then
-                        return
-                    end
+                    if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then return end
                     
                     if remote and IsPawnStable(remote) then
                         -- Apply position (interpolated)
@@ -247,16 +244,30 @@ local function StartSync(hostIP)
                             end)
                         end
                         
-                        -- Apply rotation (Yaw only for body facing)
+                        -- Apply actor rotation (Yaw for body facing)
                         SafeGet(function()
                             remote:K2_SetActorRotation({Pitch=0, Yaw=state.Yaw, Roll=0}, false)
                         end)
-                        -- NOTE: SetControlRotation removed - causes crashes
+                        
+                        -- Try to set controller rotation ONLY if it's a PlayerController
+                        local remoteCtrl = SafeGet(function() return remote.Controller end)
+                        if remoteCtrl and IsPlayerController(remoteCtrl) then
+                            SafeGet(function()
+                                remoteCtrl:SetControlRotation({
+                                    Pitch = state.Pitch,
+                                    Yaw = state.Yaw,
+                                    Roll = state.Roll
+                                })
+                            end)
+                            if DebugMode and RecvCount % 60 == 1 then
+                                print("[UDPSync] SetControlRotation SUCCESS")
+                            end
+                        end
                     end
                 end
                 
                 if DebugMode and RecvCount % 20 == 1 then
-                    print("[UDPSync] RX: " .. data:sub(1,30))
+                    print("[UDPSync] RX#" .. RecvCount .. ": Y=" .. string.format("%.0f", state and state.Yaw or 0))
                 end
             end
         end)
@@ -264,7 +275,7 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v10.1 Started")
+    print("[UDPSync] v11.0 Started")
 end
 
 local function StopSync()
@@ -287,10 +298,19 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v10.1 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v11.0 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  LocalPtr=" .. tostring(LastLocalPawnPtr))
     print("  RemotePtr=" .. tostring(LastRemotePawnPtr))
+    
+    -- Check if remote has valid PlayerController
+    local myPawn = GetMyPawn()
+    local remote = FindRemotePawn(myPawn)
+    if remote then
+        local remoteCtrl = SafeGet(function() return remote.Controller end)
+        local isPC = remoteCtrl and IsPlayerController(remoteCtrl)
+        print("  RemoteController: " .. (isPC and "PlayerController" or "NOT_PLAYER"))
+    end
 end)
 
 return UDPSync
