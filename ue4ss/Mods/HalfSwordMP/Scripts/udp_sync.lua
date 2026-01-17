@@ -14,7 +14,8 @@ local UEHelpers = require("UEHelpers")
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
 local SYNC_INTERVAL = 50  -- 20 Hz
-local RESPAWN_COOLDOWN = 3
+local RESPAWN_COOLDOWN = 5  -- Longer cooldown for spawn stability
+local MIN_VALID_Z = -500    -- Minimum Z to prevent underground spawns
 
 -- ============================================================================
 -- State
@@ -266,15 +267,30 @@ local function StartSync(hostIP)
                     if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then return end
                     
                     if remote and IsPawnStable(remote) then
+                        -- Validate incoming position (skip if obviously wrong)
+                        if state.Z < MIN_VALID_Z then
+                            if DebugMode then
+                                print("[UDPSync] Skipping bad Z: " .. tostring(state.Z))
+                            end
+                            return
+                        end
+                        
                         -- Apply position (interpolated)
                         local currLoc = SafeGet(function() return remote:GetActorLocation() end)
-                        if currLoc then
+                        if currLoc and currLoc.Z > MIN_VALID_Z then
+                            -- Only sync if current position is also valid
                             local alpha = 0.3
                             local newLoc = {
                                 X = currLoc.X + (state.X - currLoc.X) * alpha,
                                 Y = currLoc.Y + (state.Y - currLoc.Y) * alpha,
                                 Z = currLoc.Z + (state.Z - currLoc.Z) * alpha
                             }
+                            
+                            -- Don't let Z go below minimum
+                            if newLoc.Z < MIN_VALID_Z then
+                                newLoc.Z = currLoc.Z
+                            end
+                            
                             SafeGet(function()
                                 remote:K2_SetActorLocation(newLoc, false, {}, false)
                             end)
