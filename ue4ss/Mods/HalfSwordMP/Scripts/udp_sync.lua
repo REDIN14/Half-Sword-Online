@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 11.0: Safe Controller Rotation with Proper Checks
--- Only calls SetControlRotation on valid PlayerController instances
+-- Version 12.0: Mesh-Based Upper Body Sync
+-- Uses SetBoneRotationByName for spine rotation (bypasses controller issues)
 
-print("[UDPSync] Loading v11.0 Safe Controller Rotation...")
+print("[UDPSync] Loading v12.0 Mesh-Based Upper Body Sync...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -14,8 +14,12 @@ local UEHelpers = require("UEHelpers")
 local UDP_PORT_BROADCAST = 7778
 local UDP_PORT_RECEIVE = 7779
 local SYNC_INTERVAL = 50  -- 20 Hz
-local RESPAWN_COOLDOWN = 5  -- Longer cooldown for spawn stability
-local MIN_VALID_Z = -500    -- Minimum Z to prevent underground spawns
+local RESPAWN_COOLDOWN = 5
+local MIN_VALID_Z = -500
+
+-- Bone names for upper body sync (common UE5 skeleton names)
+local SPINE_BONES = {"spine_01", "spine_02", "spine_03", "Spine", "Spine1", "Spine2"}
+local HEAD_BONES = {"head", "Head", "neck_01", "Neck"}
 
 -- ============================================================================
 -- State
@@ -89,53 +93,51 @@ local function IsPawnStable(pawn)
     return loc ~= nil
 end
 
--- Check controller type and return info
--- Returns: "PlayerController", "AIController", "SpectatorController", "Unknown", or nil
 local function GetControllerType(ctrl)
     if not ctrl then return nil end
     if not SafeGet(function() return ctrl:IsValid() end) then return nil end
     
-    -- Get class name to determine controller type
     local className = SafeGet(function()
         local class = ctrl:GetClass()
-        if class then
-            return class:GetFName():ToString()
-        end
+        if class then return class:GetFName():ToString() end
         return nil
     end)
     
     if not className then return "Unknown" end
-    
-    -- Check for known controller types
-    if className:find("PlayerController") then
-        return "PlayerController"
-    elseif className:find("AIController") then
-        return "AIController"
-    elseif className:find("SpectatorController") or className:find("Spectator") then
-        return "SpectatorController"
-    elseif className:find("DebugCamera") then
-        return "DebugCameraController"
-    else
-        return "Unknown:" .. className
-    end
+    if className:find("PlayerController") then return "PlayerController"
+    elseif className:find("AIController") then return "AIController"
+    else return "Other:" .. className end
 end
 
--- Check if controller supports SetControlRotation (only PlayerController and its subclasses)
 local function CanSetControlRotation(ctrl)
     local ctrlType = GetControllerType(ctrl)
-    if not ctrlType then return false end
+    return ctrlType == "PlayerController"
+end
+
+-- Get the SkeletalMeshComponent from pawn
+local function GetMesh(pawn)
+    if not pawn then return nil end
+    return SafeGet(function() return pawn.Mesh end)
+end
+
+-- Try to set bone rotation (tries multiple bone names)
+local function TrySetBoneRotation(mesh, boneNames, pitch)
+    if not mesh then return false end
     
-    -- Only PlayerController (and subclasses) support SetControlRotation safely
-    if ctrlType == "PlayerController" then
-        return true
+    for _, boneName in ipairs(boneNames) do
+        local success = SafeGet(function()
+            local fname = FName(boneName)
+            mesh:SetBoneRotationByName(fname, {Pitch=pitch, Yaw=0, Roll=0}, 0)  -- 0 = EBoneSpaces::WorldSpace
+            return true
+        end)
+        if success then
+            if DebugMode then
+                print("[UDPSync] SetBoneRotation on " .. boneName)
+            end
+            return true
+        end
     end
-    
-    -- Also check if it's player-controlled (for custom controllers)
-    local isPlayerCtrl = SafeGet(function()
-        return ctrl:IsPlayerControlled()
-    end)
-    
-    return isPlayerCtrl == true
+    return false
 end
 
 -- ============================================================================
@@ -223,10 +225,7 @@ local function StartSync(hostIP)
             -- Respawn detection for local pawn
             local myPtr = GetPawnPtr(myPawn)
             if myPtr ~= LastLocalPawnPtr then
-                if LastLocalPawnPtr ~= nil then
-                    LocalPawnChangeTime = now
-                    if DebugMode then print("[UDPSync] Local respawn") end
-                end
+                LocalPawnChangeTime = now
                 LastLocalPawnPtr = myPtr
             end
             
@@ -254,15 +253,12 @@ local function StartSync(hostIP)
                 if state then
                     local remote = FindRemotePawn(myPawn)
                     
-                    -- Respawn/join detection for remote pawn
+                    -- Join/respawn detection
                     local remotePtr = GetPawnPtr(remote)
                     if remotePtr ~= LastRemotePawnPtr then
-                        -- ALWAYS trigger cooldown when remote pawn changes or first appears
                         RemotePawnChangeTime = now
                         if LastRemotePawnPtr == nil then
-                            print("[UDPSync] New client joined - waiting for pawn to stabilize")
-                        else
-                            if DebugMode then print("[UDPSync] Remote pawn changed") end
+                            print("[UDPSync] New remote pawn - waiting to stabilize")
                         end
                         LastRemotePawnPtr = remotePtr
                     end
@@ -270,41 +266,29 @@ local function StartSync(hostIP)
                     if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then return end
                     
                     if remote and IsPawnStable(remote) then
-                        -- Validate incoming position (skip if obviously wrong)
-                        if state.Z < MIN_VALID_Z then
-                            if DebugMode then
-                                print("[UDPSync] Skipping bad Z: " .. tostring(state.Z))
-                            end
-                            return
-                        end
+                        -- Validate Z
+                        if state.Z < MIN_VALID_Z then return end
                         
-                        -- Apply position (interpolated)
+                        -- Apply position
                         local currLoc = SafeGet(function() return remote:GetActorLocation() end)
                         if currLoc and currLoc.Z > MIN_VALID_Z then
-                            -- Only sync if current position is also valid
                             local alpha = 0.3
                             local newLoc = {
                                 X = currLoc.X + (state.X - currLoc.X) * alpha,
                                 Y = currLoc.Y + (state.Y - currLoc.Y) * alpha,
-                                Z = currLoc.Z + (state.Z - currLoc.Z) * alpha
+                                Z = math.max(currLoc.Z + (state.Z - currLoc.Z) * alpha, MIN_VALID_Z)
                             }
-                            
-                            -- Don't let Z go below minimum
-                            if newLoc.Z < MIN_VALID_Z then
-                                newLoc.Z = currLoc.Z
-                            end
-                            
                             SafeGet(function()
                                 remote:K2_SetActorLocation(newLoc, false, {}, false)
                             end)
                         end
                         
-                        -- Apply actor rotation (Yaw for body facing)
+                        -- Apply ACTOR rotation (body facing - Yaw only)
                         SafeGet(function()
                             remote:K2_SetActorRotation({Pitch=0, Yaw=state.Yaw, Roll=0}, false)
                         end)
                         
-                        -- Try to set controller rotation ONLY if it's a PlayerController
+                        -- Try controller rotation if PlayerController
                         local remoteCtrl = SafeGet(function() return remote.Controller end)
                         if remoteCtrl and CanSetControlRotation(remoteCtrl) then
                             SafeGet(function()
@@ -314,16 +298,20 @@ local function StartSync(hostIP)
                                     Roll = state.Roll
                                 })
                             end)
-                            if DebugMode and RecvCount % 60 == 1 then
-                                local ctrlType = GetControllerType(remoteCtrl)
-                                print("[UDPSync] SetControlRotation on " .. tostring(ctrlType))
-                            end
+                        end
+                        
+                        -- NEW: Apply upper body tilt via bone rotation (pitch -> spine)
+                        local mesh = GetMesh(remote)
+                        if mesh then
+                            -- Use pitch for spine tilt (looking up/down)
+                            TrySetBoneRotation(mesh, SPINE_BONES, state.Pitch * 0.5)  -- 50% for natural feel
                         end
                     end
                 end
                 
                 if DebugMode and RecvCount % 20 == 1 then
-                    print("[UDPSync] RX#" .. RecvCount .. ": Y=" .. string.format("%.0f", state and state.Yaw or 0))
+                    print("[UDPSync] RX#" .. RecvCount .. " P=" .. string.format("%.0f", state and state.Pitch or 0) ..
+                          " Y=" .. string.format("%.0f", state and state.Yaw or 0))
                 end
             end
         end)
@@ -331,7 +319,7 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v11.1 Started")
+    print("[UDPSync] v12.0 Started")
 end
 
 local function StopSync()
@@ -354,21 +342,19 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v11.1 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v12.0 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
-    print("  LocalPtr=" .. tostring(LastLocalPawnPtr))
-    print("  RemotePtr=" .. tostring(LastRemotePawnPtr))
     
-    -- Show controller type for remote pawn
     local myPawn = GetMyPawn()
     local remote = FindRemotePawn(myPawn)
     if remote then
         local remoteCtrl = SafeGet(function() return remote.Controller end)
         local ctrlType = GetControllerType(remoteCtrl)
-        local canSetRot = CanSetControlRotation(remoteCtrl)
-        print("  RemoteController: " .. tostring(ctrlType) .. " CanSetRot=" .. tostring(canSetRot))
+        local mesh = GetMesh(remote)
+        print("  RemoteCtrl: " .. tostring(ctrlType))
+        print("  RemoteMesh: " .. (mesh and "Found" or "NOT_FOUND"))
     else
-        print("  RemotePawn: NOT FOUND")
+        print("  Remote: NOT FOUND")
     end
 end)
 
