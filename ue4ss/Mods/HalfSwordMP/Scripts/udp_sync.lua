@@ -254,12 +254,15 @@ local function StartSync(hostIP)
                 if state then
                     local remote = FindRemotePawn(myPawn)
                     
-                    -- Respawn detection for remote pawn
+                    -- Respawn/join detection for remote pawn
                     local remotePtr = GetPawnPtr(remote)
                     if remotePtr ~= LastRemotePawnPtr then
-                        if LastRemotePawnPtr ~= nil then
-                            RemotePawnChangeTime = now
-                            if DebugMode then print("[UDPSync] Remote respawn") end
+                        -- ALWAYS trigger cooldown when remote pawn changes or first appears
+                        RemotePawnChangeTime = now
+                        if LastRemotePawnPtr == nil then
+                            print("[UDPSync] New client joined - waiting for pawn to stabilize")
+                        else
+                            if DebugMode then print("[UDPSync] Remote pawn changed") end
                         end
                         LastRemotePawnPtr = remotePtr
                     end
