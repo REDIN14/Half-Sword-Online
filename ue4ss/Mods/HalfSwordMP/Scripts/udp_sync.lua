@@ -251,6 +251,18 @@ local function StartSync(hostIP)
                         SafeGet(function()
                             remote:K2_SetActorRotation({Pitch=0, Yaw=state.Yaw, Roll=0}, false)
                         end)
+                        
+                        -- Also set controller rotation on remote's controller
+                        local remoteCtrl = SafeGet(function() return remote.Controller end)
+                        if remoteCtrl then
+                            SafeGet(function()
+                                remoteCtrl:SetControlRotation({
+                                    Pitch = state.Pitch,
+                                    Yaw = state.Yaw,
+                                    Roll = state.Roll
+                                })
+                            end)
+                        end
                     end
                 end
                 
