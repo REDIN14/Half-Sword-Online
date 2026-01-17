@@ -88,12 +88,48 @@ local function IsPawnStable(pawn)
     return loc ~= nil
 end
 
--- Check if controller is a valid PlayerController (not AIController)
-local function IsPlayerController(ctrl)
-    if not ctrl then return false end
-    if not SafeGet(function() return ctrl:IsValid() end) then return false end
+-- Check controller type and return info
+-- Returns: "PlayerController", "AIController", "SpectatorController", "Unknown", or nil
+local function GetControllerType(ctrl)
+    if not ctrl then return nil end
+    if not SafeGet(function() return ctrl:IsValid() end) then return nil end
     
-    -- Check if it's player-controlled
+    -- Get class name to determine controller type
+    local className = SafeGet(function()
+        local class = ctrl:GetClass()
+        if class then
+            return class:GetFName():ToString()
+        end
+        return nil
+    end)
+    
+    if not className then return "Unknown" end
+    
+    -- Check for known controller types
+    if className:find("PlayerController") then
+        return "PlayerController"
+    elseif className:find("AIController") then
+        return "AIController"
+    elseif className:find("SpectatorController") or className:find("Spectator") then
+        return "SpectatorController"
+    elseif className:find("DebugCamera") then
+        return "DebugCameraController"
+    else
+        return "Unknown:" .. className
+    end
+end
+
+-- Check if controller supports SetControlRotation (only PlayerController and its subclasses)
+local function CanSetControlRotation(ctrl)
+    local ctrlType = GetControllerType(ctrl)
+    if not ctrlType then return false end
+    
+    -- Only PlayerController (and subclasses) support SetControlRotation safely
+    if ctrlType == "PlayerController" then
+        return true
+    end
+    
+    -- Also check if it's player-controlled (for custom controllers)
     local isPlayerCtrl = SafeGet(function()
         return ctrl:IsPlayerControlled()
     end)
@@ -251,7 +287,7 @@ local function StartSync(hostIP)
                         
                         -- Try to set controller rotation ONLY if it's a PlayerController
                         local remoteCtrl = SafeGet(function() return remote.Controller end)
-                        if remoteCtrl and IsPlayerController(remoteCtrl) then
+                        if remoteCtrl and CanSetControlRotation(remoteCtrl) then
                             SafeGet(function()
                                 remoteCtrl:SetControlRotation({
                                     Pitch = state.Pitch,
@@ -260,7 +296,8 @@ local function StartSync(hostIP)
                                 })
                             end)
                             if DebugMode and RecvCount % 60 == 1 then
-                                print("[UDPSync] SetControlRotation SUCCESS")
+                                local ctrlType = GetControllerType(remoteCtrl)
+                                print("[UDPSync] SetControlRotation on " .. tostring(ctrlType))
                             end
                         end
                     end
@@ -275,7 +312,7 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v11.0 Started")
+    print("[UDPSync] v11.1 Started")
 end
 
 local function StopSync()
@@ -298,18 +335,21 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v11.0 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v11.1 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  LocalPtr=" .. tostring(LastLocalPawnPtr))
     print("  RemotePtr=" .. tostring(LastRemotePawnPtr))
     
-    -- Check if remote has valid PlayerController
+    -- Show controller type for remote pawn
     local myPawn = GetMyPawn()
     local remote = FindRemotePawn(myPawn)
     if remote then
         local remoteCtrl = SafeGet(function() return remote.Controller end)
-        local isPC = remoteCtrl and IsPlayerController(remoteCtrl)
-        print("  RemoteController: " .. (isPC and "PlayerController" or "NOT_PLAYER"))
+        local ctrlType = GetControllerType(remoteCtrl)
+        local canSetRot = CanSetControlRotation(remoteCtrl)
+        print("  RemoteController: " .. tostring(ctrlType) .. " CanSetRot=" .. tostring(canSetRot))
+    else
+        print("  RemotePawn: NOT FOUND")
     end
 end)
 
