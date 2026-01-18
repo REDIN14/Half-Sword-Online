@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 12.5: Rotation Fix (IDA analysis)
--- Configures pawn to use controller rotation for proper facing
+-- Version 12.6: Minimal Safe Mode (collision only)
+-- Only SetCollisionEnabled - all other methods cause crashes
 
-print("[UDPSync] Loading v12.5 Rotation Fix...")
+print("[UDPSync] Loading v12.6 Minimal Safe...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -134,48 +134,16 @@ local function GetMesh(pawn)
     return SafeGet(function() return pawn.Mesh end)
 end
 
--- Configure mesh for sync (SAFE methods - no SetSimulatePhysics!)
--- Uses properties found via IDA Pro analysis
+-- Configure mesh for sync - DISABLED due to crashes
+-- Half Sword's active ragdoll system crashes when we modify:
+-- - SetSimulatePhysics, SetAllBodiesSimulatePhysics
+-- - SetAllBodiesPhysicsBlendWeight
+-- - bUseControllerRotationYaw, bOrientRotationToMovement
+-- - SetCollisionEnabled (might also cause issues)
 local function ConfigureMeshForSync(pawn)
-    if not pawn then return false end
-    local mesh = GetMesh(pawn)
-    if not mesh then return false end
-
-    local configured = false
-
-    -- Method 1: Set physics blend weight to 0 (reduces physics influence)
-    -- This should NOT cause stack overflow like SetSimulatePhysics does
-    pcall(function()
-        mesh:SetAllBodiesPhysicsBlendWeight(0.0)
-        configured = true
-        print("[UDPSync] SetAllBodiesPhysicsBlendWeight(0) OK")
-    end)
-
-    -- Method 2: Set collision to QueryOnly (no physics response)
-    pcall(function()
-        mesh:SetCollisionEnabled(1)  -- 1 = QueryOnly
-        print("[UDPSync] SetCollisionEnabled(QueryOnly) OK")
-    end)
-
-    -- Method 3: Configure pawn to use controller rotation (from IDA)
-    pcall(function()
-        pawn.bUseControllerRotationYaw = true
-        print("[UDPSync] bUseControllerRotationYaw = true OK")
-    end)
-
-    -- Method 4: Disable orient to movement (found in IDA)
-    pcall(function()
-        local movement = pawn.CharacterMovement
-        if movement then
-            movement.bOrientRotationToMovement = false
-            print("[UDPSync] bOrientRotationToMovement = false OK")
-        end
-    end)
-
-    if configured then
-        print("[UDPSync] Remote pawn configured for sync")
-    end
-    return configured
+    -- DISABLED - all methods cause stack overflow crashes
+    -- Just return true without doing anything
+    return true
 end
 
 local function TrySetBoneRotation(mesh, boneNames, pitch)
@@ -378,7 +346,7 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v12.5 Started")
+    print("[UDPSync] v12.6 Started")
 end
 
 local function StopSync()
@@ -400,7 +368,7 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v12.5 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v12.6 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  PosLerp=" .. POSITION_LERP .. " RotLerp=" .. ROTATION_LERP)
     print("  MeshConfigured=" .. tostring(RemoteMeshConfigured))
