@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 12.1: Fixed Rotation Wrapping + Gentler Sync
--- Fixes 360 rotation limit and reduces movement interference
+-- Version 12.3: Safe Kinematic Mode (no SetSimulatePhysics)
+-- Uses alternative methods to reduce physics interference
 
-print("[UDPSync] Loading v12.1 Rotation Fix...")
+print("[UDPSync] Loading v12.3 Safe Kinematic...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -41,6 +41,7 @@ local LastLocalPawnPtr = nil
 local LastRemotePawnPtr = nil
 local LocalPawnChangeTime = 0
 local RemotePawnChangeTime = 0
+local RemoteMeshConfigured = false
 
 -- ============================================================================
 -- Math Helpers
@@ -133,6 +134,47 @@ local function GetMesh(pawn)
     return SafeGet(function() return pawn.Mesh end)
 end
 
+-- Configure mesh for sync (SAFE methods - no SetSimulatePhysics!)
+-- Uses properties found via IDA Pro analysis
+local function ConfigureMeshForSync(pawn)
+    if not pawn then return false end
+    local mesh = GetMesh(pawn)
+    if not mesh then return false end
+
+    local configured = false
+
+    -- Method 1: Set physics blend weight to 0 (reduces physics influence)
+    -- This should NOT cause stack overflow like SetSimulatePhysics does
+    pcall(function()
+        mesh:SetAllBodiesPhysicsBlendWeight(0.0)
+        configured = true
+        print("[UDPSync] SetAllBodiesPhysicsBlendWeight(0) OK")
+    end)
+
+    -- Method 2: Set collision to QueryOnly (no physics response)
+    pcall(function()
+        mesh:SetCollisionEnabled(1)  -- 1 = QueryOnly
+        print("[UDPSync] SetCollisionEnabled(QueryOnly) OK")
+    end)
+
+    -- Method 3: Try to disable skeleton updates (found in IDA)
+    pcall(function()
+        mesh.bNoSkeletonUpdate = true
+        print("[UDPSync] bNoSkeletonUpdate = true OK")
+    end)
+
+    -- Method 4: Try to pause anims
+    pcall(function()
+        mesh.bPauseAnims = true
+        print("[UDPSync] bPauseAnims = true OK")
+    end)
+
+    if configured then
+        print("[UDPSync] Remote mesh configured for sync")
+    end
+    return configured
+end
+
 local function TrySetBoneRotation(mesh, boneNames, pitch)
     if not mesh then return false end
     
@@ -199,6 +241,7 @@ local function StartSync(hostIP)
     LastRemotePawnPtr = nil
     LocalPawnChangeTime = 0
     RemotePawnChangeTime = 0
+    RemoteMeshConfigured = false
     
     UDPSendSocket = SafeGet(function() return socket.udp() end)
     UDPReceiveSocket = SafeGet(function() return socket.udp() end)
@@ -262,15 +305,23 @@ local function StartSync(hostIP)
                     local remotePtr = GetPawnPtr(remote)
                     if remotePtr ~= LastRemotePawnPtr then
                         RemotePawnChangeTime = now
+                        RemoteMeshConfigured = false  -- Reset for new pawn
                         if LastRemotePawnPtr == nil then
                             print("[UDPSync] New remote - waiting to stabilize")
                         end
                         LastRemotePawnPtr = remotePtr
                     end
-                    
+
                     if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then return end
-                    
+
                     if remote and IsPawnStable(remote) then
+                        -- Configure mesh once (safe methods only)
+                        if not RemoteMeshConfigured then
+                            if ConfigureMeshForSync(remote) then
+                                RemoteMeshConfigured = true
+                            end
+                        end
+
                         if state.Z < MIN_VALID_Z then return end
                         
                         -- Apply position (gentler lerp)
@@ -324,11 +375,12 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v12.1 Started")
+    print("[UDPSync] v12.3 Started")
 end
 
 local function StopSync()
     Initialized = false
+    RemoteMeshConfigured = false
     SafeGet(function() if UDPSendSocket then UDPSendSocket:close() end end)
     SafeGet(function() if UDPReceiveSocket then UDPReceiveSocket:close() end end)
     print("[UDPSync] Stopped")
@@ -345,10 +397,11 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v12.1 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v12.3 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  PosLerp=" .. POSITION_LERP .. " RotLerp=" .. ROTATION_LERP)
-    
+    print("  MeshConfigured=" .. tostring(RemoteMeshConfigured))
+
     local myPawn = GetMyPawn()
     local remote = FindRemotePawn(myPawn)
     if remote then
