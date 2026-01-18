@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 12.2: Kinematic Remote Pawns + Rotation Fix
--- Disables physics on remote pawns to prevent sync fighting
+-- Version 12.1: Fixed Rotation Wrapping + Gentler Sync
+-- Fixes 360 rotation limit and reduces movement interference
 
-print("[UDPSync] Loading v12.2 Kinematic Sync...")
+print("[UDPSync] Loading v12.1 Rotation Fix...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -41,7 +41,6 @@ local LastLocalPawnPtr = nil
 local LastRemotePawnPtr = nil
 local LocalPawnChangeTime = 0
 local RemotePawnChangeTime = 0
-local RemotePhysicsDisabled = false
 
 -- ============================================================================
 -- Math Helpers
@@ -134,40 +133,6 @@ local function GetMesh(pawn)
     return SafeGet(function() return pawn.Mesh end)
 end
 
--- Disable physics on remote pawn to prevent fighting with sync
-local function DisablePhysicsOnPawn(pawn)
-    if not pawn then return false end
-    local mesh = GetMesh(pawn)
-    if not mesh then return false end
-
-    local success = false
-
-    -- Try to disable physics simulation
-    pcall(function()
-        mesh:SetSimulatePhysics(false)
-        success = true
-    end)
-
-    pcall(function()
-        mesh:SetAllBodiesSimulatePhysics(false)
-        success = true
-    end)
-
-    pcall(function()
-        mesh:SetEnableGravity(false)
-    end)
-
-    -- QueryOnly collision (visual only, no physics response)
-    pcall(function()
-        mesh:SetCollisionEnabled(1)
-    end)
-
-    if success then
-        print("[UDPSync] Physics disabled on remote pawn")
-    end
-    return success
-end
-
 local function TrySetBoneRotation(mesh, boneNames, pitch)
     if not mesh then return false end
     
@@ -234,7 +199,6 @@ local function StartSync(hostIP)
     LastRemotePawnPtr = nil
     LocalPawnChangeTime = 0
     RemotePawnChangeTime = 0
-    RemotePhysicsDisabled = false
     
     UDPSendSocket = SafeGet(function() return socket.udp() end)
     UDPReceiveSocket = SafeGet(function() return socket.udp() end)
@@ -298,22 +262,15 @@ local function StartSync(hostIP)
                     local remotePtr = GetPawnPtr(remote)
                     if remotePtr ~= LastRemotePawnPtr then
                         RemotePawnChangeTime = now
-                        RemotePhysicsDisabled = false  -- Reset for new pawn
                         if LastRemotePawnPtr == nil then
                             print("[UDPSync] New remote - waiting to stabilize")
                         end
                         LastRemotePawnPtr = remotePtr
                     end
-
+                    
                     if now - RemotePawnChangeTime < RESPAWN_COOLDOWN then return end
-
+                    
                     if remote and IsPawnStable(remote) then
-                        -- Disable physics on remote pawn (only once)
-                        if not RemotePhysicsDisabled then
-                            if DisablePhysicsOnPawn(remote) then
-                                RemotePhysicsDisabled = true
-                            end
-                        end
                         if state.Z < MIN_VALID_Z then return end
                         
                         -- Apply position (gentler lerp)
@@ -367,12 +324,11 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v12.2 Started")
+    print("[UDPSync] v12.1 Started")
 end
 
 local function StopSync()
     Initialized = false
-    RemotePhysicsDisabled = false
     SafeGet(function() if UDPSendSocket then UDPSendSocket:close() end end)
     SafeGet(function() if UDPReceiveSocket then UDPReceiveSocket:close() end end)
     print("[UDPSync] Stopped")
@@ -389,11 +345,10 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v12.2 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v12.1 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  PosLerp=" .. POSITION_LERP .. " RotLerp=" .. ROTATION_LERP)
-    print("  PhysicsDisabled=" .. tostring(RemotePhysicsDisabled))
-
+    
     local myPawn = GetMyPawn()
     local remote = FindRemotePawn(myPawn)
     if remote then
