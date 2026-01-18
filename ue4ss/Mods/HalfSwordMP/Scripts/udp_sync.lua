@@ -1,8 +1,8 @@
 -- UDP Position Sync Module for Half Sword MP
--- Version 12.4: Safe Kinematic (physics blend only)
--- Removes animation freezing, keeps physics blend weight reduction
+-- Version 12.5: Rotation Fix (IDA analysis)
+-- Configures pawn to use controller rotation for proper facing
 
-print("[UDPSync] Loading v12.4 Safe Kinematic...")
+print("[UDPSync] Loading v12.5 Rotation Fix...")
 
 local socket = require("socket")
 local UEHelpers = require("UEHelpers")
@@ -157,10 +157,23 @@ local function ConfigureMeshForSync(pawn)
         print("[UDPSync] SetCollisionEnabled(QueryOnly) OK")
     end)
 
-    -- NOTE: bNoSkeletonUpdate and bPauseAnims freeze the character - don't use them
+    -- Method 3: Configure pawn to use controller rotation (from IDA)
+    pcall(function()
+        pawn.bUseControllerRotationYaw = true
+        print("[UDPSync] bUseControllerRotationYaw = true OK")
+    end)
+
+    -- Method 4: Disable orient to movement (found in IDA)
+    pcall(function()
+        local movement = pawn.CharacterMovement
+        if movement then
+            movement.bOrientRotationToMovement = false
+            print("[UDPSync] bOrientRotationToMovement = false OK")
+        end
+    end)
 
     if configured then
-        print("[UDPSync] Remote mesh configured for sync")
+        print("[UDPSync] Remote pawn configured for sync")
     end
     return configured
 end
@@ -365,7 +378,7 @@ local function StartSync(hostIP)
         return true
     end)
     
-    print("[UDPSync] v12.4 Started")
+    print("[UDPSync] v12.5 Started")
 end
 
 local function StopSync()
@@ -387,7 +400,7 @@ UDPSync.Stop = StopSync
 
 RegisterKeyBind(Key.F11, function()
     DebugMode = not DebugMode
-    print("[UDPSync] v12.4 Debug=" .. tostring(DebugMode))
+    print("[UDPSync] v12.5 Debug=" .. tostring(DebugMode))
     print("  Ticks=" .. TickCount .. " Recv=" .. RecvCount)
     print("  PosLerp=" .. POSITION_LERP .. " RotLerp=" .. ROTATION_LERP)
     print("  MeshConfigured=" .. tostring(RemoteMeshConfigured))
