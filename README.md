@@ -1,5 +1,10 @@
 # Half Sword Online
 
+
+IT IS STILL UNDERWORK ⚠️
+
+
+
 **Half Sword Online** is a multiplayer mod for the Half Sword Demo, enabling you to play with friends over the internet using UE4SS.
 
 ## 🚀 Easy Installation
